@@ -1,0 +1,60 @@
+TurboGears2 in Fedora & EPEL
+#tags TurboGears,Fedora,Python
+<img src="/img/tg-small.jpg" align="right"/>
+<p>
+I'm excited to announce that the <a
+href="http://turbogears.org">TurboGears2</a> web application stack
+is now available in Fedora 12, 11 and EPEL-5.
+</p>
+<p>
+<h3>What is TurboGears2?</h3>
+<blockquote>
+TurboGears 2 is the built on top of the experience of several next
+generation web frameworks including TurboGears 1 (of course), Django,
+and Rails. All of these frameworks had limitations which were
+frustrating in various ways, and TG2 is an answer to that
+frustration. We wanted something that had:
+<br/>
+  <ul>
+  <li>Real multi-database support</li>
+  <li>Horizontal data partitioning (sharding)</li>
+  <li>Support for a variety of JavaScript toolkits, and new widget system to make building ajax heavy apps easier</li>
+  <li>Support for multiple data-exchange formats.</li>
+  <li>Built in extensibility via standard WSGI components</li>
+  </ul>
+
+</blockquote>
+
+</p>
+<p>
+<h3>Installing the TurboGears2 stack & development tools</h3>
+<blockquote>
+<b>Fedora 12</b>
+<blockquote><code>yum install TurboGears2 python-tg-devtools</code></blockquote>
+<b>Fedora 11</b>
+<blockquote><code>yum --enablerepo=updates-testing install TurboGears2 python-tg-devtools</code></blockquote>
+<b>Red Hat Enterprise Linux 5 (with <a href="http://fedoraproject.org/wiki/EPEL">EPEL</a>)</b>
+<blockquote><code>yum --enablerepo=epel-testing install TurboGears2 python-tg-devtools</code></blockquote>
+</blockquote>
+</p>
+<h3>Creating your first TG2 app</h3>
+<blockquote><code>paster quickstart</code></blockquote>
+<h3>Run your test suite</h3>
+<blockquote><code>nosetests</code></blockquote>
+<h3>Run your application</h3>
+<blockquote><code>paster serve development.ini</code></blockquote>
+<h3>Read the documentation</h3>
+<blockquote>
+    <a href="http://www.turbogears.org/2.0/docs">http://www.turbogears.org/2.0/docs</a>
+</blockquote>
+
+<h3>Contribute</h3>
+<blockquote>
+    If you're interested in helping maintain and improve the TG2/Pylons stack
+    within Fedora/EPEL, please <a href="mailto:lmacken@redhat.com">let me know</a>.  We're always looking for new
+    Python hackers to join the team.  There are still a few more components
+    that need to be packaged and reviewed (eg: chameleon.genshi), so please
+    take a look at the <a
+        href="https://fedoraproject.org/wiki/TurboGears2">TurboGears2 page on
+        the Fedora wiki</a> for more details..
+</blockquote>

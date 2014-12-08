@@ -1,0 +1,20 @@
+bloatware
+#mdate May  7 18:25:18 2007
+#tags Fedora,code
+<p><div xmlns="http://www.w3.org/1999/xhtml"><p>
+I'm usually not one for unproductive ranting, but I noticed this right after a fresh rawhide bootup...
+</p>
+<code><blockquote><pre>
+[lmacken@tomservo ~]$ sudo ./<a href="http://www.pixelbeat.org/scripts/ps_mem.py">ps_mem.py</a>
+ Private  +   Shared  =  RAM used       Program 
+[...]
+ 17.7 MiB +   5.3 MiB =  23.0 MiB       setroubleshootd
+ 13.4 MiB +  11.2 MiB =  24.6 MiB       /usr/bin/sealer
+ 51.9 MiB +   2.9 MiB =  54.8 MiB       yum-updatesd
+</pre></blockquote></code>
+<p>
+I'm sorry, but most of my machines don't have this kind of memory to spare.  Is Python to blame?  As far as interpreter overhead, maybe a little bit, or could it be the sheer simplicity and power of the language which is allowing it to be abused?
+</p>
+<p>
+I'd be interested if anyone has any tips/tricks for slimming down Python daemons.<br/>I'd be thankful if someone did something about it.
+</p></div></p>

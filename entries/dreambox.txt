@@ -1,0 +1,169 @@
+My dream machine
+#mdate Sm
+#tags hardware
+<p>
+
+In an effort to optimize my home office, I recently donated my
+server rack to a local Boston record label, to hold their Red Hat
+servers.  I'm also in the process of donating all of my computer
+hardware for re-use/recycling (~10 or so frankenstein boxen).
+
+</p><p>
+
+So, once I clear everything out, I'm going to replace it with a new machine.  I usually sit in front of 1-3 laptops (thindpads
+and XOs) on the daily, and I absolutley love them, but I need
+something beefier.  I do most of my work on remote machines, but
+I have found that I still spend too much time waiting on 
+computers.
+
+</p><p>
+
+I'm not much of a gamer, so I probably don't need too high-end of a
+graphics chip, let alone SLI/Crossfire.  The extent of my gaming
+these days consists of the occassional wesnoth, open arena,
+nethack, and my current favorite Cube 2: Sauerbraten.  I just
+want a card that will work well in Linux, ideally without having
+to install proprietary drivers.
+
+</p><p>
+
+Anyway, I haven't built a desktop machine from the ground up in
+12 years, and I've been out of the hardware game for a long time,
+so let me know what's good!  Here is what I've been looking at so far...
+
+</p><p>
+
+<table border="0">
+    <tr>
+        <td valign="top">
+            <center>
+            <b>Intel DX58SO Extreme Series X58 ATX Tri-Channel DDR3 16GB SLI or CrossFireX LGA1366 Overclocking Utility Desktop Board</b><br/>
+<a href="http://www.amazon.com/Intel-Extreme-Tri-Channel-CrossFireX-Overclocking/dp/B001ISJONM/ref=wl_it_dp_o?ie=UTF8&coliid=I3BI87T7ZFOF2W&colid=WREBCPWKPZMD"><img src="http://ecx.images-amazon.com/images/I/51k4WbhD20L._SL500_AA280_.jpg" border="0"/></a>
+
+</center>
+</td>
+<td align="center">
+<center> or </center>
+</td>
+
+<td valign="top">
+    <b>ASUS Rampage II Extreme LGA1366 Intel X58 DDR3-1600 ATX Motherboard </b><br/>
+<a href="http://usa.asus.com/product.aspx?P_ID=W7i5W4Pw4fH22Mih&templete=2"><img border="0" src="http://usa.asus.com/websites/global/products/W7i5W4Pw4fH22Mih/P_500.jpg" width="300"/></a>
+</td>
+</tr>
+</table>
+<br/>
+
+<table border="0"><tr><td valign="top">
+            <center>
+<b>Intel Core i7 975 Extreme Edition 3.33GHz 8M L3 Cache LGA1366 Desktop Processor</b><br/>
+<a href="http://www.intel.com/products/processor/corei7EE/index.htm?iid=prod_desktopcore+body_corei7ex"><img border="0" src="http://ecx.images-amazon.com/images/I/51pJWepQ1qL._SL500_AA280_.jpg"/></a>
+            </center>
+
+</td>
+<td>
+
+    <center>
+    <b>Cooler Master V8 Nickel Plated Copper Base Aluminum Fins 8 Heatpipes Core i7 1366 CPU Cooler - (RR-UV8-XBU1-GP)</b><br/>
+    <a href="http://www.coolermaster-usa.com/product.php?category_id=1623&product_id=2869"><img border="0" src="http://www.coolermaster-usa.com/upload/product/2869/intro01.jpg" width="300"/></a>
+</center>
+</td></tr></table>
+<br/>
+
+<table border="0"><tr><td valign="top">
+            <center>
+                <b>Corsair 6 GB Dominator GT PC3-16000 2000Mhz 240-pin Triple Channel DDR3 Memory Kit</b><br/>
+<a href="http://www.corsair.com/products/dominatorgt/default.aspx"><img border="0" src="http://ecx.images-amazon.com/images/I/51j-m01mTxL._SL500_AA280_.jpg"/></a>
+            </center>
+</td>
+<td>
+    <center>
+        <b>Corsair CMPSU-1000HX 1000-Watt HX Professional Series 80 Plus Certified Power Supply</b><br/>
+<a href="http://www.corsair.com/products/hx1000/default.aspx"><img border="0" src="http://ecx.images-amazon.com/images/I/41y02r1RAzL._SL500_AA280_.jpg"/></a>
+</center>
+</td>
+</tr>
+</table>
+<br/>
+
+<table border="0">
+    <tr>
+        <td valign="top">
+            <center>
+                <b>Intel X25-E Extreme SATA Solid-State Drive</b><br/>
+                <br/>
+<a href="http://www.intel.com/design/flash/nand/extreme/index.htm"><img src="http://macperformanceguide.com/images/ITLSSDX25M.jpg" border="0" width="250"/></a>
+</center>
+</td>
+
+<td align="center">
+    <center>or </center>
+</td>
+<td valign="top">
+
+    <center>
+        <b>Corsair 256 GB Internal Solid State Drive (SSD) CMFSSD-256GBG2D</b><br/>
+<a href="http://www.amazon.com/Corsair-Internal-Solid-State-CMFSSD-256GBG2D/dp/B0026V5MY0/ref=wl_it_dp_o?ie=UTF8&coliid=I1MBV8VAT4X63M&colid=WREBCPWKPZMD"><img border="0" src="http://ecx.images-amazon.com/images/I/41IVMpZtGdL._SL500_AA280_.jpg"/></a>
+
+</center>
+</td>
+</tr>
+</table>
+<br/>
+
+<table border="0">
+    <tr>
+        <td valign="top">
+            <center>
+                <b>DELL ULTRASHARP 3008WFP - 30-inch Widescreen Flat Panel Monitor</b><br/>
+<a href="http://accessories.us.dell.com/sna/products/Monitors/productdetail.aspx?c=us&l=en&s=dhs&cs=19&sku=223-4890"><img border="0" src="http://i.dell.com/images/global/products/monitors/mon3008wfp_overview1.jpg"/></a>
+
+</center>
+</td>
+        <td valign="top">
+            <center>
+                <b>EVGA 01G-P3-1180-AR GeForce GTX285 1024 MB DDR3 PCI-Express 2.0 Graphics Card</b><br/>
+<a href="http://www.evga.com/products/moreInfo.asp?pn=01G-P3-1181-AR&family=GeForce%20200%20Series%20Family"><img src="http://ecx.images-amazon.com/images/I/41O-6RQMbsL._AA280_.jpg" border="0"></a>
+</center>
+</td>
+</tr>
+</table>
+
+<br/>
+
+<table border="0">
+    <tr>
+        <td valign="top">
+            <center>
+                <b>Endurapro</b><br/>
+                <br/>
+                <br/>
+<a href="http://pckeyboards.stores.yahoo.net/en104wh.html"><img width="400" border="0" src="http://ep.yimg.com/ip/I/pckeyboards_2059_6667"/></a>
+</center>
+</td>
+<td valign="top">
+    <center>
+        <b>Cooler Master HAF 932 High Air Flow ATX Full Tower Case</b><br/>
+<a href="http://www.coolermaster-usa.com/product.php?product_id=2810"><img width="250" src="http://www.coolermaster-usa.com/upload/product/2810/intro01.jpg" border="0" width="300"/></a>
+</center>
+</td>
+</tr>
+</table>
+<br/>
+
+Also, if you appreciate my software and want me to write it faster... donations are accepted ;)
+<br/>
+
+<center>
+<form action="https://www.paypal.com/cgi-bin/webscr" method="post">
+<input type="hidden" name="cmd" value="_s-xclick">
+<input type="hidden" name="hosted_button_id" value="10835212">
+<input type="image" src="https://www.paypal.com/en_US/i/btn/btn_donate_SM.gif"
+border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+<img alt="" border="0" src="https://www.paypal.com/en_US/i/scr/pixel.gif"
+width="1" height="1">
+</form>
+</center>
+
+
+</p>

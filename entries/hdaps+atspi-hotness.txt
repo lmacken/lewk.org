@@ -1,0 +1,37 @@
+hdaps + atspi hotness
+#mdate Sm
+#tags code
+<p>
+I started playing around with the <a href="http://hdaps.sourceforge.net">hdaps</a> kernel module on my Thinkpad T43 the other day and wrote some <a href="http://hg.lewk.org/hdaps/raw-file/fdf850f620ce/hdaps.py">code</a> to utilize some of the <a href="http://www.analog.com/en/prod/0,2877,ADXL320,00.html">accelerometer</a> data.  With the help of <a href="http://juozasg.livejournal.com/">Juozas</a> and <a href="http://en.wikipedia.org/wiki/AT-SPI">AT-SPI</a>, I wrote a little bit of python that allows you to control your mouse based on your laptops position.  
+</p>
+<code><blockquote><pre>
+#!/usr/bin/env python
+
+import sys, time, math, atspi
+
+SYSFS_POSITION_FILE = "/sys/devices/platform/hdaps/position"
+
+def main():
+    theta = 0
+    rho = 0
+    ev = atspi.EventGenerator()
+
+    while True:
+        fd = open(SYSFS_POSITION_FILE, 'r')
+        v = fd.readline().strip()
+        theta = int(v[1:4])
+        rho = int(v[5:8])
+        rads = ((theta - 545)/300.0) * math.pi
+        ax = math.sin(rads)
+        rads = ((rho - 475)/300.0) * math.pi
+        ay = math.sin(rads)
+        ev.relativeMotion(ax * 10, ay * 10)
+        fd.close()
+        time.sleep( 0.01 )
+
+if __name__ == '__main__':
+    main()
+</pre></blockquote></code>
+<p>
+Extremely useless, I know -- but only in it's current state.  I'm sure some cool desktop enhancements can be thought up using hdaps.  What if you wanted to un-clutter your desktop, so you tilt or laptop to the side and all of your windows slide over to the next virtual desktop?  Sounds pretty badass to me.
+</p>

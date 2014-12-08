@@ -1,0 +1,9 @@
+RIP Zod
+#mdate Sm
+#tags Fedora
+<p>
+<center>
+    <img src="/zod.jpg" />
+    <br />
+    <a href="https://www.redhat.com/archives/fedora-announce-list/2007-November/msg00000.html">Zod is no more!</a>
+</center>

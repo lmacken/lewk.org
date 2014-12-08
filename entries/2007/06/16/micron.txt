@@ -1,0 +1,28 @@
+Micron
+#mdate Jun 16 21:04:52 2007
+#tags music
+<p><div xmlns="http://www.w3.org/1999/xhtml"><p>
+My roomate recently received an <a href="http://www.alesis.com/product.php?id=13">Alesis Micron</a> synth as a wedding present, and then proceeded to leave it with me for a week while he went on his honeymoon.  Much noise ensued.
+</p>
+<img src="http://lewk.org/img/micron.jpg" align="right"/><p>
+Here are a couple of tracks I recorded while messing around with it.  Due to the lack of time to actually sit down and produce a cohesive song, I'm throwing them up as-is.  I'm also releasing them under the <a href="http://creativecommons.org">Creative Commons</a> so anyone can chop them up if they want.
+</p>
+
+<p>
+<b><a href="http://lewk.org/logos.ogg">logos.ogg</a></b><br/>
+This track hits hard the whole way through, but seriously starts dropping shit like a pigeon about 5 minutes in.  It's comprised of two tracks: the beat, and miscellaneous insanity that I was able to find while exploring the capabilities of the micron.
+</p>
+<p>
+<b><a href="http://lewk.org/eros.ogg">eros.ogg</a></b><br/>
+A journey through insomnia.  I really don't remember recording this at all, as I had been awake for about 50 hours.  The end product is pretty nuts.  I cannot be held responsible.  It's a single track; just one long jam.
+</p>
+<p>
+(As for the naming scheme, I have been reading way too much <a href="http://en.wikipedia.org/wiki/Pre-Socratic_philosophy">pre-socratic philosophy</a> lately)
+</p>
+<center>
+<a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/">
+<img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-sa/3.0/88x31.png"/></a>
+<br/>This 
+<span xmlns:dc="http://purl.org/dc/elements/1.1/" href="http://purl.org/dc/dcmitype/Sound" rel="dc:type">work</span> is licensed under a 
+<a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution-Share Alike 3.0 License</a>.
+</center></div></p>

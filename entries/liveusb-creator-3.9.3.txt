@@ -1,0 +1,31 @@
+liveusb-creator 3.9.3 windows release
+#mdate Sm
+#tags code,Python,liveusb-creator,LiveUSB
+<img src="https://fedorahosted.org/liveusb-creator/attachment/wiki/img/fedorausb.png?format=raw" align="right" />
+<p>
+I spent the majority of yesterday at a DOS prompt.  Thankfully, it wasn't
+as painful as it sounds, as git, vim and Python make Windows development
+quite tolerable.
+</p>
+<p>
+Anyway, I was finally able to track down and fix a couple of major bugs in the
+liveusb-creator on Windows XP and 7, and I pushed out a new build
+yesterday with the following changes:
+</p>
+
+<p>
+<ul>
+  <li>Rebuilt with Python 2.7 and the latest PyQt4/pywin32/py2exe/NSIS</li>
+  <li>Update to syslinux 4.03 in our Windows package, which works with Fedora 14</li>
+  <li>Determine if we are running with admin privs, and warn otherwise</li>
+  <li>Fix how and where we put our error logs</li>
+  <li>Update our list of Fedora & Sugar releases</li>
+  <li>Download releases to Downloads or My Documents</li>
+  <li>Various Windows path-related fixes</li>
+  <li>Translation updates</li>
+</ul>
+</p>
+
+<p>
+Windows users, download it here: <a href="http://liveusb-creator.fedorahosted.org">http://liveusb-creator.fedorahosted.org</a>
+</p>

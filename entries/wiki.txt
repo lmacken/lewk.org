@@ -1,0 +1,132 @@
+>>> from fedora.client import Wiki
+#mdate Sm
+#tags Fedora,Python,code,TurboGears
+<p>
+I created a simple Python API for interacting with <a href="http://fedoraproject.org/wiki">Fedora's MediaWiki</a> a while back, in an attempt to gather various metrics.  I just went ahead and committed it to the <a href="http://fedorahosted.org/python-fedora">python-fedora</a> modules.  Here is how to use it:
+</p>
+
+<blockquote><code>
+<font face="monospace">
+&gt;&gt;&gt; <font color="#cd00cd">from</font>&nbsp;fedora.client <font color="#cd00cd">import</font>&nbsp;Wiki<br>
+
+&gt;&gt;&gt; wiki = Wiki()<br>
+&gt;&gt;&gt; wiki.print_recent_changes()<br>
+From 2008-12-07 20:59:01.187363 to 2008-12-14 20:59:01.187363<br>
+500 wiki changes in the past week<br>
+<br>
+== Most active wiki users ==<br>
+&nbsp;Bbbush............................................ 230<br>
+&nbsp;Konradm........................................... 25<br>
+&nbsp;Duffy............................................. 22<br>
+&nbsp;Jreznik........................................... 21<br>
+&nbsp;Ianweller......................................... 14<br>
+&nbsp;Jjmcd............................................. 14<br>
+&nbsp;Geroldka.......................................... 10<br>
+&nbsp;Gdk............................................... 9<br>
+&nbsp;Anouar............................................ 7<br>
+&nbsp;Gomix............................................. 6<br>
+<br>
+== Most edited pages ==<br>
+&nbsp;Features/KDE42.................................... 21<br>
+&nbsp;SIGs/SciTech/SAGE................................. 15<br>
+&nbsp;FUDCon/FUDConF11.................................. 14<br>
+&nbsp;Special:Log/upload................................ 13<br>
+&nbsp;How to be a release notes beat writer............. 12<br>
+&nbsp;Special:Log/move.................................. 11<br>
+&nbsp;Design/SETroubleshootUsabilityImprovements........ 10<br>
+&nbsp;PackageMaintainers/FEver.......................... 9<br>
+&nbsp;User:Gomix........................................ 6<br>
+&nbsp;Zh/主要配置文件..................................... 5<br>
+<br>
+&gt;&gt;&gt; <font color="#0000ff"><b>for</b></font>&nbsp;event <font color="#0000ff"><b>in</b></font>&nbsp;wiki.send_request(<span style="background-color: #ffffff"><font color="#000000">'</font></span><font color="#00cd00">api.php</font><span style="background-color: #ffffff"><font color="#000000">'</font></span>, req_params={<br>
+...&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="background-color: #ffffff"><font color="#000000">'</font></span><font color="#00cd00">action</font><span style="background-color: #ffffff"><font color="#000000">'</font></span>: <span style="background-color: #ffffff"><font color="#000000">'</font></span><font color="#00cd00">query</font><span style="background-color: #ffffff"><font color="#000000">'</font></span>,<br>
+...&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="background-color: #ffffff"><font color="#000000">'</font></span><font color="#00cd00">list</font><span style="background-color: #ffffff"><font color="#000000">'</font></span>: <span style="background-color: #ffffff"><font color="#000000">'</font></span><font color="#00cd00">logevents</font><span style="background-color: #ffffff"><font color="#000000">'</font></span>,<br>
+...&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="background-color: #ffffff"><font color="#000000">'</font></span><font color="#00cd00">format</font><span style="background-color: #ffffff"><font color="#000000">'</font></span>: <span style="background-color: #ffffff"><font color="#000000">'</font></span><font color="#00cd00">json</font><span style="background-color: #ffffff"><font color="#000000">'</font></span>,<br>
+...&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; })[<span style="background-color: #ffffff"><font color="#000000">'</font></span><font color="#00cd00">query</font><span style="background-color: #ffffff"><font color="#000000">'</font></span>][<span style="background-color: #ffffff"><font color="#000000">'</font></span><font color="#00cd00">logevents</font><span style="background-color: #ffffff"><font color="#000000">'</font></span>]:<br>
+...&nbsp;&nbsp;&nbsp;&nbsp; <font color="#0000ff"><b>print</b></font>&nbsp;<span style="background-color: #ffffff"><font color="#000000">'</font></span><font color="#00cd00">%-10s %-15s %s</font><span style="background-color: #ffffff"><font color="#000000">'</font></span>&nbsp;% (event[<span style="background-color: #ffffff"><font color="#000000">'</font></span><font color="#00cd00">action</font><span style="background-color: #ffffff"><font color="#000000">'</font></span>], event[<span style="background-color: #ffffff"><font color="#000000">'</font></span><font color="#00cd00">user</font><span style="background-color: #ffffff"><font color="#000000">'</font></span>], event[<span style="background-color: #ffffff"><font color="#000000">'</font></span><font color="#00cd00">title</font><span style="background-color: #ffffff"><font color="#000000">'</font></span>])<br>
+... <br>
+patrol&nbsp;&nbsp;&nbsp;&nbsp; Ianweller&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; User:Ianweller/How to create a contributor business card<br>
+move&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Nippur&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;REvanderLuit<br>
+patrol&nbsp;&nbsp;&nbsp;&nbsp; Ianweller&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Project Leader<br>
+move&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Ianweller&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FPL<br>
+upload&nbsp;&nbsp;&nbsp;&nbsp; Anouar&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Image:AnouarAbtoy.JPG<br>
+move&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Liangsuilong&nbsp;&nbsp;&nbsp;&nbsp;ZH/Docs/FetionOnFedora<br>
+move&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Liangsuilong&nbsp;&nbsp;&nbsp;&nbsp;FetionOnFedora<br>
+patrol&nbsp;&nbsp;&nbsp;&nbsp; Ianweller&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; User:Ianweller<br>
+</font>
+</blockquote></code>
+
+<p>
+It uses the <a href="http://lmacken.fedorapeople.org/python-fedora/client.html">fedora.client.BaseClient</a>, which is a class that simplifies interacting with
+arbitrary web services.  <a href="http://advogato.org/person/badger/">Toshio</a> and I created it a while back as a the core client for talking with our various TurboGears-based <a href="http://lmacken.fedorapeople.org/python-fedora/service.html">Fedora Services</a> (<a href="http://fedorahosted.org/bodhi">bodhi</a>, <a href="http://fedorahosted.org/packagedb">pkgdb</a>, <a href="http://fedorahosted.org/fas">fas</a>, <a href="http://fedoraproject.org/wiki/Infrastructure/Services">etc.</a>), but it has now seemed to morph into a much more flexible client for talking JSON with web applications.
+</p>
+<blockquote><code>
+<!-- GPLv2, yo. //-->
+<font face="monospace">
+<font color="#cd00cd">from</font>&nbsp;datetime <font color="#cd00cd">import</font>&nbsp;datetime, timedelta<br>
+<font color="#cd00cd">from</font>&nbsp;collections <font color="#cd00cd">import</font>&nbsp;defaultdict<br>
+<font color="#cd00cd">from</font>&nbsp;fedora.client <font color="#cd00cd">import</font>&nbsp;BaseClient<br>
+<br>
+<font color="#0000ff"><b>class</b></font>&nbsp;<font color="#008b8b">Wiki</font>(BaseClient):<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#0000ff"><b>def</b></font>&nbsp;<font color="#008b8b">__init__</font>(self, base_url=<span style="background-color: #ffffff"><font color="#000000">'</font></span><font color="#00cd00"><a href="http://fedoraproject.org/w/">http://fedoraproject.org/w/</a></font><span style="background-color: #ffffff"><font color="#000000">'</font></span>, *args, **kwargs):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;super(Wiki, self).__init__(base_url, *args, **kwargs)<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#0000ff"><b>def</b></font>&nbsp;<font color="#008b8b">get_recent_changes</font>(self, now, then, limit=500):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="background-color: #ffffff"><font color="#000000">&quot;&quot;&quot;</font></span><font color="#00cd00">&nbsp;Get recent wiki changes from `now` until `then` </font><span style="background-color: #ffffff"><font color="#000000">&quot;&quot;&quot;</font></span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;data = self.send_request(<span style="background-color: #ffffff"><font color="#000000">'</font></span><font color="#00cd00">api.php</font><span style="background-color: #ffffff"><font color="#000000">'</font></span>, req_params={<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="background-color: #ffffff"><font color="#000000">'</font></span><font color="#00cd00">list</font><span style="background-color: #ffffff"><font color="#000000">'</font></span>&nbsp;&nbsp;&nbsp;&nbsp;: <span style="background-color: #ffffff"><font color="#000000">'</font></span><font color="#00cd00">recentchanges</font><span style="background-color: #ffffff"><font color="#000000">'</font></span>,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="background-color: #ffffff"><font color="#000000">'</font></span><font color="#00cd00">action</font><span style="background-color: #ffffff"><font color="#000000">'</font></span>&nbsp;&nbsp;: <span style="background-color: #ffffff"><font color="#000000">'</font></span><font color="#00cd00">query</font><span style="background-color: #ffffff"><font color="#000000">'</font></span>,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="background-color: #ffffff"><font color="#000000">'</font></span><font color="#00cd00">format</font><span style="background-color: #ffffff"><font color="#000000">'</font></span>&nbsp;&nbsp;: <span style="background-color: #ffffff"><font color="#000000">'</font></span><font color="#00cd00">json</font><span style="background-color: #ffffff"><font color="#000000">'</font></span>,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="background-color: #ffffff"><font color="#000000">'</font></span><font color="#00cd00">rcprop</font><span style="background-color: #ffffff"><font color="#000000">'</font></span>&nbsp;&nbsp;: <span style="background-color: #ffffff"><font color="#000000">'</font></span><font color="#00cd00">user|title</font><span style="background-color: #ffffff"><font color="#000000">'</font></span>,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="background-color: #ffffff"><font color="#000000">'</font></span><font color="#00cd00">rcend</font><span style="background-color: #ffffff"><font color="#000000">'</font></span>&nbsp;&nbsp; : then.isoformat().split(<span style="background-color: #ffffff"><font color="#000000">'</font></span><font color="#00cd00">.</font><span style="background-color: #ffffff"><font color="#000000">'</font></span>)[0] + <span style="background-color: #ffffff"><font color="#000000">'</font></span><font color="#00cd00">Z</font><span style="background-color: #ffffff"><font color="#000000">'</font></span>,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="background-color: #ffffff"><font color="#000000">'</font></span><font color="#00cd00">rclimit</font><span style="background-color: #ffffff"><font color="#000000">'</font></span>&nbsp;: limit,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;})<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#0000ff"><b>if</b></font>&nbsp;<span style="background-color: #ffffff"><font color="#000000">'</font></span><font color="#00cd00">error</font><span style="background-color: #ffffff"><font color="#000000">'</font></span>&nbsp;<font color="#0000ff"><b>in</b></font>&nbsp;data:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#0000ff"><b>raise</b></font>&nbsp;Exception(data[<span style="background-color: #ffffff"><font color="#000000">'</font></span><font color="#00cd00">error</font><span style="background-color: #ffffff"><font color="#000000">'</font></span>][<span style="background-color: #ffffff"><font color="#000000">'</font></span><font color="#00cd00">info</font><span style="background-color: #ffffff"><font color="#000000">'</font></span>])<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#0000ff"><b>return</b></font>&nbsp;data[<span style="background-color: #ffffff"><font color="#000000">'</font></span><font color="#00cd00">query</font><span style="background-color: #ffffff"><font color="#000000">'</font></span>][<span style="background-color: #ffffff"><font color="#000000">'</font></span><font color="#00cd00">recentchanges</font><span style="background-color: #ffffff"><font color="#000000">'</font></span>]<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#0000ff"><b>def</b></font>&nbsp;<font color="#008b8b">print_recent_changes</font>(self, days=7, show=10):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;now = datetime.utcnow()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;then = now - timedelta(days=days)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#0000ff"><b>print</b></font>&nbsp;<span style="background-color: #ffffff"><font color="#000000">&quot;</font></span><font color="#00cd00">From %s to %s</font><span style="background-color: #ffffff"><font color="#000000">&quot;</font></span>&nbsp;% (then, now)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;changes = self.get_recent_changes(now=now, then=then)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;num_changes = len(changes)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#0000ff"><b>print</b></font>&nbsp;<span style="background-color: #ffffff"><font color="#000000">&quot;</font></span><font color="#00cd00">%d wiki changes in the past week</font><span style="background-color: #ffffff"><font color="#000000">&quot;</font></span>&nbsp;% num_changes<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;users = defaultdict(list) <font color="#ee0000"># {username: [change,]}</font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pages = defaultdict(int)&nbsp;&nbsp;<font color="#ee0000"># {pagename: # of edits}</font><br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#0000ff"><b>for</b></font>&nbsp;change <font color="#0000ff"><b>in</b></font>&nbsp;changes:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;users[change[<span style="background-color: #ffffff"><font color="#000000">'</font></span><font color="#00cd00">user</font><span style="background-color: #ffffff"><font color="#000000">'</font></span>]].append(change[<span style="background-color: #ffffff"><font color="#000000">'</font></span><font color="#00cd00">title</font><span style="background-color: #ffffff"><font color="#000000">'</font></span>])<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pages[change[<span style="background-color: #ffffff"><font color="#000000">'</font></span><font color="#00cd00">title</font><span style="background-color: #ffffff"><font color="#000000">'</font></span>]] += 1<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#0000ff"><b>print</b></font>&nbsp;<span style="background-color: #ffffff"><font color="#000000">'</font></span><font color="#ff1493">\n</font><font color="#00cd00">== Most active wiki users ==</font><span style="background-color: #ffffff"><font color="#000000">'</font></span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for user, changes in sorted(users.items(),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cmp=<font color="#0000ff"><b>lambda</b></font>&nbsp;x, y: cmp(len(x[1]), len(y[1])),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;reverse=True)[:show]:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#0000ff"><b>print</b></font>&nbsp;<span style="background-color: #ffffff"><font color="#000000">'</font></span><font color="#00cd00">&nbsp;%-50s %d</font><span style="background-color: #ffffff"><font color="#000000">'</font></span>&nbsp;% ((<span style="background-color: #ffffff"><font color="#000000">'</font></span><font color="#00cd00">%s</font><span style="background-color: #ffffff"><font color="#000000">'</font></span>&nbsp;% user).ljust(50, <span style="background-color: #ffffff"><font color="#000000">'</font></span><font color="#00cd00">.</font><span style="background-color: #ffffff"><font color="#000000">'</font></span>), len(changes))<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#0000ff"><b>print</b></font>&nbsp;<span style="background-color: #ffffff"><font color="#000000">'</font></span><font color="#ff1493">\n</font><font color="#00cd00">== Most edited pages ==</font><span style="background-color: #ffffff"><font color="#000000">'</font></span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for page, num in sorted(pages.items(),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cmp=<font color="#0000ff"><b>lambda</b></font>&nbsp;x, y: cmp(x[1], y[1]),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;reverse=True)[:show]:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#0000ff"><b>print</b></font>&nbsp;<span style="background-color: #ffffff"><font color="#000000">'</font></span><font color="#00cd00">&nbsp;%-50s %d</font><span style="background-color: #ffffff"><font color="#000000">'</font></span>&nbsp;% ((<span style="background-color: #ffffff"><font color="#000000">'</font></span><font color="#00cd00">%s</font><span style="background-color: #ffffff"><font color="#000000">'</font></span>&nbsp;% page).ljust(50, <span style="background-color: #ffffff"><font color="#000000">'</font></span><font color="#00cd00">.</font><span style="background-color: #ffffff"><font color="#000000">'</font></span>), num)<br>
+<br>
+</font>
+</blockquote></code>
+
+<p>
+I added a Wiki.login method to the latest version, but it isn't quite working
+yet.  This is due to some <a href="https://fedorahosted.org/python-fedora/ticket/11">minor limitations</a> in the ProxyClient, so we currently cannot handle
+authenticated requests.  However, this shouldn't be very difficult to implement.
+The reason for this is that we need to be able to run authenticated queries as
+a 'bot' account in order to mitigate the 500 entry API return limit.
+</p>
+
+<p>
+This module makes it easy to talk to <a href="http://en.wikipedia.org/w/api.php">MediaWiki's API</a>, so if you do anything cool with it feel free to send patches <a href="https://fedorahosted.org/python-fedora/newticket">here</a>.  It's currently not being shipped in a python-fedora release, so you'll have to grab the code from Bazaar:
+<code><blockquote>
+bzr branch bzr://bzr.fedorahosted.org/bzr/python-fedora/python-fedora-devel
+</blockquote></code>
+</p>

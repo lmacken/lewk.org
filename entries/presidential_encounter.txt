@@ -1,0 +1,18 @@
+A presidential encounter
+#mdate Sm
+#tags RIT
+<p>
+So last week, on my way to grab a sandwich before class, I ended up shaking hands with our former president, Bill Clinton.  Turns out he was invited by <a href="http://en.wikipedia.org/wiki/Tom_Golisano">Tom Golisano</a> to check out our new <a href="http://www.rit.edu/~gccis/">GCCIS</a> building, and to give an invite-only presentation (which I was not fortunate enough to attend).
+<center>
+<table>
+<tr><td>
+<img src="/img/billclinton0.png">
+<img src="/img/billclinton1.png">
+</td></tr>
+<tr><td>
+<img src="/img/billclinton2.png">
+<img src="/img/billclinton3.png">
+</td></tr>
+</table>
+</center>
+</p>

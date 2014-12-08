@@ -1,0 +1,114 @@
+Professors' Open Source Summer Experience @ RIT
+#mdate Sm
+#tags Fedora,TeachingOpenSource,RIT
+<p>
+<img
+src="http://www.teachingopensource.org/images/thumb/d/d1/Posse-logo.png/350px-Posse-logo.png"
+align="right" width="250"/>
+Last week <a href="http://redhat.com">Red Hat</a> put on a <a
+href="http://teachingopensource.org/index.php/POSSE">Professors' Open Source
+Summer Experience</a> (POSSE) at <a href="http://rit.edu">RIT</a>. Being an
+alumni, I was excited by the opportunity to be able to go back up to The ROC
+and teach some of the people that taught me.  Going into it, I really had no
+idea what to expect.  All I knew is that I was going to help lead the 'deep
+dive' section of the course, where I would teach professors how to dive in head
+first and get productively lost in a strange codebase.  This is not something
+that can be accomplished with a set of powerpoint slides.  Teaching how to hack on open source
+requires that you emerse yourself into a codebase, and bring your students with
+you.
+</p>
+
+<p>
+The previous POSSE at Worcester State dove into the <a
+href="http://sugarlabs.org">Sugar</a> <a
+href="http://wiki.laptop.org/go/Measure">Measure Activity</a>, and we were going to do the same.
+</p>
+
+<blockquote><code><i>
+Measure is an activity that turns the computer into an oscilloscope. Signals
+from the microphone (and sensors) can be plotted in time and frequency domains.
+</i></code></blockquote>
+
+<p>
+I had never used this activity, let alone hacked on it before.  I've also never
+done any sugar activity development, aside from some tweaking of the <a
+href="https://fedorahosted.org/OpenVideoChat">OpenVideoChat</a>, so I really
+had no idea what I was getting myself into.  The obvious first step was to
+get it running.  All of us were able to start the activity in virtual machines
+or emulators, except for one install which hit some odd errors upon startup.
+We were able to quickly track the bug down to a stray <code>return</code>
+statement in <code>__init__</code> before some critical initialization code.
+Right after we fixed the problem we noticed that Walter Bender had already 
+fixed this issue a few hours earlier.  After a <code>git pull</code>, we were
+up and running.
+</p>
+
+<p>
+Once we all got the activity running, we took a look at the bug list to see if
+there was any low-hanging fruit for us to tackle.  Since the previous POSSE
+had already done some work on this activity the week before, there were not
+any trivial tickets left in the queue.  So, in that case, we dove head first
+into the hardest one, "Measure activity gets stuck after recording".  This
+ticket had very little information, and no log output, so we were on our own
+to try and track it down.  We were able to reliably reproduce the issue on the
+XO-1.5, but not on the 1.0.  In our virtual machines we hit it sporadically.
+We all agreed that it felt like a race-condition, most likely due to
+threading.  So we started instrumenting the code and adding some debugging
+statements to try and figure out which line of code was the culprit.
+</p>
+
+<p>
+In our efforts to scatter <code>print</code>
+statements all over the place to try and determine the code path, we noticed
+that none of our output was hitting the logs.  
+When you have no idea if your code is even being run or not, don't be ashamed
+to throw in a <code>raise Exception("WTF?!")</code>.  We finally realized that since the activity would freeze, it was never able to flush stderr/stdout to the log.  A quick find/replace regex later, and we were using the proper <code>logging</code> module and seeing our debugging output hit the logs.
+</p>
+
+<p>
+We were then able to track the bug down to a line of code that uses <a href="http://www.gtk.org">GTK</a> to try and get
+the coordinates of the parent window.  At this point, since none of us were GTK
+experts, we had to go upstream.  So, I dropped into #fedora-devel and asked.
+Within 10 minutes I had responses from 3 different GTK hackers.  One was a
+typical <a href="http://en.wikipedia.org/wiki/RTFM">RTFM</a> response, which humored the professors (who are very used to
+hearing/saying this), but the others pointed us in the right direction.  One
+mentioned that gtk.gdk calls probably should not be done in a seperate thread.
+So, a suggested workaround was to add <code>gtk.threads_enter()/gtk.threads_leave()</code>
+calls before running any gtk.gdk code in the thread.  A <a
+href="http://bugs.sugarlabs.org/attachment/ticket/1904/0001-Call-gtk.threads_-enter-leave-before-after-taking-th.patch">2-line
+patch</a> later, and we had squashed the bug.
+</p>
+
+<p>
+We eventually bumped into the inevitable typo in some comments.  So, we made
+the fix locally, and committed it to our git repo.  A few minutes later and we
+found another one.  I saw this as a great opportunity to show off some of my
+git-fu.  Instead of sending two "Fix typo" patches upstream, I showed the
+professors how to use git interactive rebasing to squash multiple commits into
+a single one.  They all followed along closely, and the workflow made sense to
+them.
+</p>
+
+<p>
+While we were looking through the ticket queue, we saw an issue where Measure
+would apparently leak memory and crash when running it for a long period of
+time.  While keeping this in mind, we kept our eyes peeled while wandering
+around the codebase to see if we could track the issue down.  When looking at
+the code that takes screenshots of the waveform, I noticed that it created a
+temporary file with <code>tempfile.mkstemp</code>, saved the pixmap to it,
+injected it into the Journal, and then deleted the directory.  This looked fine
+at a first glance, until I realized that it never closed the temporary file descriptor.
+Another <a
+href="http://bugs.sugarlabs.org/attachment/ticket/2051/0001-Ensure-that-we-close-the-file-descriptors-of-our-tem.patch">2-line patch</a> later, and this issue was solved.
+</p>
+
+<p>
+The next day both of the patches that we sent upstream were applied by Walter Bender.
+</p>
+
+<p>
+Overall, POSSE definitely exceeded my expectations, and I'm extremely satisfied
+with how the 'deep dive' section went.  I went into it feeling completely
+unprepared to teach, but by trusting my "hacker intuition", I feel that it
+turned out to be a fantastic learning experience for all of us.
+</p>

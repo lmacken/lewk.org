@@ -1,0 +1,20 @@
+Fedora 12 filesystem showdown
+#mdate Sm
+#tags Fedora,benchmarks,metrics,filesystems
+<p>
+<img src="/img/metrics.png" align="right"/>
+            <ul>
+                <li><b>Kernel:</b> 2.6.31.1-56.fc12.i686.PAE</li>
+                <li><b>I/O Scheduler:</b> CFQ</li>
+                <li><b>Encryption</b>: LUKS/dm-crypt AES-XTS cipher 512 bit key</li>
+                <li><b>Installation Media:</b> rawhide boot.iso (20091010)</li>
+                <li><b>Benchmark</b>: <a href="http://www.coker.com.au/bonnie++/">bonnie++</a></li>
+                <li><b>Graphing script</b>: <a href="http://hg.lewk.org/index.py/flotbonnie">flotbonnie.py</a></li>
+                <li><b>Hardware profile: <a href="/bench/f12-dev-20091009-fs/2.6.31.1-56.fc12.i686.PAE-hardinfo">2.6.31.1-56.fc12.i686.PAE-hardinfo</a> (note: ancient hardware)</b></li>
+                <li><b>Raw data: <a href="/bench/f12-dev-20091009-fs/2.6.31.1-56.fc12.i686.PAE-btrfs">2.6.31.1-56.fc12.i686.PAE-btrfs</a>, <a href="/bench/f12-dev-20091009-fs/2.6.31.1-56.fc12.i686.PAE-ext3">2.6.31.1-56.fc12.i686.PAE-ext3</a>, <a href="/bench/f12-dev-20091009-fs/2.6.31.1-56.fc12.i686.PAE-ext4">2.6.31.1-56.fc12.i686.PAE-ext4</a>, <a href="/bench/f12-dev-20091009-fs/2.6.31.1-56.fc12.i686.PAE-xfs">2.6.31.1-56.fc12.i686.PAE-xfs</a></b> </li>
+    </ul>
+
+<center>
+<img src="/img/f12-filesystem-showdown.png" />
+</center>
+</p>

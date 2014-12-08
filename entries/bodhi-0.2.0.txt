@@ -1,0 +1,60 @@
+bodhi 0.2.0
+#mdate Sm
+#tags Fedora,bodhi,code
+<p>
+<img src="https://admin.fedoraproject.org/updates/static/images/bodhi-icon-48.png" align="right"/>
+I'm pleased to announce that bodhi 0.2.0 has been <a href="https://www.redhat.com/archives/fedora-devel-announce/2007-September/msg00008.html">released</a> and <a href="http://bodhi.fedoraproject.org">deployed</a>.
+This release has fixed a ton of issues and introduces many new features,
+such as:
+</p>
+<ul>
+
+<li>Multi-build updates.  You can add as many builds to a single update as you
+   want.  Bodhi will treat it as a single update, but will still send
+   individual update notification mails for each build.</li>
+<li>New homepage widget that allows you to keep up with the happenings inside of
+   bodhi.  You can see the latest comments, testing/security/stable updates, and
+   keep track of your own business.</li>
+<li>Enhanced notifications.  If you commented on an update, you'll receive
+   notifications when others comment on that update, and when that update is
+   modified or changes states.</li>
+<li>Automatic closing of bugs is now optional.</li>
+<li>Build-completion improvements.  Package names will be automagically
+   completed, and if you type '-' after, it will complete versions as
+   well.</li>
+<li>Positive/negative comments effect an updates 'karma'.  After an update
+   achieves a karma of 3, it will automatically be pushed to the stable updates
+   repository.  This will hopefully encourage testers to get involved with the
+   updates-testing process a bit more, and will add some automation to the
+   workflow</li>
+<li>Extended metadata (updateinfo.xml.gz) should start appearing in the repodata,
+   which will allow tools like pup and the yum-security plugin to take advantage
+   of it and do some nifty stuff.</li>
+<li>Reminders.  You'll get nagged when your update sits around in testing for too
+   long, and so on..</li>
+   </ul>
+<p>
+This release introduces many database changes from the previous version, so it
+will be much easier to jump back into the release-early-release often cycle.
+</p>
+Soon to come: 
+<ul>
+<li>bodhi command-line client is almost ready to go.  It needs to be polished up
+   a bit, but should be released soon.</li>
+<li>RSS feeds and public details.</li>
+<li>Better build-completion based on koji tags.</li>
+<li>More sanity checking (koji buildroot verification, dependency closure,
+        etc)</li>
+<li>Better handling of obsolete updates</li>
+</ul>
+<p>
+I would also like to thank Till Maas and Tim Lauridsen for taking the time to help out and do some great work.
+</p>
+<p>
+There is still much to be done with bodhi, so if you're interested in
+helping out, you can setup a local bodhi development playground with just a few
+<a href="https://hosted.fedoraproject.org/projects/bodhi/wiki/Development">commands</a> and dive in.
+</p>
+<p>
+As always, please file any bugs or enhancement requests <a href="https://hosted.fedoraproject.org/projects/bodhi/newticket">here</a>.
+</p>

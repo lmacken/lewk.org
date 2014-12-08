@@ -1,0 +1,24 @@
+liveusb-creator trojan in the wild
+#mdate Sm
+#tags code,Fedora,virus,liveusb-creator
+<p>
+<img src="https://fedorahosted.org/liveusb-creator/attachment/wiki/img/fedorausb.png?format=raw" align="right"/>
+I've been noticing many different copies of my Windows <a href="http://liveusb-creator.fedorahosted.org">liveusb-creator</a> popping up on various sketchy-looking download sites.  The majority of these copies contain a variant of the <a href="http://en.wikipedia.org/wiki/Vundo">Vundo</a> Trojan.
+
+<blockquote><i>"Vundo, or the Vundo Trojan (also known as Virtumonde  or Virtumondo and sometimes referred to as MS Juan) is a Trojan horse that is known to cause popups and advertising for rogue antispyware programs, and sporadically other misbehavior including performance degradation and denial of service with some websites including Google  and Facebook."</i></blockquote>
+</p>
+<p>
+So, if you downloaded a copy of the Windows liveusb-creator from anywhere other than
+<a href="https://fedorahosted.org/liveusb-creator">https://fedorahosted.org/liveusb-creator</a> -- you could be infected.  Apparently
+the latest variation of this trojan is undetectable by most antivirus
+(although, clamav was able to recognize the one that I found), so you
+may need to look around for some of the common symptoms.  There is apparently a
+tool that will remove this trojan which can be found <a
+href="http://vundofix.atribune.org">here</a>, however I have not tested it and
+cannot vouch for its validity.
+</p>
+<p>
+If anyone was actually hit by this, I'd be interested to hear about
+it.<br/><br/>  Also,
+to state the blatantly obvious: <b>only download the liveusb-creator from the <a href="https://fedorahosted.org/liveusb-creator">homepage</a>!</b>
+</p>

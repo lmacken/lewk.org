@@ -1,0 +1,70 @@
+New liveusb-creator release!
+#mdate Sm
+#tags Fedora,Python,liveusb-creator,code
+<p>
+
+<img
+src="https://fedorahosted.org/liveusb-creator/attachment/wiki/img/fedorausb.png?format=raw" align="right" />
+
+So I've gotten some pretty inspiring feedback from various users of the
+liveusb-creator recently, so I decided to put some cycles into it this weekend and
+crank out another release.
+
+<blockquote><code>
+"As a non-Linux person, Live-USB Creator has improved the quality of my life measurably!" --Dr. Arthur B. Hunkins
+</code></blockquote>
+
+Yesterday I released version 3.8.6 of the liveusb-creator.  Changes in this
+release include:
+<br/>
+<ul>
+<li>Added the F12 beta release</li>
+<li>Updated to the latest Sugar on a Stick v2 beta snapshot (<a href="https://bugzilla.redhat.com/show_bug.cgi?id=522240">#522240</a>)</li>
+<li>Made our automatic device detection code more robust (<a href="https://bugzilla.redhat.com/show_bug.cgi?id=519134">#519134</a>)</li>
+<li>Fixed encoding of unicode strings from exceptions (<a href="https://bugzilla.redhat.com/show_bug.cgi?id=471367">#471367</a>)</li>
+<li>Made our Linux device detection more robust (<a href="https://bugzilla.redhat.com/show_bug.cgi?id=517053">#517053</a>)</li>
+<li>Intel Mac EFI directory preparation (<a href="https://bugzilla.redhat.com/show_bug.cgi?id=526825">#526825</a>) thanks to Matt Domsch</li>
+<li>Made our windows device detection more robust</li>
+<li>Added a --device-checksum options, which calculates the checksum of the entire device.</li>
+<li>Added a --liveos-checksum option, which takes the checksum of all LiveOS files, and then generate a checksum of the checksums</li>
+<li>Added a --hash option for configuring the hash for the above checksum features</li>
+<li>Made the LiveUSBCreator.bootable_partition method a little more robust</li>
+<li>Better handling of file descriptors</li>
+<li>Some Windows-specific optimizations & fixes</li>
+<li>Fixed a bug with the overlay size on sticks with not much free space</li>
+<li>Handle device paths containing spaces when running extlinux (<a href="https://bugzilla.redhat.com/show_bug.cgi?id=490843">#490843</a>)</li>
+<li>Remove some duplicate po files (<a href="https://bugzilla.redhat.com/show_bug.cgi?id=516841">#516841</a>)</li>
+<li>Many translation updates</li>
+</ul>
+
+<b>Windows</b>
+<br/>
+<a href="https://fedorahosted.org/releases/l/i/liveusb-creator/liveusb-creator-3.8.6.zip">https://fedorahosted.org/releases/l/i/liveusb-creator/liveusb-creator-3.8.6.zip</a>
+
+<br/>
+<br/>
+<b>Fedora</b>
+
+<br/>
+<a
+href="https://admin.fedoraproject.org/updates/liveusb-creator-3.8.6-1.fc11">https://admin.fedoraproject.org/updates/liveusb-creator-3.8.6-1.fc11</a>
+<br/>
+<a
+href="https://admin.fedoraproject.org/updates/liveusb-creator-3.8.6-1.fc12">https://admin.fedoraproject.org/updates/liveusb-creator-3.8.6-1.fc12</a>
+<br/>
+<br/>
+
+<b>Source</b>
+
+<br/>
+<a href="https://fedorahosted.org/releases/l/i/liveusb-creator/liveusb-creator-3.8.6.tar.bz2">https://fedorahosted.org/releases/l/i/liveusb-creator/liveusb-creator-3.8.6.tar.bz2</a>
+<br/>
+<br/>
+
+<b>Trac</b>
+<br/>
+<a
+href="http://liveusb-creator.fedorahosted.org">http://liveusb-creator.fedorahosted.org</a>
+
+
+</p>

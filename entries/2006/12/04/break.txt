@@ -1,0 +1,42 @@
+break
+#mdate Feb 14 21:12:36 2007
+#tags RIT,Fedora,OLPC,Python,TurboGears
+<p><p>
+So my Thanksgiving break was far from a break.  I spent a couple of days last week at Red Hat's westford office before heading back up to RIT to start a <a href="http://schedule.csh.rit.edu/?s=JxWp7Uj">new quarter</a>.  In my two days in the office I was able to touch base with a bunch of people, and get a bunch of stuff done as well.  I had a long discussion with dmalcom about integrating the Fedora Updates System with <a href="http://fedoraproject.org/wiki/QA/Beaker">Beaker</a>/<a href="https://testing.108.redhat.com/">TableCloth</a>.  He also gave me a quick rundown on a bunch of the Red Hat QA infrastructure that is currently being used.  Ideally we'd like to be able to crunch all package updates through an automated test system before pushing them out to the world.  Involvement needed: <a href="http://fedoraproject.org/wiki/FedoraTesting">FedoraTesting</a>.
+</p>
+<p>
+Later that day I met with <a href="http://jrb.webwynk.net/news.html">jrb</a> and <a href="http://jkeating.livejournal.com/">jkeating</a> about getting a package updating system in place for a new Red Hat product that is going out the door very soon.  This means that much work will be going into the new <a href="http://fedoraproject.org/wiki/Infrastructure/UpdatesSystem">UpdatesSystem</a> in the near future, which means I get to dig deeper into the world of TurboGears :)
+</p>
+<p>
+On thursday I cranked a bunch of code out, but was fairly distracted most of the time by the <a href="http://laptop.org">OLPC</a> laptops that were lying around the office.  I must say, it is an absolutely incredible machine.  The screen is gorgeous, and it's camera is very impressive.  I hung around later at the office for an OLPC hackfest that was going down.
+</p>
+<center>
+<table><tr><td>
+<a href="http://www.flickr.com/photos/christopherblizzard/310725412/"><img src="http://static.flickr.com/103/310725412_471cc92de0_m.jpg"/></a>
+</td><td>
+<a href="http://www.flickr.com/photos/christopherblizzard/308987891/"><img src="http://static.flickr.com/111/308987891_aebc37af78_m.jpg"/></a>
+</td></tr></table></center>
+<p>
+I was busy working on the updates system most of the time, but then later on I started looking into some Python start-up issues, which can be seen by doing:
+<code><blockquote><pre>
+	strace python 2&gt;&amp;1 | grep ENOENT
+</pre></blockquote></code>
+You'll notice a ton of syscalls like the following, which try to open/stat modules in locations that do not exist:
+<code><blockquote><pre>
+stat64("/usr/lib/python24.zip/posixpath", 0xbfdb5094) = -1 ENOENT (No such file or directory)
+PrivoxyWindowOpen("/usr/lib/python24.zip/posixpath.so", O_RDONLY|O_LARGEFILE) = -1 ENOENT (No such file or directory)
+PrivoxyWindowOpen("/usr/lib/python24.zip/posixpathmodule.so", O_RDONLY|O_LARGEFILE) = -1 ENOENT (No such file or directory)
+PrivoxyWindowOpen("/usr/lib/python24.zip/posixpath.py", O_RDONLY|O_LARGEFILE) = -1 ENOENT (No such file or directory)
+PrivoxyWindowOpen("/usr/lib/python24.zip/posixpath.pyc", O_RDONLY|O_LARGEFILE) = -1 ENOENT (N o such file or directory)
+stat64("/usr/lib/python2.4/posixpath", 0xbfdb5094) = -1 ENOENT (No such file or directory)
+PrivoxyWindowOpen("/usr/lib/python2.4/posixpath.so", O_RDONLY|O_LARGEFILE) = -1 ENOENT (No su ch file or directory)
+PrivoxyWindowOpen("/usr/lib/python2.4/posixpathmodule.so", O_RDONLY|O_LARGEFILE) = -1 ENOENT (No such file or directory)
+PrivoxyWindowOpen("/usr/lib/python2.4/posixpath.py", O_RDONLY|O_LARGEFILE) = 5 </pre></blockquote></code>
+</p>
+<p>
+So it's obvious that modules could exist in multiple locations, but if you are repeatedly going to check a series of directories, such as <code>/usr/lib/python24.zip</code>, wouldn't it be a *bit* smarter to check if they exists first, and then avoid checking there in the future?  Doing so would help cut down from the <b>233</b>+ syscalls python makes while starting up looking for modules.  I really don't have any free cycles to try and add some sense into Python, so I really hope someone can beat me to a patch.
+</p>
+<p>
+<br/><b>TurboGears 1.0b2</b><br/></p><center><a href="http://www.amazon.com/dp/0132433885?tag=blueskyonmars-20&amp;camp=14573&amp;creative=327641&amp;linkCode=as1&amp;creativeASIN=0132433885&amp;adid=1DWQ7XTXJW12HYKFJ2Z8&amp;"><img src="http://ec2.images-amazon.com/images/P/0132433885.01._AA240_SCLZZZZZZZ_V35892283_.jpg"/></a></center><br/>
+I came back home to find the new TurboGears book in my mailbox, which has been extremely informative, aside from the fact that the project has awesome online docs as well.  I pushed out the <a href="http://www.turbogears.org/about/changelog.html">latest</a> TurboGears release, 1.0b2, for FC6 and rawhide yesterday as well.
+</p>

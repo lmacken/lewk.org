@@ -1,0 +1,35 @@
+Fedora Activity Day: Fedora Development Cycle 2009
+#tags Fedora
+#mdate Sm
+
+Earlier this week I ventured to Raleigh for a <a
+href="https://fedoraproject.org/wiki/Fedora_Activity_Day_Fedora_Development_Cycle_2009">Fedora
+Activity Day</a>, where a dozen or so people brainstormed for a
+few days about ways to improve our development process.
+I feel that it was a very productive experience, as it allowed
+everyone to list the things that could use improvements, without
+getting caught up in the technical or political details.
+We hashed out a huge list of items in <a
+href="https://fedoraproject.org/wiki/Communicate/GobbyHowTo">Gobby</a>
+, prioritized them, and discussed possible solutions for as many
+as we could.
+
+A good number of proposals came out of it:
+
+<ul>
+<li><a
+href="https://fedoraproject.org/wiki/Milestone_Adjustment_Proposal">
+Milestone Adjustment Proposal</a></li>
+<li><a
+href="https://fedoraproject.org/wiki/No_Frozen_Rawhide_Proposal">No
+Frozen Rawhide Proposal</a></li>
+<li><a
+href="https://fedoraproject.org/wiki/Critical_Path_Packages_Proposal">
+Critical Path Packages Proposal</a></li>
+<li><a
+href="https://fedoraproject.org/wiki/Koji_Build_Autosign_Proposal">
+Koji Build Autosign Proposal</a></li>
+<li><a
+href="https://fedoraproject.org/wiki/Israwhidebroken.com_Proposal">israwhidebroken.com
+Prposal</a></li>
+</ul>

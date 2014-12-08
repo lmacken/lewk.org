@@ -1,0 +1,21 @@
+Fedora Infrastructure Project notifications and IRC hackery
+#mdate May 19 14:15:10 2007
+#tags Fedora,mugshot,code
+<p><div xmlns="http://www.w3.org/1999/xhtml"><p>
+I started a <a href="http://mugshot.org/group?who=yWstkV2xGz93rQ">Fedora Infrastructure mugshot group</a> the other day, and hooked it up to the Timelines of some of our Infrastructure projects that are currently under development: <a href="https://hosted.fedoraproject.org/projects/smolt">smolt</a>, <a href="https://hosted.fedoraproject.org/projects/bodhi">bodhi</a>, <a href="https://hosted.fedoraproject.org/projects/pungi">pungi</a>, <a href="https://hosted.fedoraproject.org/projects/koji">koji</a>, <a href="https://hosted.fedoraproject.org/projects/mirrormanager">mirrormanager</a>, <a href="https://hosted.fedoraproject.org/projects/presto">presto</a>, and <a href="https://hosted.fedoraproject.org/projects/beaker">beaker</a>.  This will keep members of the group notified of code commits, ticket activity, as well as wiki and milestone changes.
+</p>
+<center><img src="http://lewk.org/img/mugshot.png"/></center>
+<p>
+Recently, Bugzilla hacker Max Kanat-Alexander setup a new <a href="http://supybot.com/">Supybot</a> IRC bot for us in <code>#fedorabot</code> that spits out Bugzilla activity in real time.  I quickly threw together a <a href="http://hg.lewk.org/fedora-supybot">Fedora plugin</a>  that will allow us to implement some useful functions to help out users and developers.  At the moment, I only created a <code>whoowns</code> command.
+</p>
+<code><blockquote><pre>
+&lt;lmacken&gt; buggbot: whoowns nethack
+&lt;buggbot&gt; lmacken: nethack is owned by lmacken@redhat.com
+</pre></blockquote></code>
+<p>
+With Fedora 7 and a bunch of shiny new infrastructure right around the corner, I'm sure we'll be able to do some fun things with this.  If you're interested in hacking on this plugin, you can clone my mercurial repository by doing the following:
+</p>
+
+<blockquote><code>
+$ hg clone http://hg.lewk.org/fedora-supybot
+</code></blockquote></div></p>

@@ -1,0 +1,77 @@
+TurboFlot 0.0.1
+#mdate Sm
+#tags code,TurboFlot,TurboGears,Python
+<p>
+In an effort to clean up bodhi's metrics code a bit, I wrote a <a href="http://pypi.python.org/pypi/TurboFlot">TurboFlot</a> plugin that allows you to wield the jQuery plugin <a href="http://code.google.com/p/flot/">flot</a> inside of TurboGears applications.  The code is quite trivial -- it's essentially just a TurboGears JSON proxy to the jQuery flot plugin.  Breaking this code out into it's own widget makes it really easy to generate shiny graphs in a Pythonic fashon, without having to write a line of javascript.
+</p>
+
+<center><img src="http://lewk.org/img/TurboFlot.png"/></center>
+
+<p>
+Check out the <a href="http://hg.lewk.org/TurboFlot/raw-file/c4d33e5072a0/README">README</a> to see the code for the example above.
+</p>
+
+<p>
+To use TurboFlot in your own application, you just pass your data and graph options to the widget, and then throw it up to your template.  Read the <a href="http://flot.googlecode.com/svn/trunk/API.txt">flot API documentation</a> for details on all of the arguments.  Here is a simple usage example:
+
+<blockquote>
+<code>
+flot = TurboFlot([<br>
+&nbsp;&nbsp;&nbsp;&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'<font color="#ff00ff">data</font>'&nbsp;&nbsp;: [[0, 3], [4, 8], [8, 5], [9, 13]],<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'<font color="#ff00ff">lines</font>'&nbsp;: { '<font color="#ff00ff">show</font>'&nbsp;: True, '<font color="#ff00ff">fill</font>'&nbsp;: True&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}],<br>
+&nbsp;&nbsp;&nbsp;&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'<font color="#ff00ff">grid</font>'&nbsp;&nbsp;: { '<font color="#ff00ff">backgroundColor</font>'&nbsp;: '<font color="#ff00ff">#fffaff</font>'&nbsp;},<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'<font color="#ff00ff">yaxis</font>'&nbsp;: { '<font color="#ff00ff">max</font>'&nbsp;: '<font color="#ff00ff">850</font>'&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+)<br>
+</code>
+</blockquote>
+
+Then, to display the widget in your template, you simply use:
+<blockquote>
+<code>
+${flot.display()}
+</code>
+</blockquote>
+</p>
+
+The code for the widget itself is pretty simple.  It just takes your data and graph options, encodes them as JSON and tosses them at flot.
+
+<blockquote><code>
+<font color="#a52a2a"><b>class</b></font>&nbsp;<font color="#008b8b">TurboFlot</font>(Widget):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&quot;&quot;&quot;<br>
+<font color="#ff00ff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A TurboGears Flot Widget.</font><br>
+<font color="#ff00ff">&nbsp;&nbsp;&nbsp;&nbsp;</font>&quot;&quot;&quot;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;template = &quot;&quot;&quot;<br>
+<font color="#ff00ff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;div xmlns:py=&quot;<a href="http://purl.org/kid/ns#">http://purl.org/kid/ns#</a>&quot; id=&quot;turboflot&quot; </font><br>
+<font color="#ff00ff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; style=&quot;width:${width};height:${height};&quot;&gt;</font><br>
+<font color="#ff00ff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;script&gt;</font><br>
+<font color="#ff00ff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$.plot($(&quot;#turboflot&quot;), ${data}, ${options});</font><br>
+<font color="#ff00ff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/script&gt;</font><br>
+<font color="#ff00ff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;</font><br>
+<font color="#ff00ff">&nbsp;&nbsp;&nbsp;&nbsp;</font>&quot;&quot;&quot;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;params = [&quot;<font color="#ff00ff">data</font>&quot;, &quot;<font color="#ff00ff">options</font>&quot;, &quot;<font color="#ff00ff">height</font>&quot;, &quot;<font color="#ff00ff">width</font>&quot;]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;javascript = [JSLink('<font color="#ff00ff">turboflot</font>', '<font color="#ff00ff">excanvas.js</font>'),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;JSLink(&quot;<font color="#ff00ff">turboflot</font>&quot;, &quot;<font color="#ff00ff">jquery.js</font>&quot;),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;JSLink(&quot;<font color="#ff00ff">turboflot</font>&quot;, &quot;<font color="#ff00ff">jquery.flot.js</font>&quot;)]<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#a52a2a"><b>def</b></font>&nbsp;<font color="#008b8b">__init__</font>(self, data, options={}, height=&quot;<font color="#ff00ff">300px</font>&quot;, width=&quot;<font color="#ff00ff">600px</font>&quot;):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.data = simplejson.dumps(data)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.options = simplejson.dumps(options)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.height = height<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.width = width<br>
+</code>
+</blockquote>
+
+<p>
+You can download the latest releases from the Python Package Index:
+<blockquote><a href="http://pypi.python.org/pypi/TurboFlot"> http://pypi.python.org/pypi/TurboFlot</a>
+</blockquote>
+
+Or you can grab my latest development tree out of mercurial:
+<blockquote><a href="http://hg.lewk.org/TurboFlot">http://hg.lewk.org/TurboFlot</a>
+</blockquote>
+As always, patches are welcome :)
+</p>

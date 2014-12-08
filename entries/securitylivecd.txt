@@ -1,0 +1,55 @@
+Shiny new Security LiveCD
+#tags Fedora,security,livecd,openbox
+<p>
+The <a href="http://lewk.org/blog/2007/03/04/security-livecd">Fedora-based security livecd</a> that I created a little while back is coming along quite nicely.  I have yet to submit it to become an officially blessed Fedora spin, mainly because I didn't want it to be Yet Another gnome-based livecd with a bunch of extra packages shoved into it.  If we're going to try and even remotely compare to existing livecds such as <a href="http://www.remote-exploit.org/backtrack.html">backtrack</a>, we're going to have to try a little bit harder :)
+</p>
+<p>
+I've gotten multiple requests from people asking for a minimal security livecd, with something a bit slimmer than GNOME, preferably *box.  Being a proud <a href="http://icculus.org/openbox/index.php/Main_Page">openbox</a> user for the past 6 years -- I gladly complied.  So, the other day on the bus ride home from work, I re-based the spin against the minimal configuration, and tweaked out the openbox configuration quite a bit.
+</p>
+<p>
+<center>
+    <a href="/img/securityspin.png"><img src="/img/securityspin-thumb.png" /></a>
+</center>
+</p>
+<p>
+The default openbox menu contains a few boilerplate entries, most of which are for applications that don't even exist in a default Fedora install.  I went ahead and threw together a menu that is categorized by the type of security tool in the spin.  I also wanted the ability for users to have access to the same menu entries as our default GNOME menu.  To accomplish this, I hacked up a dynamic <a href="http://icculus.org/openbox/index.php/Help:Menus#Pipe_menus">openbox pipe menu</a>, which generates the same menu hierarchy as the GNOME application menu, on-the-fly :)
+</p>
+
+<p>
+<blockquote><code>
+<body bgcolor="#ffffff" text="#000000"><font face="monospace">
+<font color="#0000ff">#!/usr/bin/python -tt</font><br>
+<br>
+<font color="#a020f0">import</font>&nbsp;gmenu<br>
+<br>
+<font color="#a52a2a"><b>def</b></font>&nbsp;<font color="#008b8b">walk_menu</font>(entry):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#a52a2a"><b>if</b></font>&nbsp;entry.get_type() == gmenu.TYPE_DIRECTORY:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#a52a2a"><b>print</b></font>&nbsp;'<font color="#ff00ff">&lt;menu id=&quot;%s&quot; label=&quot;%s&quot;&gt;</font>'&nbsp;% (entry.menu_id, entry.get_name())<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;map(walk_menu, entry.get_contents())<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#a52a2a"><b>print</b></font>&nbsp;'<font color="#ff00ff">&lt;/menu&gt;</font>'<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#a52a2a"><b>elif</b></font>&nbsp;entry.get_type() == gmenu.TYPE_ENTRY <font color="#a52a2a"><b>and</b></font>&nbsp;<font color="#a52a2a"><b>not</b></font>&nbsp;entry.is_excluded:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#a52a2a"><b>print</b></font>&nbsp;&quot;&quot;&quot;<br>
+<font color="#ff00ff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;item label=&quot;%s&quot;&gt;</font><br>
+<font color="#ff00ff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;action name=&quot;Execute&quot;&gt;</font><br>
+<font color="#ff00ff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;command&gt;%s&lt;/command&gt;</font><br>
+<font color="#ff00ff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/action&gt;</font><br>
+<font color="#ff00ff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/item&gt;</font><br>
+<font color="#ff00ff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font>&quot;&quot;&quot;&nbsp;% (entry.get_name(), entry.get_exec())<br>
+<br>
+<font color="#a52a2a"><b>print</b></font>&nbsp;&quot;<font color="#ff00ff">&lt;openbox_pipe_menu&gt;</font>&quot;<br>
+map(walk_menu, gmenu.lookup_tree('<font color="#ff00ff">applications.menu</font>').root.get_contents())<br>
+<font color="#a52a2a"><b>print</b></font>&nbsp;&quot;<font color="#ff00ff">&lt;/openbox_pipe_menu&gt;</font>&quot;<br>
+</font></body>
+</code></blockquote>
+</p>
+
+<p>
+<center>
+<img src="/img/fedora-pipe-menu.png" />
+</center>
+</p>
+
+<p>
+Patches/comments/suggestions/criticism welcome!  See the <a href="http://fedoraproject.org/wiki/LukeMacken/SecurityLiveCD">SecurityLiveCD</a> wiki for more details on how to spin your own and get involved.
+</p>
+</html>

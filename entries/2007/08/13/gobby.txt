@@ -1,0 +1,7 @@
+gobby
+#mdate Aug 14 00:25:00 2007
+#tags gobby,Fedora
+<p><div xmlns="http://www.w3.org/1999/xhtml"><p>
+<img src="http://lewk.org/img/gobby.png" align="right"/>
+So today I setup a <a href="http://gobby.0x539.de/trac/">Gobby</a> server for us Fedora hackers to play around with.  This will allow people to collaborate in real-time on code, notes, whatever.  With the <a href="http://fedoraproject.org/wiki/JefSpaleta/VirtualFudCon">VirtualFUDCon</a> this week, it may be a good place to collaborate on ideas and such.  To check it out, install '<code>gobby</code>', and connect to <code>publictest2.fedora.redhat.com</code>.  This is a test instance, so be sure to save everything that you expect to keep, and feel free to drop your comments/suggestions in the 'sobby notes' document.
+</p></div></p>

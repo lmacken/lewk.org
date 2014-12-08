@@ -1,0 +1,153 @@
+Wielding the ANU Quantum Random Number Generator
+#tags Python,Linux,random,science,code
+
+<p>
+<img src="http://qrng.anu.edu.au/Pictures/laser.png" align="right" width="250"/>
+
+Last week <a href="http://sciencedaily.com" target="_blank">Science Daily</a> published an article that caught my attention titled <a
+href="http://www.sciencedaily.com/releases/2012/04/120413161235.htm" target="_blank">'Sounds
+of Silence' Proving a Hit: World's Fastest Random Number Generator</a>.
+
+The tl;dr is that researchers at the <a
+    href="http://photonics.anu.edu.au/qoptics/index.php" target="_blank">ANU ARC Centre of
+    Excellence for Quantum Computation and Communication Technology</a> created
+a blazing fast random number generator based on quantum fluctuations in a
+vacuum.  Thankfully, these awesome scientists are <a
+    href="http://qrng.anu.edu.au" target="_blank">giving their data away for free</a>,
+and they even provide a <a href="https://qrng.anu.edu.au/API/api-demo.php" target="_blank">JSON
+    API</a>.
+</p>
+
+<p>
+In an effort to make it simple to leverage this data, I created a new project: <a
+href="http://j.mp/quantumrandom" target="_blank">quantumrandom</a>.
+It provides a <code>qrandom</code> command-line tool, a Python API, and
+also a <code>/dev/qrandom</code> Linux character device.
+</p>
+
+<h3>Installing</h3>
+<code><blockquote><pre>
+$ virtualenv env
+$ source env/bin/activate
+$ pip install quantumrandom
+</pre></blockquote></code>
+
+<h3>Using the command-line tool</h3>
+<code><blockquote><pre>
+$ qrandom --int --min 5 --max 15
+7
+$ qrandom --binary
+���I�%��e(�1��c��Ee�4�������j�Կ��=�^H�c�u
+oq��G��Z�^���fK�0_��h��s�b��AE=�rR~���(�^
++a�a̙�IB�,S�!ꀔd�2H~�X�Z����R��.f
+...
+$ qrandom --hex
+1dc59fde43b5045120453186d45653dd455bd8e6fc7d8c591f0018fa9261ab2835eb210e8
+e267cf35a54c02ce2a93b3ec448c4c7aa84fdedb61c7b0d87c9e7acf8e9fdadc8d68bcaa5a
+...
+</pre></blockquote></code>
+
+<h3>Creating /dev/qrandom</h3>
+
+<p>
+quantumrandom comes equipped with a multi-threaded character device in
+userspace. When read from, this device fires up a bunch of threads to fetch
+data. Not only can you utilize this as a rng, but you can also feed this data
+back into your system's entropy pool.
+</p>
+<p>
+In order to build it's dependencies, you'll need the following packages installed:
+<code>svn gcc-c++ fuse-devel gccxml libattr-devel</code>. On Fedora 17 and
+newer, you'll also need the <code>kernel-modules-extra</code> package installed
+for the <code>cuse</code> module.
+</p>
+
+<code><blockquote><pre>
+pip install ctypeslib hg+https://cusepy.googlecode.com/hg
+sudo modprobe cuse
+sudo chmod 666 /dev/cuse
+qrandom-dev -v
+sudo chmod 666 /dev/qrandom
+</pre></blockquote></code>
+
+By default it will use 3 threads, which can be changed by passing '<code>-t #</code>' into the <code>qrandom-dev</code>.
+
+<h3>Testing the randomness for <a href="https://en.wikipedia.org/wiki/FIPS_140-2" target="_blank">FIPS 140-2</a> compliance</h3>
+<code><blockquote><pre>
+$ cat /dev/qrandom | rngtest --blockcount=1000
+rngtest: bits received from input: 20000032
+rngtest: FIPS 140-2 successes: 1000
+rngtest: FIPS 140-2 failures: 0
+rngtest: FIPS 140-2(2001-10-10) Monobit: 0
+rngtest: FIPS 140-2(2001-10-10) Poker: 0
+rngtest: FIPS 140-2(2001-10-10) Runs: 0
+rngtest: FIPS 140-2(2001-10-10) Long run: 0
+rngtest: FIPS 140-2(2001-10-10) Continuous run: 0
+rngtest: input channel speed: (min=17.696; avg=386.711; max=4882812.500)Kibits/s
+rngtest: FIPS tests speed: (min=10.949; avg=94.538; max=161.640)Mibits/s
+rngtest: Program run time: 50708319 microseconds
+</pre></blockquote></code>
+
+<h3>Adding entropy to the Linux random number generator</h3>
+
+<code><blockquote><pre>
+sudo rngd --rng-device=/dev/qrandom --random-device=/dev/random --timeout=5 --foreground
+</pre></blockquote></code>
+
+<h3>Monitoring your available entropy levels</h3>
+<code><blockquote><pre>
+watch -n 1 cat /proc/sys/kernel/random/entropy_avail
+</pre></blockquote></code>
+
+<h3>Python API</h3>
+
+<p>
+The quantumrandom Python module contains a low-level <code>get_data</code>
+function, which is modelled after the ANU Quantum Random Number Generator's JSON
+API. It returns variable-length lists of either <code>uint16</code> or
+<code>hex16</code> data.
+<code><blockquote><pre>
+>>> quantumrandom.get_data(data_type='uint16', array_length=5)
+[42796, 32457, 9242, 11316, 21078]
+>>> quantumrandom.get_data(data_type='hex16', array_length=5, block_size=2)
+['f1d5', '0eb3', '1119', '7cfd', '64ce']
+</pre></blockquote></code>
+</p>
+
+<p>
+Based on this <code>get_data</code> function, quantumrandom also provides a
+bunch of higher-level helper functions that make easy to perform a variety of
+tasks.
+</p>
+
+<code><blockquote><pre>
+>>> quantumrandom.randint(0, 20)
+5
+>>> quantumrandom.hex()[:10]
+'8272613343'
+>>> quantumrandom.binary()[0]
+'\xa5'
+>>> len(quantumrandom.binary())
+10000
+>>> quantumrandom.uint16()
+numpy.array([24094, 13944, 22109, 22908, 34878, 33797, 47221, 21485, 37930, ...], dtype=numpy.uint16)
+>>> quantumrandom.uint16().data[:10]
+'\x87\x7fY.\xcc\xab\xea\r\x1c`'
+</pre></blockquote></code>
+
+<p>
+<center>
+<table>
+<tr>
+<td><img src="http://150.203.48.55/Pictures/PXI.jpg" width="250"/></td>
+<td><img src="http://qrng.anu.edu.au/Pictures/optics.jpg" width="250"/></td>
+</tr>
+</table>
+</center>
+</p>
+
+<p>
+<strong>Follow quantumrandom on GitHub: <a href="http://j.mp/quantumrandom" target="_blank">https://github.com/lmacken/quantumrandom</a></strong>
+</p>
+<script type="text/javascript"
+src="http://www.reddit.com/static/button/button1.js"></script>

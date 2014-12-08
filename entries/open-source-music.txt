@@ -1,0 +1,35 @@
+open source music
+#tags music,collaboration
+<p>
+I've played around with a good number of open music communities, and have had <i>by far</i> the most fun with <a href="http://www.splicemusic.com/">splice</a> music.  They have a huge sound library and a pretty amazing flash-based tool that lets you instantly pull in other peoples sounds.
+</p>
+<p>
+Within a week of uploading a handful of <a href="http://www.splicemusic.com/sounds/lewk/">sounds</a> that I had lying around, there have already been multiple people make remixes with my beats.  <a href="http://www.splicemusic.com/songs/juggaloX/why-dont-you-be-you/">DJ [DeadBeat]</a> recently took 3 of my beats that I made with my roomates <a href="http://lewk.org/blog/2007/06/16/micron">Micron</a> and mixed them together with some sick flows, entitled "KCentric's Hip Hop for Dummies".  It's a bit raw at the moment, but it definitely has potential to become something amazing.  I'll most likely be remixing it in the near future.
+</p>
+<p>
+You can listen to and remix the track below ;) (subwoofer recommended).
+</p>
+<p>
+<center>
+<div style="position:relative;left:0px;top:0px;width:320px;height:58px;background:#fff;font-family:Arial,Helvetica,sans-serif;color:#535353;font-weight:bold;border:2px solid #ededed"><form action="http://www.splicemusic.com/songs/juggaloX/why-dont-you-be-you/" method="post" style="margin:0px"><div style="position:absolute;left:2px;top:2px;width:208px;height:37px;overflow:hidden;background:#ededed;font-size:11px;line-height:13px"><div style="position:absolute;left:6px;top:1px;width:33px;height:34px"><embed type="application/x-shockwave-flash" src="http://media.splicemusic.com/swf/SpliceEmbeddablePlayer.swf" base="http://media.splicemusic.com/swf/" width="33" height="34" flashvars="id=36271&amp;type=song&amp;host=http://www.splicemusic.com&amp;autoplay=0" wmode="transparent" /></div><div style="position:absolute;left:44px;top:4px;width:164px;height:13px;overflow:hidden"><a href="http://www.splicemusic.com/songs/juggaloX/why-dont-you-be-you/" style="text-decoration:none"><span style="font-weight:bold;color:#d32956">DJ [DeadBeat] :Why Don't You Be You</span></a></div><div style="position:absolute;left:44px;top:17px;width:164px;height:13px;overflow:hidden">by <a href="http://www.splicemusic.com/people/juggaloX/" style="text-decoration:none"><span style="font-weight:bold;color:#348816">juggaloX</span></a></div></div><div style="position:absolute;left:216px;top:4px;font-size:10px">Played 37 times</div><div style="position:absolute;left:213px;top:18px;height:21px"><input type="submit" value="Remix this song" style="background:url(http://media.splicemusic.com/img/bg_button.gif) repeat-x left top;font-family:Trebuchet MS,Verdana,Arial,Helvetica,sans-serif;font-size:11px;font-weight:bold;color:#4f7b10;padding:0px 5px;margin:0px;width:100px;border:none;border-right:1px solid #79b622;border-bottom:1px solid #79b622;height:21px;text-transform:uppercase;cursor:pointer" /></div><div style="position:absolute;left:2px;top:42px;padding-left:8px;width:308px;height:14px;background:#ededed;font-size:10px">Made with the Splice online sequencer. <a href="http://www.splicemusic.com/" style="text-decoration:underline;color:#535353">splicemusic.com</a></div></bform></div>
+</center>
+</p>
+<br/>
+<p>
+Come to find out, <a href="http://www.kcentricity.com/">KCentric</a> is an extremely talented musician who has been transcending musical boundaries for years now.  From <a href="http://www.kcentricity.com">kcentricity.com</a>:
+<a href="http://kcentricity.com"><img align="right" src="/img/kcentricity.png" border="0" /></a>
+<blockquote><i><quote>
+<p>
+"Kawaski "KCentric" Nelson carves out a unique musical niche that fuses modern jazz, hip-hop, downbeat, and electronic instrumental styles of music.  As a native of Montgomery, Alabama he was raised on a healthy dose of blues, jazz, R&B, hip-hop, soul, and gospel music. 
+</p>
+<p>
+Since his earliest days, he has frequently sought alternatives to the musical mainstream. He continues to push his artistic boundaries through music and various other creative mediums including songwriting, media scoring, digital art, internet, television, video, and indie film projects.
+</p>
+<p>
+KCentric has been featured on Sirius Radio, various internet radio shows, and numerous podcasts around the world. He currently serves as a digital content creator and a electronic remixer/artist. 
+</p>
+</quote></i></blockquote>
+<center>
+</center>
+I definitely recommend checking some of his stuff out.
+</p>

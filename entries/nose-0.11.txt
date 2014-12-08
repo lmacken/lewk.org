@@ -1,0 +1,40 @@
+nose 0.11
+#mdate Sm
+#tags Python,code,bodhi,TurboGears,nose
+
+<p>
+I know nose 0.11 is <a href="http://groups.google.com/group/nose-announce/browse_thread/thread/7c031dad4f53509a">old news</a>, but I've only recently discovered it's new <a href="http://somethingaboutorange.com/mrl/projects/nose/0.11.1/doc_tests/test_multiprocess/multiprocess.html">multiprocess module</a>.
+</p>
+
+<p>
+<blockquote>
+<code>
+<pre>
+lmacken@tomservo ~/bodhi $ nosetests
+................................................................................................
+----------------------------------------------------------------------
+Ran 96 tests in 725.111s
+
+OK
+
+lmacken@tomservo ~/bodhi $ nosetests --processes=50
+................................................................................................
+----------------------------------------------------------------------
+Ran 96 tests in 10.915s
+
+OK
+</pre>
+</code>
+</blockquote>
+</p>
+
+<p>
+Nose 0.11 is already in rawhide, and will soon be in <a
+href="https://admin.fedoraproject.org/updates/python-nose-0.11.1-1.fc12">updates-testing</a>.
+</p>
+
+<p>
+<i>Note to self (and others): Buy the nose developers beer at PyCon next
+month</i>
+</p>
+

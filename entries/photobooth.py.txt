@@ -1,0 +1,208 @@
+Fedora Photobooth @ SXSW
+#tags Fedora,code,Python,SXSW
+<center><img src="http://lewk.org/img/photobooth1.jpg" align="right"/></center>
+<p>
+    This is the first year that Fedora will have a booth at <a href="http://www.sxsw.com">SXSW</a>! Sadly, I am not going to be attending since it conflicts with <a href="http://us.pycon.org">PyCon</a>.  However,
+my code will be running at our booth. Usually the Fedora booth at conferences is comprised of a bunch of flyers, media, swag, and some people to help answer questions and tell the Fedora story. However at SXSW, things are going to be a little different.
+</p>
+<p>
+Aside from the <a href="http://mairin.wordpress.com/2011/03/11/flyers-about-free-open-source-software-for-sxsw-creatives/">amazing flyers</a> that Máirín created, there will also be a <a href="http://fedoraproject.org/wiki/SXSW_2011#Photobooth">Fedora Photobooth</a>. Someone (probably Spot or Jared) will be dressed in a full Tux costume, and people can come and get their photo taken with them.  Spot came to me the other day and asked if I could write some code to streamline the whole process.
+</p>
+<p>
+An hour or so later, photobooth.py was born. There are definitely lots of improvements that can be made, but here is what it currently does in its initial incarnation:
+</p>
+<ul>
+	<li>Uses gphoto2 to automatically detect your camera</li>
+	<li>When Enter is pressed, it snaps a photo and downloads it locally</li>
+	<li>A Fedora watermark is applied to the bottom right corner of the image</li>
+	<li>The photo is uploaded to a server</li>
+	<li>A QRCode is generated that points to the image URL</li>
+	<li>A TinyURL is generated for the image</li>
+	<li>HTML is generated that shows the image, the QRCode, and TinyURL</li>
+	<li>The page is then displayed in the web browser</li>
+</ul>
+<b>In Action</b>
+<br/>
+See Mo's blog for photos of this code in action at the Fedora SXSW booth!
+<blockquote>
+* <a href="http://mairin.wordpress.com/2011/03/14/sxsw-expo-day-1-from-the-show-floor/">SXSW Expo Day 1 from the show floor</a><br/>
+* <a href="http://mairin.wordpress.com/2011/03/15/sxsw-expo-day-2/">SXSW Expo Day 2</a><br/>
+* <a href="http://mairin.wordpress.com/2011/03/16/a-beefy-miraculous-day-at-sxsw-expo-day-3/">A Beefy, Miraculous Day at SXSW (Expo Day 3)</a><br/>
+</blockquote>
+
+<br/>
+<center><img src="http://lewk.org/img/photobooth0.jpg"/></center>
+<br/>
+
+<b>The Code</b>
+
+<br/>
+I threw this in a git repo and tossed it up on GitHub:
+
+<blockquote>
+	<a href="http://github.com/lmacken/photobooth.py">github.com/lmacken/photobooth.py</a>
+</blockquote>
+<blockquote>
+
+<style type="text/css">
+<!--
+/*pre { font-family: monospace; color: #657b83; background-color: #fdf6e3; }*/
+pre { font-family: monospace; color: #657b83;}
+.Special { color: #dc322f; }
+.Type { color: #b58900; }
+.Statement { color: #719e07; }
+.Identifier { color: #268bd2; }
+.Constant { color: #2aa198; }
+.PreProc { color: #cb4b16; }
+.Comment { color: #93a1a1; font-style: italic; }
+-->
+</style>
+</head>
+<body>
+<pre>
+<span class="Comment">#!/usr/bin/python</span>
+<span class="Comment"># photobooth.py - version 0.3</span>
+<span class="Comment"># Requires: python-imaging, qrencode, gphoto2, surl</span>
+<span class="Comment"># Author: Luke Macken &lt;lmacken@redhat.com&gt;</span>
+<span class="Comment"># License: GPLv3</span>
+
+<span class="PreProc">import</span> os
+<span class="PreProc">import</span> surl
+<span class="PreProc">import</span> Image
+<span class="PreProc">import</span> subprocess
+
+<span class="PreProc">from</span> uuid <span class="PreProc">import</span> uuid4
+<span class="PreProc">from</span> os.path <span class="PreProc">import</span> join, basename, expanduser
+
+<span class="Comment"># Where to spit out our qrcode, watermarked image, and local html</span>
+out = expanduser(<span class="Constant">'~/Desktop/sxsw'</span>)
+
+<span class="Comment"># The watermark to apply to all images</span>
+watermark_img = expanduser(<span class="Constant">'~/Desktop/fedora.png'</span>)
+
+<span class="Comment"># This assumes ssh-agent is running so we can do password-less scp</span>
+ssh_image_repo = <span class="Constant">'fedorapeople.org:~/public_html/sxsw/'</span>
+
+<span class="Comment"># The public HTTP repository for uploaded images</span>
+http_image_repo = <span class="Constant">'<a href="http://lmacken.fedorapeople.org/sxsw/">http://lmacken.fedorapeople.org/sxsw/</a>'</span>
+
+<span class="Comment"># Size of the qrcode pixels</span>
+qrcode_size = <span class="Constant">10</span>
+
+<span class="Comment"># Whether or not to delete the photo after uploading it to the remote server</span>
+delete_after_upload = <span class="Identifier">True</span>
+
+<span class="Comment"># The camera configuration</span>
+<span class="Comment"># Use gphoto2 --list-config and --get-config for more information</span>
+gphoto_config = {
+    <span class="Constant">'/main/imgsettings/imagesize'</span>: <span class="Constant">3</span>, <span class="Comment"># small</span>
+    <span class="Constant">'/main/imgsettings/imagequality'</span>: <span class="Constant">0</span>, <span class="Comment"># normal</span>
+    <span class="Constant">'/main/capturesettings/zoom'</span>: <span class="Constant">70</span>, <span class="Comment"># zoom factor</span>
+}
+
+<span class="Comment"># The URL shortener to use</span>
+shortener = <span class="Constant">'tinyurl.com'</span>
+
+<span class="Statement">class</span> <span class="Identifier">PhotoBooth</span>(<span class="Identifier">object</span>):
+
+    <span class="Statement">def</span> <span class="Identifier">initialize</span>(self):
+        <span class="Constant">&quot;&quot;&quot; Detect the camera and set the various settings &quot;&quot;&quot;</span>
+        cfg = [<span class="Constant">'--set-config=%s=%s'</span> % (k, v) <span class="Statement">for</span> k, v <span class="Statement">in</span> gphoto_config.items()]
+        subprocess.call(<span class="Constant">'gphoto2 --auto-detect '</span> +
+                        <span class="Constant">' '</span>.join(cfg), shell=<span class="Identifier">True</span>)
+
+    <span class="Statement">def</span> <span class="Identifier">capture_photo</span>(self):
+        <span class="Constant">&quot;&quot;&quot; Capture a photo and download it from the camera &quot;&quot;&quot;</span>
+        filename = join(out, <span class="Constant">'%s.jpg'</span> % <span class="Identifier">str</span>(uuid4()))
+        cfg = [<span class="Constant">'--set-config=%s=%s'</span> % (k, v) <span class="Statement">for</span> k, v <span class="Statement">in</span> gphoto_config.items()]
+        subprocess.call(<span class="Constant">'gphoto2 '</span> +
+                        <span class="Constant">'--capture-image-and-download '</span> +
+                        <span class="Constant">'--filename=&quot;%s&quot; '</span> % filename,
+                        shell=<span class="Identifier">True</span>)
+        <span class="Statement">return</span> filename
+
+    <span class="Statement">def</span> <span class="Identifier">process_image</span>(self, filename):
+        <span class="Statement">print</span> <span class="Constant">&quot;Processing %s...&quot;</span> % filename
+        <span class="Statement">print</span> <span class="Constant">&quot;Applying watermark...&quot;</span>
+        image = self.watermark(filename)
+        <span class="Statement">print</span> <span class="Constant">&quot;Uploading to remote server...&quot;</span>
+        url = self.upload(image)
+        <span class="Statement">print</span> <span class="Constant">&quot;Generating QRCode...&quot;</span>
+        qrcode = self.qrencode(url)
+        <span class="Statement">print</span> <span class="Constant">&quot;Shortening URL...&quot;</span>
+        tiny = self.shorten(url)
+        <span class="Statement">print</span> <span class="Constant">&quot;Generating HTML...&quot;</span>
+        html = self.html_output(url, qrcode, tiny)
+        subprocess.call(<span class="Constant">'firefox &quot;%s&quot;'</span> % html, shell=<span class="Identifier">True</span>)
+        <span class="Statement">print</span> <span class="Constant">&quot;Done!&quot;</span>
+
+    <span class="Statement">def</span> <span class="Identifier">watermark</span>(self, image):
+        <span class="Constant">&quot;&quot;&quot; Apply a watermark to an image &quot;&quot;&quot;</span>
+        mark = Image.<span class="Identifier">open</span>(watermark_img)
+        im = Image.<span class="Identifier">open</span>(image)
+        <span class="Statement">if</span> im.mode != <span class="Constant">'RGBA'</span>:
+            im = im.convert(<span class="Constant">'RGBA'</span>)
+        layer = Image.new(<span class="Constant">'RGBA'</span>, im.size, (<span class="Constant">0</span>,<span class="Constant">0</span>,<span class="Constant">0</span>,<span class="Constant">0</span>))
+        position = (im.size[<span class="Constant">0</span>] - mark.size[<span class="Constant">0</span>], im.size[<span class="Constant">1</span>] - mark.size[<span class="Constant">1</span>])
+        layer.paste(mark, position)
+        outfile = join(out, basename(image))
+        Image.composite(layer, im, layer).save(outfile)
+        <span class="Statement">return</span> outfile
+
+    <span class="Statement">def</span> <span class="Identifier">upload</span>(self, image):
+        <span class="Constant">&quot;&quot;&quot; Upload this image to a remote server &quot;&quot;&quot;</span>
+        subprocess.call(<span class="Constant">'scp &quot;%s&quot; %s'</span> % (image, ssh_image_repo), shell=<span class="Identifier">True</span>)
+        <span class="Statement">if</span> delete_after_upload:
+            os.unlink(image)
+        <span class="Statement">return</span> http_image_repo + basename(image)
+
+    <span class="Statement">def</span> <span class="Identifier">qrencode</span>(self, url):
+        <span class="Constant">&quot;&quot;&quot; Generate a QRCode for a given URL &quot;&quot;&quot;</span>
+        qrcode = join(out, <span class="Constant">'qrcode.png'</span>)
+        subprocess.call(<span class="Constant">'qrencode -s %d -o &quot;%s&quot; %s'</span> % (
+            qrcode_size, qrcode, url), shell=<span class="Identifier">True</span>)
+        <span class="Statement">return</span> qrcode
+
+    <span class="Statement">def</span> <span class="Identifier">shorten</span>(self, url):
+        <span class="Constant">&quot;&quot;&quot; Generate a shortened URL &quot;&quot;&quot;</span>
+        <span class="Statement">return</span> surl.services.supportedServices()[shortener].get({}, url)
+
+    <span class="Statement">def</span> <span class="Identifier">html_output</span>(self, image, qrcode, tinyurl):
+        <span class="Constant">&quot;&quot;&quot; Output HTML with the image, qrcode, and tinyurl &quot;&quot;&quot;</span>
+        html = <span class="Constant">&quot;&quot;&quot;</span>
+<span class="Constant">            &lt;html&gt;</span>
+<span class="Constant">              &lt;center&gt;</span>
+<span class="Constant">                &lt;table&gt;</span>
+<span class="Constant">                  &lt;tr&gt;</span>
+<span class="Constant">                    &lt;td colspan=&quot;2&quot;&gt;</span>
+<span class="Constant">                        &lt;b&gt;&lt;a href=&quot;%(tinyurl)s&quot;&gt;%(tinyurl)s&lt;/a&gt;&lt;/b&gt;</span>
+<span class="Constant">                    &lt;/td&gt;</span>
+<span class="Constant">                  &lt;/tr&gt;</span>
+<span class="Constant">                  &lt;tr&gt;</span>
+<span class="Constant">                    &lt;td&gt;&lt;img src=&quot;%(image)s&quot; border=&quot;0&quot;/&gt;&lt;/td&gt;</span>
+<span class="Constant">                    &lt;td&gt;&lt;img src=&quot;%(qrcode)s&quot; border=&quot;0&quot;/&gt;&lt;/td&gt;</span>
+<span class="Constant">                  &lt;/tr&gt;</span>
+<span class="Constant">                &lt;/table&gt;</span>
+<span class="Constant">              &lt;/center&gt;</span>
+<span class="Constant">          &lt;/html&gt;</span>
+<span class="Constant">        &quot;&quot;&quot;</span> % {<span class="Constant">'image'</span>: image, <span class="Constant">'qrcode'</span>: qrcode, <span class="Constant">'tinyurl'</span>: tinyurl}
+        outfile = join(out, basename(image) + <span class="Constant">'.html'</span>)
+        output = <span class="Identifier">file</span>(outfile, <span class="Constant">'w'</span>)
+        output.write(html)
+        output.close()
+        <span class="Statement">return</span> outfile
+
+<span class="Statement">if</span> __name__ == <span class="Constant">&quot;__main__&quot;</span>:
+    photobooth = PhotoBooth()
+    <span class="Statement">try</span>:
+        photobooth.initialize()
+        <span class="Statement">while</span> <span class="Identifier">True</span>:
+            <span class="Identifier">raw_input</span>(<span class="Constant">&quot;Press enter to capture photo.&quot;</span>)
+            filename = photobooth.capture_photo()
+            photobooth.process_image(filename)
+    <span class="Statement">except</span> <span class="Type">KeyboardInterrupt</span>:
+        <span class="Statement">print</span> <span class="Constant">&quot;</span><span class="Special">\n</span><span class="Constant">Exiting...&quot;</span>
+</pre>
+
+
+</blockquote>

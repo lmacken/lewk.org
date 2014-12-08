@@ -1,0 +1,11 @@
+&lt;/college&gt;&lt;real world&gt;
+#tags life,Fedora,Red Hat
+<p>
+After a 2+ year long internship, I have accepted a full-time job offer with <a href="http://redhat.com">Red Hat, Inc.</a>  As far as I know, I'll be mainly working on the <a href="http://fedoraproject.org">Fedora Project</a> -- and since Fedora encompasses and innovates the open-source world, the opportunities are pretty limitless.
+</p>
+<p>
+I'm extremely grateful to be able to work with an incredible community, and an amazing company full of brilliant minds.  I look forward to helping open source take over the world.
+</p>
+<p>
+Also, thanks to whoever filled my cube with Fedora 6 ppc DVDs, and various half-empty packs of gum.  Much appreciated ;)
+</p>

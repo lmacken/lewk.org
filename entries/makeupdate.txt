@@ -1,0 +1,50 @@
+make update
+#mdate Sm
+#tags Fedora,bodhi
+<p>
+I updated Fedora's Makefile.common to support an 'update' target, which has now been comitted.  This gives developers the ability to push an update into <a href="http://hosted.fedoraproject.org/projects/bodhi">bodhi</a> with a single command.
+</p>
+<p>
+Once your package has been built, jump into your branch and do the following:
+<blockquote><code>
+[lmacken@tomservo F-8]$ make update
+</code></blockquote>
+This will drop you into a template where you can specify various fields.  Any bug numbers mentioned in the most recent RPM ChangeLog will be pre-populated as well.
+<blockquote><code><pre>
+# [ nethack-3.4.3-15.fc8 ]
+# type=[S|B|E] (S=security, B=bugfix, E=enhancement) (required)
+# request=[T|S] (T=testing, S=stable) (default: testing)
+# bug=123,456
+# all other text will be considered to be part of the update notes
+type=B
+bug=221948,221692
+</pre> </code></blockquote>
+</p>
+
+<p>
+Make and save your changes, and then your update will be submitted to bodhi.
+
+<blockquote><code><pre>
+Creating new update for nethack-3.4.3-15.fc8
+Update successfully created
+
+================================================================================
+     nethack-3.4.3-15.fc8
+================================================================================
+    Release: Fedora 8
+     Status: pending
+       Type: bugfix
+      Karma: 0
+    Request: testing
+       Bugs: 221948 - nethack-recover looks in the wrong directory
+           : 221692 - Nethack font warning
+  Submitter: lmacken
+  Submitted: 2007-11-20 14:25:55
+
+  http://admin.fedoraproject.org/updates/F8/pending/nethack-3.4.3-15.fc8
+
+</pre></code></blockquote>
+</p>
+<p>
+See the <a href="http://fedoraproject.org/wiki/PackageMaintainers/UpdatingPackageHowTo">UpdatingPackageHowTo</a> for more information on updating your packages.  You can find more details on the bodhi console client <a href="https://hosted.fedoraproject.org/projects/bodhi/wiki/CLI">here</a>.
+</p>

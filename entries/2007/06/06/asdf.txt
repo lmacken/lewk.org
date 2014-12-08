@@ -1,0 +1,19 @@
+;kj34'roiqw[egf9ua[0dsoifhq.l32hraskjfq3;yrpa0uf;lkjq23r
+#mdate Jun  6 04:15:26 2007
+#tags RIT,life,boston
+<p><div xmlns="http://www.w3.org/1999/xhtml"><p>
+So, long story short, last week I:
+
+    </p><ul><li>"Graduated" from <a href="http://rit.edu">RIT</a> with a BS in Computer Science and a minor in Philosophy</li>
+        <li>Moved into a house in downtown ROC</li>
+        <li>Deployed <a href="https://hosted.fedoraproject.org/projects/bodhi">bodhi</a>, the new <a href="https://admin.fedoraproject.org/updates">Fedora Update System</a> that is used to push out updates for Fedora 7.  More details on that when I come up for air.</li>
+    </ul>
+
+This week I will,
+
+    <ul><li>Start summer classes.. my last quarter @ RIT.  Taking AI and ancient philosophy, along with a couple of online classes.</li>
+        <li>Slay bitches with Python.</li>
+        <li>Rock the fuck out.</li>
+        <li>Unpack.</li>
+        <li><s>Sleep.</s></li>
+    </ul></div></p>

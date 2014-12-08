@@ -1,0 +1,15 @@
+Another day, another business
+#mdate Sm
+#tags hackery,web,business
+<p>
+Last night my girlfriend and I threw together a little web site for our old roomate, Joe.  Not only is Joe a brilliant high-voltage engineer, who plays with plasma in his free time, he also fabricates custom scope mounts for old <a href="http://en.wikipedia.org/wiki/Mosin_nagant">Mosin Nagant</a> sniper rifles.  If you're interested in that sort of thing, then feel free to check it out.  I'll be throwing up some CAD diagrams and better photos of the mount in near future.
+
+<blockquote>
+<center><a href="http://advancedrifleparts.com"><img src="/advancedgunparts.png" /></a>
+<br/>
+<a href="http://advancedrifleparts.com">AdvancedRifleParts.com</a>
+</center>
+</blockquote>
+
+Over the summer, Joe took me out to the range and I got a chance to fire the Mosin pictured on the web site.   Good times.  
+</p>

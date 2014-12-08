@@ -1,0 +1,323 @@
+Fedora Updates Report
+#mdate Sm
+#tags Fedora,bodhi,code,metrics
+<p>
+<img src="https://admin.fedoraproject.org/updates/static/images/bodhi-icon-48.png" align="right"/>
+I recently wrote some code to generate detailed statistics of Fedora & EPEL
+updates within <a href="https://fedorahosted.org/bodhi">bodhi</a>.  Eventually
+this will be auto-generated and exposed within bodhi itself, but for now here are the initial metrics.
+</p>
+<p>
+This report definitely conveys the shortcomings in how we currently utilize
+bodhi for "testing" updates, however, it does show us
+improving with each release.  For Fedora 13, we implemented the <a
+    href="http://fedoraproject.org/wiki/No_Frozen_Rawhide_Proposal">No Frozen
+    Rawhide</a> process with improved <a
+    href="http://fedoraproject.org/wiki/Critical_Path_Packages_Proposal">Critical
+    Path</a> policies, which were definitely a success.  With these enhanced procedures, along with the upcoming implementation of <a href="https://fedorahosted.org/autoqa/">AutoQA</a> and the new <a
+    href="https://fedoraproject.org/wiki/Package_update_acceptance_criteria">Package
+    update acceptance criteria</a>, I think we'll see these numbers drastically improve in the future.
+</p>
+<p>
+You can find the code that generates these statistics here: <a href="https://fedorahosted.org/bodhi/browser/bodhi/tools/metrics.py">metrics.py</a>, <a href="https://fedorahosted.org/bodhi/browser/bodhi/tools/log_stats.py">log_stats.py</a>.  If you have any ideas or suggestions for different types of metrics to generate, or if you find any bugs in my code, please let me know.
+</p>
+<p>
+<blockquote>
+<code>
+<pre>
+Bodhi Statistics Report (Generated on June 8th, 2010)
+=====================================================
+
+Out of 17412 total updates, 2958 received feedback (16.99%)
+Out of 1045 total unique karma submitters, the top 30 are:
+ * notting (424)
+ * mclasen (366)
+ * jkeating (321)
+ * adamwill (283)
+ * cwickert (161)
+ * rdieter (159)
+ * pbrobinson (141)
+ * kevin (141)
+ * cweyl (122)
+ * tomspur (119)
+ * mtasaka (110)
+ * xake (97)
+ * cschwangler (86)
+ * kwright (84)
+ * peter (83)
+ * hadess (80)
+ * michich (72)
+ * tagoh (69)
+ * pfrields (69)
+ * bpepple (69)
+ * iarnell (68)
+ * lkundrak (66)
+ * shinobi (65)
+ * sundaram (64)
+ * spot (62)
+ * pravins (62)
+ * markmc (62)
+ * thomasj (61)
+ * smooge (60)
+ * fab (59)
+
+================================================================================
+     Fedora 13
+================================================================================
+
+ * 3562 updates
+ * 3065 stable updates
+ * 427 testing updates
+ * 62 pending updates
+ * 8 obsolete updates
+ * 2371 bugfix updates (66.56%)
+ * 745 enhancement updates (20.92%)
+ * 89 security updates (2.50%)
+ * 357 newpackage updates (10.02%)
+ * 410 critical path updates (11.51%)
+ * 333 critical path updates approved
+ * 1155 updates received feedback (32.43%)
+ * 12120 +0 comments
+ * 2477 +1 comments
+ * 155 -1 comments
+ * 595 unique authenticated karma submitters
+ * 133 anonymous users gave feedback (1.57%)
+ * 2261 out of 3562 updates went through testing (63.48%)
+ * 1317 testing updates were pushed *without* karma (58.25%)
+ * 21 critical path updates pushed *without* karma
+ * Time spent in testing:
+   * mean = 11 days
+   * median = 9 days
+   * mode = 7 days
+ * 4 updates automatically unpushed due to karma (0.11%)
+   * 0 of which were critical path updates
+ * 231 updates automatically pushed due to karma (6.49%)
+   * 2 of which were critical path updates
+ * Time spent in testing of updates that were pushed by karma:
+   * mean = 11 days
+   * median = 7 days
+   * mode = 7 days
+ * Time spent in testing of updates that were unpushed by karma:
+   * mean = 9 days
+   * median = 5 days
+   * mode = 5 days
+ * 2445 packages updated (top 10 shown)
+    * selinux-policy: 13
+    * jd: 12
+    * openoffice.org: 12
+    * gdb: 12
+    * ibus-pinyin: 11
+    * nautilus: 10
+    * kernel: 10
+    * evolution: 9
+    * libfm: 9
+    * libmx: 9
+
+================================================================================
+     Fedora 12
+================================================================================
+
+ * 4844 updates
+ * 4291 stable updates
+ * 371 testing updates
+ * 113 pending updates
+ * 69 obsolete updates
+ * 2905 bugfix updates (59.97%)
+ * 1054 enhancement updates (21.76%)
+ * 201 security updates (4.15%)
+ * 684 newpackage updates (14.12%)
+ * 407 critical path updates (8.40%)
+ * 960 updates received feedback (19.82%)
+ * 16311 +0 comments
+ * 1899 +1 comments
+ * 554 -1 comments
+ * 758 unique authenticated karma submitters
+ * 576 anonymous users gave feedback (5.33%)
+ * 2873 out of 4844 updates went through testing (59.31%)
+ * 2138 testing updates were pushed *without* karma (74.42%)
+ * 188 critical path updates pushed *without* karma
+ * Time spent in testing:
+   * mean = 14 days
+   * median = 13 days
+   * mode = 17 days
+ * 12 updates automatically unpushed due to karma (0.25%)
+   * 4 of which were critical path updates
+ * 133 updates automatically pushed due to karma (2.75%)
+   * 13 of which were critical path updates
+ * Time spent in testing of updates that were pushed by karma:
+   * mean = 11 days
+   * median = 7 days
+   * mode = 7 days
+ * Time spent in testing of updates that were unpushed by karma:
+   * mean = 9 days
+   * median = 5 days
+   * mode = 5 days
+ * 2902 packages updated (top 10 shown)
+    * qbittorrent: 25
+    * gdb: 25
+    * selinux-policy: 22
+    * kernel: 15
+    * xorg-x11-server: 14
+    * ibus: 13
+    * jd: 13
+    * abrt: 11
+    * gvfs: 11
+    * gtk2: 11
+
+================================================================================
+     Fedora 11
+================================================================================
+
+ * 6987 updates
+ * 6381 stable updates
+ * 183 testing updates
+ * 99 pending updates
+ * 324 obsolete updates
+ * 3649 bugfix updates (52.23%)
+ * 1566 enhancement updates (22.41%)
+ * 350 security updates (5.01%)
+ * 1422 newpackage updates (20.35%)
+ * 383 critical path updates (5.48%)
+ * 729 updates received feedback (10.43%)
+ * 23427 +0 comments
+ * 1197 +1 comments
+ * 448 -1 comments
+ * 782 unique authenticated karma submitters
+ * 481 anonymous users gave feedback (3.58%)
+ * 4129 out of 6987 updates went through testing (59.10%)
+ * 3620 testing updates were pushed *without* karma (87.67%)
+ * 278 critical path updates pushed *without* karma
+ * Time spent in testing:
+   * mean = 15 days
+   * median = 14 days
+   * mode = 17 days
+ * 7 updates automatically unpushed due to karma (0.10%)
+   * 0 of which were critical path updates
+ * 64 updates automatically pushed due to karma (0.92%)
+   * 11 of which were critical path updates
+ * Time spent in testing of updates that were pushed by karma:
+   * mean = 11 days
+   * median = 7 days
+   * mode = 7 days
+ * Time spent in testing of updates that were unpushed by karma:
+   * mean = 9 days
+   * median = 5 days
+   * mode = 5 days
+ * 3787 packages updated (top 10 shown)
+    * libguestfs: 30
+    * jd: 24
+    * selinux-policy: 23
+    * kdebase-workspace: 19
+    * kernel: 18
+    * gdb: 16
+    * dovecot: 16
+    * qemu: 16
+    * kdebase-runtime: 16
+    * kdenetwork: 16
+
+================================================================================
+     Fedora EPEL 5
+================================================================================
+
+ * 1572 updates
+ * 1255 stable updates
+ * 198 testing updates
+ * 43 pending updates
+ * 76 obsolete updates
+ * 734 bugfix updates (46.69%)
+ * 236 enhancement updates (15.01%)
+ * 93 security updates (5.92%)
+ * 509 newpackage updates (32.38%)
+ * 20 critical path updates (1.27%)
+ * 103 updates received feedback (6.55%)
+ * 6076 +0 comments
+ * 156 +1 comments
+ * 19 -1 comments
+ * 243 unique authenticated karma submitters
+ * 41 anonymous users gave feedback (1.22%)
+ * 1176 out of 1572 updates went through testing (74.81%)
+ * 1092 testing updates were pushed *without* karma (92.86%)
+ * 19 critical path updates pushed *without* karma
+ * Time spent in testing:
+   * mean = 24 days
+   * median = 18 days
+   * mode = 16 days
+ * 0 updates automatically unpushed due to karma (0.00%)
+   * 0 of which were critical path updates
+ * 10 updates automatically pushed due to karma (0.64%)
+   * 0 of which were critical path updates
+ * Time spent in testing of updates that were pushed by karma:
+   * mean = 11 days
+   * median = 7 days
+   * mode = 7 days
+ * Time spent in testing of updates that were unpushed by karma:
+   * mean = 9 days
+   * median = 5 days
+   * mode = 5 days
+ * 1060 packages updated (top 10 shown)
+    * libguestfs: 26
+    * znc: 10
+    * vrq: 8
+    * cherokee: 8
+    * 389-ds-base: 8
+    * viewvc: 8
+    * 389-admin: 7
+    * pki-ca: 7
+    * wordpress-mu: 7
+    * Django: 7
+
+================================================================================
+     Fedora EPEL 4
+================================================================================
+
+ * 447 updates
+ * 359 stable updates
+ * 40 testing updates
+ * 11 pending updates
+ * 37 obsolete updates
+ * 222 bugfix updates (49.66%)
+ * 68 enhancement updates (15.21%)
+ * 40 security updates (8.95%)
+ * 117 newpackage updates (26.17%)
+ * 5 critical path updates (1.12%)
+ * 11 updates received feedback (2.46%)
+ * 1592 +0 comments
+ * 11 +1 comments
+ * 2 -1 comments
+ * 85 unique authenticated karma submitters
+ * 2 anonymous users gave feedback (0.24%)
+ * 320 out of 447 updates went through testing (71.59%)
+ * 311 testing updates were pushed *without* karma (97.19%)
+ * 5 critical path updates pushed *without* karma
+ * Time spent in testing:
+   * mean = 18 days
+   * median = 16 days
+   * mode = 16 days
+ * 0 updates automatically unpushed due to karma (0.00%)
+   * 0 of which were critical path updates
+ * 1 updates automatically pushed due to karma (0.22%)
+   * 0 of which were critical path updates
+ * Time spent in testing of updates that were pushed by karma:
+   * mean = 11 days
+   * median = 7 days
+   * mode = 7 days
+ * Time spent in testing of updates that were unpushed by karma:
+   * mean = 9 days
+   * median = 5 days
+   * mode = 5 days
+ * 313 packages updated (top 10 shown)
+    * cherokee: 8
+    * globus-common: 7
+    * R: 6
+    * voms: 6
+    * globus-gsi-proxy-ssl: 5
+    * globus-openssl-module: 5
+    * globus-gsi-proxy-core: 5
+    * bitlbee: 5
+    * flashrom: 5
+    * viewvc: 5
+</blockquote>
+</code>
+</pre>
+
+</p>

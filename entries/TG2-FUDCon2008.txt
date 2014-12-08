@@ -1,0 +1,51 @@
+TurboGears2 slides & code from FUDCon 2008 Boston
+#mdate Sm
+#tags Fedora, TurboGears, FUDCon, code, presentations
+<p>
+I posted my TurboGears2 slides from FUDCon 2008 Boston <a
+href="http://lewk.org/tg2.pdf">here</a>.  Since I gave a TurboGears1 talk at
+the previous FUDCon (slides <a href="http://tg.lewk.org">here</a>), I based
+this recent talk on the assumption that people already understand some of the
+basic concepts of TG1.  During the session I covered a wide range of technologies, including <a
+href="http://wsgi.org">WSGI</a>, <a href="http://pylonshq.org">Pylons</a>, <a
+href="http://toscawidgets.org">ToscaWidgets</a>, <a
+href="http://pythonpaste.org">Paste</a>, <a
+href="http://sqlalchemy.org">SQLAlchemy</a>, <a
+href="http://sqlobject.org">SQLObject</a>, <a
+href="http://kid-templating.org">Kid</a>, <a
+href="http://genshi.edgewall.org">Genshi</a>, <a
+href="http://wiki.pylonshq.com/display/beaker">Beaker</a>, <a
+href="http://code.google.com/p/dbsprockets">DBSprockets</a>, <a
+href="http://code.google.com/p/dbsprockets/wiki/DBMechanic">DBMechanic</a>, <a
+href="http://jquery.com">jQuery</a>, <a
+href="http://en.wikipedia.org/wiki/Comet_(programming)">Comet</a>, <a
+href="http://orbited.org">Orbited</a>, etc.
+</p>
+<p>
+So, for this presentation I wanted to start a new application from scratch to
+use as an example.  Turns out, I ended up implementing something similar to <a
+href="http://brainstorm.ubuntu.com">brainstorm.ubuntu.com</a> -- but better.  Not
+only does it allow you to share, rank, and collaborate on ideas, but you can
+also ask, answer, and rate questions as well.  The thing that makes this
+application really stand out is that once you land on the page, the widgets
+update themselves in *real-time*.  To accomplish this, I created a bunch of
+ToscaWidgets, which are re-usable bundles of xhtml+css+javascript that I can
+easily use all over my application.  When the widgets are rendered in the clients
+browser, they open a persistent comet connection back to our Orbited server.
+From here, our TurboGears application sends events to Orbited as they happen,
+which then get sent asynchronously back to our clients where jQuery handles
+rendering the results.
+</p>
+<p>
+For more details about this app, including screenshots and code
+snippets, take a look at <a href="http://lewk.org/tg2.pdf">my slides</a>.  You can also grab the code
+and dive in (note: you'll need to setup TG2 in a virtualenv (<a href="http://turbogears.org/2.0/docs/main/DownloadInstall.html">instructions</a>) until the stack makes its way into Fedora): 
+<blockquote><code>git clone
+git://fedorapeople.org/~lmacken/manas</code></blockquote>
+</p>
+<p>
+Now, this app is merely a prototype that I started writing as an example for
+teaching TG2.  As it turns out, this project could potentially be extremely
+useful, and I've received a lot of positive feedback around it.  However, there
+is still a little bit of work to do before it is deployable.  If you're interested in helping out, please <a href="mailto:lmacken@fedoraproject.org">drop me a line</a>.
+</p>

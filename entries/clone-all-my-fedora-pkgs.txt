@@ -1,0 +1,13 @@
+git clone all of your Fedora packages
+#tags Fedora,Python,code
+<p>
+After doing a fresh <a href="http://fedoraproject.org">Fedora 15</a> install on
+my laptop last night, I wanted to quickly clone all of the packages that I
+maintain. Here is a single command that does the job:
+</p>
+
+<code>
+<blockquote>
+python -c "import pyfedpkg; from fedora.client.pkgdb import PackageDB; [pyfedpkg.clone(pkg['name'], '$USER') for pkg in PackageDB().user_packages('$USER')['pkgs']]"
+</blockquote>
+</code>

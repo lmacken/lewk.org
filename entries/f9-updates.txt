@@ -1,0 +1,30 @@
+Fedora 9 Updates Metrics
+#mdate Sm
+#tags Fedora,metrics,benchmarks
+<p>
+<center>
+<b>Fedora 9 Updates</b>
+<br/>
+<img src="/img/f9-updates.png" />
+<br/><br/>
+<b>Most updated packages</b>
+<br>
+<img src="/img/f9-most-updated.png" />
+<br/><br/>
+<b>Packages with the best karma</b>
+<br>
+<img src="/img/f9-best-karma.png" />
+<br/><br/>
+<b>Most updates per developer</b>
+<br>
+<img src="/img/f9-most-active-devs.png" />
+<br/><br/>
+<b>Most tested packages</b>
+<br>
+<img src="/img/f9-most-tested.png" />
+<br/><br/>
+<b>Top testers</b>
+<br>
+<img src="/img/f9-top-testers.png" />
+</center>
+</p>

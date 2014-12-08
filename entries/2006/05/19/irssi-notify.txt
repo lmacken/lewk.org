@@ -1,0 +1,58 @@
+irssi notification script
+#mdate Sm
+#tags irssi,code
+<p>
+Having finals to deal with next week, I've been trying to avoid things that tend to waste huge amounts of time, such as email and IRC.  So I wrote a little irssi script to pop up notifcation bubbles when people talk to you.
+</p>
+
+<center> <img src="/img/irssi-notify.png" /> </center>
+
+<h3>*Update (20090916)*</h3>
+Years later, and I can't really vouch for this code anymore, as I don't use
+it.  I recommend using it at your own risk, as there could potentially be
+security implications, since it is unmaintained.  However, this script was the
+catalyst for a variety of improved implementations, such as <a
+href="http://code.google.com/p/irssi-libnotify/">irssi-libnotify</a>, <a
+href="http://thorstenl.blogspot.com/2007/01/thls-irssi-notification-script.html">fnotify</a>, <a href="http://wahjava.wordpress.com/2008/06/15/irssi-notifications/">irssi-notify</a>, etc.
+
+<p>
+<blockquote>
+<a href="http://hg.lewk.org/irssi-notify/raw-file/1383b9da7340/notify.pl">notify.pl</a>
+<code>
+<pre>
+<font color="#0000ff">##</font>
+<font color="#0000ff">## Put me in ~/.irssi/scripts, and then execute the following in irssi:</font>
+<font color="#0000ff">##</font>
+<font color="#0000ff">##       /load perl</font>
+<font color="#0000ff">##       /script load notify</font>
+<font color="#0000ff">##</font>
+
+<font color="#a52a2a"><b>use strict</b></font>;
+<font color="#a52a2a"><b>use </b></font>Irssi;
+<font color="#a52a2a"><b>use vars</b></font> <font color="#ff00ff">qw(</font><font color="#ff00ff">$VERSION %IRSSI</font><font color="#ff00ff">)</font>;
+
+<font color="#008b8b">$VERSION</font> = <font color="#ff00ff">&quot;</font><font color="#ff00ff">0.01</font><font color="#ff00ff">&quot;</font>;
+<font color="#008b8b">%IRSSI</font> = (
+    <font color="#ff00ff">authors     </font>=&gt; <font color="#ff00ff">'</font><font color="#ff00ff">Luke Macken</font><font color="#ff00ff">'</font>,
+    <font color="#ff00ff">contact     </font>=&gt; <font color="#ff00ff">'</font><font color="#ff00ff">lewk@csh.rit.edu</font><font color="#ff00ff">'</font>,
+    <font color="#ff00ff">name        </font>=&gt; <font color="#ff00ff">'</font><font color="#ff00ff">notify.pl</font><font color="#ff00ff">'</font>,
+    <font color="#ff00ff">description </font>=&gt; <font color="#ff00ff">'</font><font color="#ff00ff">TODO</font><font color="#ff00ff">'</font>,
+    <font color="#ff00ff">license     </font>=&gt; <font color="#ff00ff">'</font><font color="#ff00ff">GNU General Public License</font><font color="#ff00ff">'</font>,
+    <font color="#ff00ff">url         </font>=&gt; <font color="#ff00ff">'</font><font color="#ff00ff"><a href="http://www.csh.rit.edu/~lewk/code/irssi-notify">http://www.csh.rit.edu/~lewk/code/irssi-notify</a></font><font color="#ff00ff">'</font>,
+);
+
+<font color="#a52a2a"><b>sub</b></font><font color="#008b8b"> </font><font color="#008b8b">notify</font><font color="#008b8b"> </font>{
+    <font color="#a52a2a"><b>my</b></font> (<font color="#008b8b">$dest</font>, <font color="#008b8b">$text</font>, <font color="#008b8b">$stripped</font>) = <font color="#008b8b">@_</font>;
+    <font color="#a52a2a"><b>my</b></font> <font color="#008b8b">$server</font> = <font color="#008b8b">$dest</font>-&gt;{server};
+
+    <font color="#a52a2a"><b>return</b></font> <font color="#a52a2a"><b>if</b></font> (!<font color="#008b8b">$server</font> || !(<font color="#008b8b">$dest</font>-&gt;{level} &amp; MSGLEVEL_HILIGHT));
+
+    <font color="#008b8b">$stripped</font> =~ <font color="#a52a2a"><b>s/</b></font><font color="#6a5acd">[^a-zA-Z0-9 .,!?\@:\>]</font><font color="#a52a2a"><b>//g</b></font>;
+    <font color="#a52a2a"><b>system</b></font>(<font color="#ff00ff">&quot;</font><font color="#ff00ff">notify-send -i gtk-dialog-info -t 5000 '</font><font color="#008b8b">$dest</font><font color="#ff00ff">-&gt;{target}' '</font><font color="#008b8b">$stripped</font><font color="#ff00ff">'</font><font color="#ff00ff">&quot;</font>);
+}
+
+Irssi::signal_add(<font color="#ff00ff">'</font><font color="#ff00ff">print text</font><font color="#ff00ff">'</font>, <font color="#ff00ff">'</font><font color="#ff00ff">notify</font><font color="#ff00ff">'</font>);
+</pre>
+</code>
+</blockquote>
+</p>

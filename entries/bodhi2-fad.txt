@@ -1,0 +1,219 @@
+Bodhi2 Fedora Activity Day
+#tags Fedora,bodhi,code
+<img src="https://admin.fedoraproject.org/updates/static/images/bodhi-icon-48.png" align="right"/>
+
+<p> The <a
+href="https://fedoraproject.org/wiki/FAD_Bodhi2_Taskotron_2014">Bodhi2/Taskotron
+Fedora Activity Day</a> happened earlier this month! A bunch of us gathered in
+Denver for a few days and worked on some of our critical releng &amp; qa
+infrastructure. The hackfest was held in a conference room in my
+apartment building, which worked out quite nicely for the amount of
+people that we had. The hotel was right up the road, and we were able to
+walk to a lot of awesome spots, like the <a href="http://www.the-1up.com/">1UP Barcade</a> :).
+</p>
+
+<p>
+It was great to have folks from various corners of <a target="_blank"
+href="http://fedoraproject.org">Fedora</a> together in the same room for a few
+days. As it is, we get a lot done remotely, but being able to leverage the
+high-bandwidth face-to-face time is extremely valuable, especially when coming
+to consensus on difficult architectural decisions. We used <a
+href="https://fedoraproject.org/wiki/Gobby?rd=Communicate/GobbyHowTo">Gobby</a>
+to collaborate on a long list of action items, and chipped away most of it.
+Thankfully, Bodhi has enough layers that we were all able to split up and dive
+into different corners of the code without stepping on each others' toes.
+</p>
+
+<p> Up until now, our releng stack in staging has always been less than useful.
+We've never able to do a full build->update->push->run, and have had to rely on
+<a href="http://www.quickmeme.com/img/5b/5b00ceff39354b1104c5c27ae62d46a61431247d74c01b1645aa6eeae13ea175.jpg">testing certain codepaths in production</a>. Not only that, but Bodhi's
+"masher" never really had proper unit tests, so pushing out major changes to
+that stack has always been quite unpleasant. Thankfully, <a target="_blank"
+href="http://www.scrye.com/wordpress/nirik/">Kevin</a> and <a target="_blank"
+href="https://fedoraproject.org/wiki/User:Ausil">Dennis</a> worked on our
+staging setup and made it so we can actually use it. I made a lot of headway on
+porting the Bodhi masher to a new <a
+href="https://github.com/fedora-infra/bodhi/blob/pyramid/bodhi/masher.py">fedmsg-driven
+architecture</a>, while writing <a
+href="https://github.com/fedora-infra/bodhi/blob/pyramid/bodhi/tests/test_masher.py">unit
+tests</a> for it along the way. I'm hopeful that we can write tests for every
+part of the "push" process, and then optimize the hell out of it :) </p>
+
+<p>
+While <a target="_blank"
+href="https://fedoraproject.org/wiki/User:Bochecha">Mathieu</a> and I mainly
+focused on back-end hacking, <a target="_blank"
+href="http://threebean.org">Ralph</a> and <a target="_blank"
+href="http://elrod.me/">Ricky</a> made some fantastic headway on the
+front-end. Ralph started working on the revamped New Update Form, which is
+already significantly better than the original. The idea here is that the
+maintainer should only need to provide the package name(s), and Bodhi will
+automatically find the corresponding candidate builds, related bugs, and
+eventually it will pull in all candidate deps as well (or tell if you if any
+need to be rebuilt). It would also be very convenient to be able to "push this
+entire stack again". Ideally, I'd love to make it so that folks maintaining
+large stacks, like GNOME, shouldn't need to use a Google doc to coordinate
+their mega-updates ;)
+</p>
+
+<p>
+Ralph also started revamping the new karma system (check out his screencast <a
+href="http://threebean.org/blog/bodhi2-karma-system-preview/">here</a>).
+We don't have any of the policy in place to enforce it yet, but eventually
+we'd like the maintainers to be able to define custom policy constraints
+for their updates. For example, you could say "only allow this update to
+go to the stable repo once this specific bug or test case has been
+confirmed as fixed/passing".
+</p>
+
+<p>
+Ricky made lots of improvements to the <a href="http://bodhi.dev.fedoraproject.org/releases/F19">Release profiles</a> and Updates/Comments/User pages, which are all looking great. He also created a Bodhi news feed on
+the front page using the fedmsg <a target="_blank"
+href="https://apps.fedoraproject.org/datagrepper">datagrepper</a> widget that
+<a href="http://threebean.org/blog/a-fedmsg-widget-for-your-site/">Ralph
+blogged about</a> recently.
+
+Other front-end improvements include <a
+target="_blank" href="http://libravatar.org">libravatar</a> support for all
+users, proper markdown rendering with previews and image support, and of course
+a konami code easter-egg ;)
+</p>
+
+
+<p>
+I was going to post a bunch of screenshots here, but Ralph just deployed a
+development instance of Bodhi2 that folks can play around with
+instead: <a href="http://bodhi.dev.fedoraproject.org">http://bodhi.dev.fedoraproject.org</a>
+(it's a dev instance, so don't expect it to always be up/functional).
+</p>
+
+<p>
+Some other corners of Bodhi that have seen improvements recently:
+</p>
+
+<p>
+The API. The Bodhi webapp is written in Python using the excellent <a
+href="http://docs.pylonsproject.org/en/latest/docs/pyramid.html">Pyramid</a>
+web framework. On top of that we are using <a
+href="https://github.com/mozilla-services/cornice">Cornice</a>, which
+makes it really easy to build &amp; document standards-compliant web <a
+href="https://github.com/fedora-infra/bodhi/tree/pyramid/bodhi/services">services</a>
+with Pyramid. Thanks to <a
+href="http://docs.pylonsproject.org/projects/colander/en/latest/">colander</a>
+validation/deserialization <a
+href="https://github.com/fedora-infra/bodhi/blob/pyramid/bodhi/schemas.py">schemas</a>
+and our custom <a
+href="https://github.com/fedora-infra/bodhi/blob/pyramid/bodhi/security.py#L28">ACLs</a>
+and <a
+href="https://github.com/fedora-infra/bodhi/blob/pyramid/bodhi/validators.py">validators</a>,
+we are able to write <a
+href="https://github.com/fedora-infra/bodhi/blob/pyramid/bodhi/services/updates.py#L60">dead-simple
+views</a> that can safely assume that all of the data we are dealing with is
+valid and in the right format, and that the user has the appropriate
+permissions. Cornice also has a <a
+href="http://cornice.readthedocs.org/en/latest/sphinx.html">Sphinx plugin</a>
+that auto-generates our <a href="http://bodhi.dev.fedoraproject.org/static/docs/">API documentation</a>.
+So not only do we now have a semi-RESTful standards-compliant self-documenting API, but Ralph also added a support for
+rendering almost every service as an RSS feed as well.
+</p>
+
+<p>
+Regarding the Bodhi <a
+href="https://github.com/fedora-infra/python-fedora/blob/develop/fedora/client/bodhi.py">Python
+APIs</a>, I've begun porting them to the new <a
+href="https://github.com/fedora-infra/python-fedora/blob/develop/fedora/client/baseclient.py">python-fedora
+OpenIDBaseClient</a> (see <a
+href="https://github.com/fedora-infra/bodhi/blob/pyramid/bodhi/client.py">bodhi/client.py</a>).
+Since a large percentage of the API usage is through the current python-fedora
+BodhiClient, I'd like to try our best to maintain compatibility--at least for a
+version or two with deprecation warnings if we have to. 
+I am really looking forward to finally being able to trash our old <a target="_blank" href="http://turbogears.org/">TurboGears1</a> FAS visit/identity layer in favor of <a href="https://github.com/FedOAuth/FedOAuth">FedOAuth</a>.
+</p>
+
+<p>
+On top of the Python API lies the bodhi-client. I recently ported the
+basic functionality over using the <a href="http://click.pocoo.org/">click</a> module,
+which makes it really easy to write complex command-line tools (see <a
+href="https://github.com/fedora-infra/bodhi/blob/pyramid/bodhi/cli.py">bodhi/cli.py</a>).
+Since the current bodhi-client is an absolute mess, this is one area that I'm
+actually okay with breaking backwards-compatibility to a certain extent. Having
+a proper command structure, similar to the <a target="_blank"
+href="http://koji.fedoraproject.org/koji/">Koji</a> cli, is well worth some cli
+flag changes in my opinion.
+</p>
+
+<p>
+In a similar fashion, Mathieu implemented a great <a
+href="https://github.com/fedora-infra/bodhi/blob/pyramid/tools/managereleases.py">release
+management tool</a> for Bodhi admins. Currently, creating a release and
+changing it's pre-release status involves using the <a
+href="https://fedorahosted.org/bodhi/wiki/Administration">TurboGears Python
+shell</a>, creating SQLObject instances by hand, editing config files, etc.
+This tool will make it dead simple for releng to create new releases and manage
+all of the pre-GA state changes that happen along the way.
+</p>
+
+<p>
+Performance was another key area of development. The app is fairly snappy
+now, but there is still a <em>ton</em> of room for improvement. The <a
+href="http://docs.pylonsproject.org/projects/pyramid-debugtoolbar/en/latest/#the-toolbar">pyramid-debugtoolbar</a>
+has been amazingly useful for us so far. It let's us analyze every SQL
+statement made, it does full-stack profiling, and it lets us execute commands
+in every layer of a traceback. Along with that, Ralph added a <a
+target="_blank" href="http://sqlalchemy.org">SQLAlchemy</a> event hook to our
+unit tests to ensure that certain changes don't drastically change how many SQL
+statements are getting executed. With regard to Masher performance, there is
+still a lot of low-hanging fruit there. We saw a drastic boost in mash speed
+recently when Kevin discovered that a couple of releng machines weren't using <a
+target="_blank" href="http://www.linux-kvm.org/page/Virtio">virtio</a>. 
+This brought the mash time of EPEL5 updates from 45 minutes down to around 15.
+In the new version of the masher, updates are grouped by tag and then processed in a
+separate threads. Security updates and critical bugfixes will take priority
+over enhancements, and there are also things that we can do to make the bits
+hit the mirrors faster once we're done mashing.
+</p>
+
+<p>
+Another corner of Bodhi that was the topic of discussion was around
+notifications. Bodhi currently sends way too much email, most of which I'm
+assuming gets ignored. There are a couple of mails that are a bit more
+important, like the update announcement emails that get sent to <a
+href="https://admin.fedoraproject.org/mailman/listinfo/package-announce">package-announce</a>,
+and the updates-testing digest that goes to the <a
+href="https://admin.fedoraproject.org/mailman/listinfo/test">test-list</a>.
+The consensus that we came to was that we are going to attempt to use <a
+href="https://apps.fedoraproject.org/notifications">FMN</a> to allow
+people to configure what messages they want to receive, and where (IRC, email,
+etc). This alleviates the need to build an email layer into Bodhi2, and
+allows us to focus on publishing fedmsgs only, letting FMN do the rest.
+</p>
+
+<p>
+As far as the transition to Bodhi2 goes, we're going to try our best to not
+break the world in the process. Ralph mentioned the potential timeline in his
+<a href="http://threebean.org/blog/bodhi2-fad-hollaback/">blog post</a>, and
+we still have lots of work to do before then. In order to help ease this
+transition, I created a wiki page to track the <a
+href="https://fedoraproject.org/wiki/Bodhi/Consumers">consumers of Bodhi's
+APIs</a>, so we can make the appropriate changes to those codebases before
+launch. Please feel free to update it with any that I left out. 
+</p>
+
+<p>
+Overall, it was a very successful <a target="_blank"
+href="https://fedoraproject.org/wiki/Fedora_Activity_Day_-_FAD">FAD</a>. We got
+a ton of stuff done, ate a bunch of great food, and had a lot of fun in the
+process. I didn't cover everything that we worked on, so checkout the blog posts from <a
+href="http://threebean.org/blog/bodhi2-fad-hollaback/">threebean</a>, <a
+href="http://blog.fedora-fr.org/bochecha/post/2014/06/Bodhi-2-FAD">bochecha</a>,
+and <a
+href="http://www.scrye.com/wordpress/nirik/2014/06/05/bodhi2-taskotron-fad-day-1/">nirik</a>
+for more details on other things that got done. If you're interested in getting
+involved with Bodhi2, <a href="https://github.com/fedora-infra/bodhi">grab
+the code</a>, checkout the <a
+href="https://github.com/fedora-infra/bodhi/issues?labels=&milestone=&page=1&state=open">open
+issues</a>, and hop in #fedora-apps on Freenode.
+</p>
+<p>
+Also, I'll be giving a presentation at <a href="https://fedoraproject.org/wiki/Flock_2014">Flock</a> in Prague this year on "Evolving the Fedora Updates process", which will cover the history of pushing updates as well as an in-depth dive into the new bodhi2 stack.
+</p>

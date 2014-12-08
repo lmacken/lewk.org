@@ -1,0 +1,34 @@
+gobby.fedoraproject.org
+#mdate Sm
+#tags Fedora,gobby
+<p>
+<img src="http://lewk.org/img/gobby.png" align="right"/>
+A dedicated <a href="http://gobby.0x539.de/trac/">Gobby</a> session is now
+running on <b>gobby.fedoraproject.org</b> !<br/><br/>
+<b>*UPDATE*</b>: To address some initial security concerns, I've locked down
+this instance to Fedora contributors only.  The password can be found in
+<b>~lmacken/gobby</b> on fedorapeople.org (via ssh)
+
+Yes, this raises the bar a little bit, but more of a reason to <a
+href="https://admin.fedoraproject.org/accounts/">get a Fedora account</a> ;)
+</p>
+<p>
+What is Gobby, you ask?
+<blockquote>
+"Gobby is a free collaborative editor supporting multiple documents in one
+session and a multi-user chat. It runs on Microsoft Windows, Mac OS X, Linux
+and other Unix-like platforms."
+</blockquote>
+</p>
+<p>
+If you're running Fedora, simply install the 'gobby' package, and you're ready
+to go.  Click "Join Session", and connect to "gobby.fedoraproject.org".  You'll then be able to collaborate in real-time with others on code, documents, notes, etc.
+</p>
+<p>
+<center><a href="/img/gobby-screenshot.png"><img src="/img/gobby-thumb.png" border="0"/></a></center>
+</p>
+<p>
+Since this is wide-open for anyone to use, I've also setup a cron job that
+frequently commits the session to a git repository.  You can view the changes
+to our gobby session via <a href="http://gobby.fedoraproject.org/git/gitweb.cgi?p=sobby/.git;a=summary">gitweb</a>.  Regardless, you should still save anything that you expect to keep locally.
+</p>

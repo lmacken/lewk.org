@@ -1,0 +1,20 @@
+fedora update metadata & fastestmirror changes
+#tags fedora,code,fastestmirror
+<p>
+<b>Fedora update metadata</b><br>
+I just committed my <a href="http://linux.duke.edu/projects/metadata/">createrepo</a> <a href="http://people.redhat.com/lmacken/metadata/createrepo-updatemd.patch">update metadata acquisition patch</a> to HEAD which adds support for the -U (--update-info-location) flag.  This feature is going to give mirrors the ability to pull in update metadata [example: <a href="http://lewk.org/httpd-2.0.54-10.3.xml">httpd-2.0.54-10.3.xml</a>] for each corresponding package in the repo.  This will allow tools such as pup to know exactly why an update was released, and present the user with all of the details.
+
+The next step is to setup the infrastructure for the metadata server.  More details to come later.
+
+<br><br>
+<b>fastestmirror</b><br>
+I gave fastestmirror some love recently and added support for a 'maxhostfileage' option, which lets you specify how many days before it should update the cached mirror speeds file again.
+<p>
+As the GeoIP package was working it's way through the Fedora Extras review process, Warren <a href="https://bugzilla.redhat.com/bugzilla/show_bug.cgi?id=180068#c7">noticed</a> that this package could be used to do aid in smarter mirror selection.  So once the python bindings hit extras, I'm going to start to play around with fastestmirror + GeoIP integration.  Once I get some free time I will probably also look into adding multiple mirror-selection algorithms into fastestmirror: <a href="http://www.maxmind.com/">GeoIP</a>, <a href="https://lists.dulug.duke.edu/pipermail/yum-devel/2005-December/001715.html">bestmirror (repomd.xml validation)</a>, and the original socket-fu technique.
+</p>
+<p>
+I finally found a home for fastestmirror, in the yum-utils cvs repo.  So if you are interested in playing around with the latest version, look no further:
+</p>
+
+<a href="http://devel.linux.duke.edu/cgi-bin/viewcvs.cgi/*checkout*/yum-utils/plugins/fastestmirror/fastestmirror.py?content-type=text%2Fplain">http://devel.linux.duke.edu/cgi-bin/viewcvs.cgi/*checkout*/yum-utils/plugins/fastestmirror/fastestmirror.py?content-type=text%2Fplain</a>
+</p>

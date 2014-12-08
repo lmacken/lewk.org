@@ -1,0 +1,16 @@
+liveusb-creator v2.4
+#mdate Sm
+#tags LiveUSB,Fedora,code
+<img src="https://fedorahosted.org/liveusb-creator/attachment/wiki/img/fedorausb.png?format=raw" align="right"/>
+<p>
+Last night I released v2.4 of the <a href="http://fedorahosted.org/liveusb-creator">liveusb-creator</a>, which fixes a bunch of bugs and is much more robust.
+</p>
+<p>
+Someone wrote a pretty cool <a href="http://digg.com/linux_unix/Linux_On_A_Stick_Fedora_9_Puts_Your_Desktop_on_a_USB_Drive">article</a> about the liveusb-creator on Lifehacker the other day, which made it to the front page of digg last night.  <a href="http://digg.com/linux_unix/Linux_On_A_Stick_Fedora_9_Puts_Your_Desktop_on_a_USB_Drive">Digg it up!</a>
+</p>
+<center>
+<script type="text/javascript">
+digg_url = 'http://digg.com/linux_unix/Linux_On_A_Stick_Fedora_9_Puts_Your_Desktop_on_a_USB_Drive';
+</script>
+<script src="http://digg.com/tools/diggthis.js" type="text/javascript"></script>
+</center>

@@ -1,0 +1,19 @@
+WebFaction - Agile hosting by helpful humans
+#mdate Sm
+#tags hosting, TurboGears, web, badass
+<p>
+I'm going to shamelessly plug my web hosting provider, first off because they kick ass.  Second, there has been a recent wave of people blogging about how they are getting screwed by their providers.  I've had nothing but great experiences with mine, so I thought I would share.
+</p>
+<center><a href="http://www.webfaction.com?affiliate=derb"><img src="http://blog.webfaction.com/static/visuals/460x60-quality.png" border="0" /></a></center>
+<br/>
+<p>
+For the past couple of years I've been using WebFaction for all of my web hosting needs, and have never looked back.  When shopping around for hosting providers, I was looking for a place to easily host TurboGears applications, and WebFaction had the best reputation.  Not only can you deploy a TurboGears application with their one-click installer, you can do it with Django, Wordpress, Drupal, Zope, Plone, Trac, Joomla, Subversion, Rails, and many other applications as well!  Their control panel allows you to manage your domains, applications, websites, databases, mailboxes, with an extremely powerful web interface.  You can watch a screencast demo of it <a href="http://www.webfaction.com/demos/control-panel">here</a>.
+</p>
+<p>
+They recently upgraded their servers and hosting plans, giving you <b><a href="http://www.webfaction.com?affiliate=derb">UNLIMITED</a></b> domains, websites, applications, processes, and databases.  Instantly deploy new applications, with only a few clicks of your mouse.  All powered by <a href="http://www.redhat.com/rhel">the world's leading open source application platform</a>, of course :)
+</p>
+<center><a href="http://www.webfaction.com?affiliate=derb"><img src="http://blog.webfaction.com/static/logo.png" border="0" /></a></center>
+<br/>
+<p>
+As far as technical support goes, I've had nothing but amazing experiences dealing with the WebFaction guys.  They are quick to respond to your issues and have a great knowledge base of useful information.  I highly recommend <a href="http://www.webfaction.com?affiliate=derb">checking them out</a>!
+</p>

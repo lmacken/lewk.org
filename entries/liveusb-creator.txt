@@ -1,0 +1,32 @@
+Creating live Fedora USB sticks, in Windows!
+#mdate Sm
+#tags LiveUSB,Windows,Fedora,code
+<p>
+<img
+src="https://fedorahosted.org/liveusb-creator/attachment/wiki/img/fedorausb.png?format=raw" align="right" />
+Last weekend I sat down and developed the <a href="http://fedorahosted.org/liveusb-creator">liveusb-creator</a>, a tool for creating live Fedora USB sticks from Windows.  It will automatically detect all removable drives, find your ISO, extract it to your USB key, modify the syslinux.cfg, and install the bootloader.  Technical details aside for a moment, the end-user workflow turns out to be something like this:
+</p>
+
+<ul>
+    <li><a href="http://fedoraproject.org/get-fedora">Get Fedora</a> Live Media.</li>
+    <li>Download and extract <a href="http://lmacken.fedorapeople.org/liveusb-creator/liveusb-creator-1.0.zip">liveusb-creator.zip</a></li>
+    <li>Drag your Fedora Live media into the liveusb-creator directory</li>
+    <li>Double click 'liveusb-creator.exe'</li>
+</ul>
+
+<p>
+At the moment it is a simple a console application that asks the user if it has any questions (by default it won't), and then gets the job done.  So shortly after <a href="https://www.redhat.com/archives/fedora-devel-list/2008-February/msg00087.html">announcing</a> this tool, I started throwing together a graphical interface using PyGTK.  While I was doing this, <a href="http://kushaldas.in/?p=208">Kushal Das</a> was on the other side of the planet working on a PyQT version :)  It turns out his code is much cleaner than my gtk implementation, so I went ahead and committed it.  Furthermore, I'm pretty excited to get a chance to play with The Other widget toolkit for once ;)
+</p>
+
+<p>
+So, detecting removable devices and such is <a href="https://fedorahosted.org/liveusb-creator/browser/liveusb/creator.py#L117">*trivial*</a> in Windows using the powerfully-undocumented win32api Python module (after playing a few rounds of "match the return code to the enum", of course).  Ideally, I want this tool to work in both Linux and Windows, so I redesigned the code quite a bit, broke it out into various modules, and recently started working on the Linux side of things.  At this point in time, there is now <a href="https://fedorahosted.org/liveusb-creator/browser/liveusb/creator.py">code</a> that detects removable drives using dbus and HAL.  I still have a bunch of sanity checking and other bits to write, but progress is definitely being made.  In the mean time for Linux users, see the <a href="http://fedoraproject.org/wiki/FedoraLiveCD/USBHowTo">USBHowTo</a> for creating a live USB stick using the livecd-iso-to-disk tool.
+</p>
+
+<p>
+If you're interested in helping out with the liveusb-creator, you can get ahold of the source code using git:
+<code><blockquote>
+git clone git://git.fedorahosted.org/git/liveusb-creator.git
+</code></blockquote>
+
+If you encounter any problems, please create a new ticket at the <a href="https://fedorahosted.org/liveusb-creator/">liveusb-creator trac</a>.
+</p>

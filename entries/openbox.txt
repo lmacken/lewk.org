@@ -1,0 +1,13 @@
+New openbox hotness in Fedora
+#mdate Sm
+#tags Fedora,code,openbox
+<p>
+I've been a huge fan of the *box window managers for a long time --
+<a href="http://icculus.org/openbox/index.php/Main_Page">openbox</a> being my favorite, due to it's extremely minimal nature.
+Thanks to the help of Fedora openbox maintainer Miroslav Lichvar,
+the <a href="http://lewk.org/blog/securitylivecd">dynamic pipe
+menu</a> that I wrote a while back is now integrated into Fedora's
+openbox package.  This means that you no longer need to hack XML 
+files to make your menu useful.  Here is what it looks like "out of the box":
+</p>
+<center><img src="/img/obfedora.png" /></center>

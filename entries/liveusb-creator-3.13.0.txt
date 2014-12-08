@@ -1,0 +1,41 @@
+liveusb-creator 3.13 release!
+#tags liveusb-creator,Fedora,code
+<p>
+A new version of the liveusb-creator has just hit the <a
+href="https://admin.fedoraproject.org/updates/liveusb-creator-3.13.1-1.fc20">Fedora repos</a>! It's
+been a long time since there has been any major changes to the tool, but I
+managed to find a couple of days last week to implement some much-needed
+functionality.
+</p>
+
+<p>
+<center><img src="/img/liveusb-creator-3.13.png"/></center>
+</p>
+
+<p>
+This version features a new destructive installation method, which uses
+<code>dd</code> to directly copy the the entire ISO to to your device,
+overwriting your existing data and partitions. This method tends to be
+much more reliable, since we don't have to crack open the ISOs, mess with
+partition flags, or configure and install the bootloader ourselves. This
+also means that DVD, netinst, and boot images finally work with this new
+method as well. You can still perform the traditional non-destructive
+install that the liveusb-creator has always done, and it remains the
+default.
+</p>
+
+<p>
+Unfortunately there is not a Windows build for this release just yet, as I
+hit some issues getting dd.exe to work properly in my virtual machine.
+Hopefully I'll be able to figure it out at some point next week. If any
+Windows folks are out there and want to help out, checkout the <a
+href="https://fedorahosted.org/liveusb-creator/wiki/Development">Developers
+Guide</a> for instructions on setting things up.
+</p>
+
+<p>
+There are also a number of other features in this release, including polkit
+support, a number of UI improvements, and more. Checkout <a
+href="https://fedorahosted.org/liveusb-creator/#a2014-11-26::v3.13.1">the wiki</a> for more
+details.
+</p>

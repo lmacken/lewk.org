@@ -1,0 +1,18 @@
+Fedora update metrics
+#tags Fedora,code,Python,TurboGears,jQuery,bodhi
+<p>
+<img src="/img/metrics.png" align="right" hspace="10"/>
+Using <a href="http://code.google.com/p/flot/">flot</a>, a plotting library for <a href="http://jquery.com">jQuery</a>, I <a href="http://hg.fedoraproject.org/hg/hosted/bodhi?cs=b3a62f6ce39a">threw together</a> some shiny <a href="https://admin.fedoraproject.org/updates/metrics"><b>metrics</b></a> for <a href="http://hosted.fedoraproject.org/projects/bodhi">bodhi</a>.  It's pretty amazing to see how a Fedora release evolves over time, with almost as many enhancements as bugfixes.  This could arguably be a bad thing, as our "stable" bits seem to change so much; but it definitely shows how much innovation is happening in Fedora.
+</p>
+<center>
+<img src="/img/f7-updates.png"/>
+<img src="/img/security-updates.png"/>
+<img src="/img/package-updates.png"/>
+<img src="/img/developer-updates.png"/>
+</center>
+<p>
+I should also note that the data on the graphs may look different than the numbers you see next to each category in the bodhi menu.  This is due to the fact that updates may contain multiple builds, and the graphs account for all builds in the system.
+</p>
+<p>
+When I get some free cycles I'd like to generate some metrics from the old updates system for FC4-FC6.  I can imagine that the differences will be pretty drastic, considering how the old updates tool was internal to Red Hat, and that the majority of our top packagers are community folks.
+</p>

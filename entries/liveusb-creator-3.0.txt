@@ -1,0 +1,36 @@
+liveusb-creator 3.0
+#mdate Sm
+#tags LiveUSB,code,Fedora
+<img src="https://fedorahosted.org/liveusb-creator/attachment/wiki/img/fedorausb.png?format=raw" align="right"/>
+<p>
+I'm pleased to announce version 3.0 of the <a href="http://liveusb-creator.fedorahosted.org">liveusb-creator</a>.  Aside from the usual batch of bug fixes and code improvements, this release also contains a variety of enhancements:
+</p>
+<p>
+<ul>
+<li>Fedora 10 support</li>
+<li>Add a touch of <a href="http://sugarlabs.org">Sugar</a> to your USB key with the <a href="https://www.redhat.com/archives/fedora-announce-list/2008-October/msg00012.html">Sugar Spin 0.82-2</a>!</li>
+<li>Ability to create OLPC-bootable live USB sticks or SD cards with the new `--xo` option</li>
+<li>Translations! (Thanks to the incredible <a href="http://translate.fedoraproject.org">Transifex</a>)<ul>
+    <li>Greek translation (Nikos Charonitakis)</li>
+    <li>Slovak translation (Ondrej Sulek)</li>
+    <li>Catalan translation (Xavier Conde)</li>
+    <li>French translation (PabloMartin-Gomez)</li>
+    <li>Serbian (Milos Komarcevic)</li>
+    <li>Chinese (sainrysec)</li>
+    <li>Brazilian Portuguese translation (Igor Pires Soares)</li>
+    <li>Spanish translation (Domingo Becker)</li>
+    <li>Malay translation (Sharuzzaman Ahmat Raslan)</li>
+    <li>German Translation (Marcus Nitzschke, Fabian Affolter)</li>
+    <li>Polish translation (Piotr Drąg)</li>
+    <li>Portuguese translation (Valter Fukuoka)</li>
+    <li>Czech translation (Adam Pribyl)</li>
+    </li>
+  </ul>
+</ul>
+</p>
+<p>
+For Fedora 9 and 10 users, you can currently find the <a href="https://admin.fedoraproject.org/updates/liveusb-creator">liveusb-creator-3.0</a> in the updates-testing repository.  Feedback is appreciated!
+</p>
+<p>
+There are still many more great features in the pipeline, so <a href="https://fedorahosted.org/liveusb-creator/timeline">stay tuned</a>!
+</p>

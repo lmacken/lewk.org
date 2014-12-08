@@ -1,0 +1,21 @@
+Teaching an old pup some new tricks
+#tags fedora,code
+<p>
+    Thanks to the <a href="http://notweak.livejournal.com/145311.html">previously mentioned</a> core update metadata enhancements that I've been working on lately, we are now able to do some pretty neat stuff with our package updating tools.  So last week I cranked out a bunch of code for Fedora's package updater (pup) and it's notification applet (puplet) to utilize this new enhanced metadata and actually provide the user with some useful information.
+</p>
+
+<center>
+    <a href="http://people.redhat.com/lmacken/img/puplet.png"><img src="http://people.redhat.com/lmacken/img/puplet-small.png" border=0></a>
+</center>
+
+<p>
+    In order to be able to attach the notification to a status icon, I had to patch libnotify's python bindings to utilize libnotify's notify_notification_attach_to_status_icon function (<a href="http://trac.galago-project.org/attachment/ticket/82/notify-python-0.1.0-attach_to_status_icon.patch">notify-python-0.1.0-attach_to_status_icon.patch</a>).  While poking around with the notify-python code, I tripped over a bug in libnotify that needed to be patched as well (<a href="http://trac.galago-project.org/attachment/ticket/81/libnotify-0.4.2-status-icon.patch">libnotify-0.4.2-status-icon.patch</a>).  I hope to kick off patched versions of libnotify and notify-python for rawhide at some point in the near future, and apply my puplet patch as well (<a href="http://people.redhat.com/lmacken/patches/puplet-bubbly.patch">puplet-bubbly.patch</a>).
+</p>
+
+<center>
+<a href="http://people.redhat.com/lmacken/img/pup.png"><img src="http://people.redhat.com/lmacken/img/pup-small.png" border=0></a>
+</center>
+
+<p>
+    For pup, I whipped up a hacked out GtkTextView to display the new update metadata, when it's available (<a href="http://people.redhat.com/lmacken/patches/pup-enhanced-metadata.patch">pup-enhanced-metadata.patch</a>) (the look and feel will most likely change).  Due to the current core/extras dichomoty, this update metadata is only generated for core updates until we get a common core/extras update system in place (I've been working on porting the current update system for core over to <a href="http://turbogears.org">TurboGears</a>, and make it encompass core/extras/legacy updates).  Hopefully by FC7 we will have bridged the core/extras gap completely (optimism++).
+</p>

@@ -1,0 +1,17 @@
+toast.
+#mdate Sm
+#tags hardware
+<p>
+So I've been known to steer pretty clear from <a href="http://tigerdirect.com">TigerDirect</a>, due to their blatant sketchyness, but last week I gave in and decided to pick up a <a href="http://www.tigerdirect.com/applications/SearchTools/item-details.asp?EdpNo=1723262&Sku=THD-500A">500G Seagate</a> disk and an external USB enclosure.  Upon arrival, I had everything setup and running in under 2 minutes, and started rsync'ing my home directory.  After a ~20 hour rsync, 3 chips on the board were toasted, and the enclosure was fried.
+
+<center>
+    <table cellpadding=10>
+        <tr>
+            <td><img src="/img/toast.png"></td>
+            <td><img src="/img/toast1.png"></td>
+        </tr>
+    </table>
+</center>
+
+
+The amount of dead/dying hardware in my office is depressing :(

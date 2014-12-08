@@ -1,0 +1,27 @@
+Fedora LiveUSB Creator v2.0!
+#mdate Sm
+#tags Fedora,LiveUSB,code
+<img src="http://lewk.org/img/liveusb-creator.png" align="right"/>
+<p>
+The <a href="http://liveusb-creator.fedorahosted.org">liveusb-creator</a> is a cross-platform tool for easily installing live operating systems on to USB flash drives.  Today I released version 2.0, which brings you a brand new graphical interface and a bunch of new features, including:
+</p>
+<p>
+<ul>
+    <li>Persistent overlay creation.  This lets you to allocate extra space on your USB stick, allowing you to save files and make modifications to your live operating system that will persist after you reboot.  This essentially lets you carry your own personalized Fedora with you at all times</li>
+    <li>Supports downloading various Fedora releases, including <a href="http://docs.fedoraproject.org/release-notes/"><b>Fedora 9!</a></b></li>
+  <li>SHA1 checksum verification of known releases, to ensure that you've downloaded the correct bits</li>
+  <li>Face-melting hotness</li>
+</ul>
+</p>
+<p>
+<b>Download:</b> <a href="https://fedorahosted.org/liveusb-creator">liveusb-creator-2.5.zip</a> (8.8mb)
+</p>
+<p>
+This release is for Windows-only at the moment.  Linux support is nearing completion, and will exist in later versions.  In the mean time, there are already <a href="http://fedoraproject.org/wiki/FedoraLiveCD/USBHowTo">tools available</a> for creating persistent LiveUSB keys with Fedora.
+</p>
+<p>
+If you would like to help contribute to the liveusb-creator, see the <a href="https://fedorahosted.org/liveusb-creator/wiki/Development">Developers Guide</a> for more information.  If you encounter problems with the tool, please file bug reports <a href="https://fedorahosted.org/liveusb-creator/newticket"><b>here</b></a>.
+</p>
+<p>
+For those interested in trying out this program, but don't have a USB stick, you can buy one <a href="http://astore.amazon.com/lu0b-20/102-6952499-3975331?_encoding=UTF8&node=2">here</a>.
+</p>

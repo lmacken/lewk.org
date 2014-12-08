@@ -1,0 +1,219 @@
+PyCon 2008
+#mdate Sm
+#tags Python,code
+<p>
+I was in Chicago last week for <a href="http://us.pycon.org/2008/about/">PyCon
+2008</a>. It was my first time in the windy city, and I must say that I was
+thoroughly impressed.  As expected in any city, we got a chance to see a lady
+get her purse snattched, and a mentally unstable gentleman on the train yelling
+profanities at god.  Anyway, the conference itself was extremely well done, and
+tons of awesome innovation happened at the sprints afterwords.
+</p>
+<p>
+<b>Day 1: Tutorials</b><br>
+8+ hours of TurboGears/Pylons/WSGI tutorials.  Awesome.  I'm really
+excited with what is in the works for TurboGears2.  By wielding Pylons, the
+TG2 team was able to completely re-write their framework with minimal amounts
+of code, while at the same time, gaining a *ton* of new features
+and some amazing middleware.  Mark Ramm and Ben Bangert took turns walking us through the
+deep internals of their frameworks, while also giving some examples how to use
+them.
+</p>
+<p>
+<b>Sessions</b><br>
+During the 3-day conference portion of PyCon, there was a vast plethora of
+incredibly interesting sessions and conversations.  You can find a schedule of
+the talks and some slides <a
+href="http://us.pycon.org/2008/conference/schedule/">here</a>.  Everything was
+video taped as well, so the sessions should be making their way on to YouTube
+hopefully at some point soon.
+</p>
+<p>
+Here are some things that caught my attention while I was there.
+<p>
+<b>WSGI</b><br>
+Defined by Phillip J. Eby in <a href="http://www.python.org/dev/peps/pep-0333/">PEP-333</a>, the Web Server Gateway Interface is a simple interface between web servers, applications, and frameworks.  Or, as explained by Ian Bicking: WSGI is a series of Tubes.  The basic idea is that it lets you connect a bunch of different applications together into a functioning whole.
+
+Since TurboGears2 is based on Pylons, it will be a full blown WSGI application out the box, loaded with lots of useful middleware (WebError, Routes, Sessions, Caching, etc), and will allow you to use any WSGI server that you wish (Paste, CherryPy, orbited, mod_wsgi, etc).
+
+An example of a basic Hello World WSGI application:
+<blockquote><code>
+<body bgcolor="#ffffff" text="#000000"><font face="monospace">
+<font color="#a52a2a"><b>def</b></font>&nbsp;<font color="#008b8b">wsgi_app</font>(environ, start_response):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;start_response('<font color="#ff00ff">200 OK</font>', [('<font color="#ff00ff">content-type</font>', '<font color="#ff00ff">text/html</font>')])<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#a52a2a"><b>return</b></font>&nbsp;['<font color="#ff00ff">Hello world!</font>']<br>
+</font>
+</code></blockquote>
+</p>
+<p>
+So, what is WSGI middleware?  Well, it's essentially the WSGI equivalent of a python decorator, but instead of wrapping one function in another, you're wrapping one web-app in another.  You can see a list of some existing WSGI middleware <a href="http://www.wsgi.org/wsgi/Middleware_and_Utilities">here</a>.
+</p>
+<p>
+<b>virtualenv</b><br>
+With so many new shiny python programs to play with, I really tried to resist
+the urge to easy_install everything into my global Python site-packages so I
+could tinker with things.  This is generally a Bad Thing in a distribution, as
+easy_install not only installs things behind your package managers back,
+but it also lacks the ability to uninstall anything with it, unless you want to take <a
+href="http://zedshaw.com/blog/index.html?bear">Zed's easy_fucking_uninstall</a>
+approach ;) During the TurboGears tutorial, I was introduced to a tool call
+virtualenv, which will setup a virtual python environment in which you can
+easy_install as many eggs as you want without worrying about butchering
+your site-packages.
+</p>
+<blockquote><code>
+    $ easy_install virtualenv<br>
+    $ virtualenv --no-site-packages foo<br>
+    $ cd foo; source bin/activate<br>
+    $ easy_install &lt;shiny python programs&gt;<br>
+</code></blockquote>
+<p>
+<b>nose</b><br>
+I've been in love with <a
+href="http://somethingaboutorange.com/mrl/projects/nose/">nose</a> since day
+one, but realized that I haven't been utilizing it to it's fullest abilities.
+I blogged in the <a href="http://lewk.org/blog/tags/nose">past</a> about nose's
+profiler plugin.  Come to find out, nose offers a lot more plugins that can
+seriously help make your life easier:
+<blockquote><code>
+$ nosetests --pdb --pdb-failures<br>
+.............................................................&gt; /home/lmacken/tg1.1/turbogears/turbogears/identity/tests/test_visit.py(92)test_cookie_permanent()<br>
+-&gt; assert abs(should_expire - expires) < 3<br>
+(Pdb) locals()<br>
+{'morsel': &lt;Morsel: tg-visit='452c94de3900fc2adff2cd6b0b0f04c4533e3e9e'&gt;, 'self': &lt;turbogears.identity.tests.test_visit.TestVisit testMethod=test_cookie_permanent&gt;, 'expires': 1206228604.0, 'should_expire': 1206232205.0, 'permanent': False}<br>
+(Pdb) 
+</code></blockquote>
+</p>
+<p>
+You can also measure code coverage during your unit test execution using the '--with-coverage' option, which utilizes <a href="http://nedbatchelder.com/code/modules/coverage.html">coverage.py</a>.
+</p>
+<p>
+<b>SQLAlchemy</b><br>
+Also known as "the greatest object-relational-mapper created for any language. ever.", 0.4 has seen vast improvements since 0.3.  Among them, a new <a
+href="http://www.sqlalchemy.org/docs/04/plugins.html#plugins_declarative">declarative
+API</a> is now available that essentially lets you define your class, Table and
+mapper constructs "at once" under a single class declaration (giving you a
+similar ActiveMapper feel like SQLObject or Elixir).
+<blockquote><code>		
+<font color="#a020f0">from</font>&nbsp;sqlalchemy.ext.declarative <font color="#a020f0">import</font>&nbsp;declarative_base<br>
+<br>
+engine = create_engine('<font color="#ff00ff">sqlite://</font>')<br>
+Base = declarative_base(engine)<br>
+<br>
+<font color="#a52a2a"><b>class</b></font>&nbsp;<font color="#008b8b">SomeClass</font>(Base):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;__tablename__ = '<font color="#ff00ff">some_table</font>'<br>
+&nbsp;&nbsp;&nbsp;&nbsp;id = Column('<font color="#ff00ff">id</font>', Integer, primary_key=True)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;name =&nbsp;Column('<font color="#ff00ff">name</font>', String(50))<br>
+</code></blockquote>
+</p>
+<p>
+<b>Unicode, demystified.</b><br>
+By far, the most frustrating problems I've ever encountered in Python have been
+unicode related.  I was fortunate enough to catch Kumar McMillan's
+presentation, "Unicode in Python, Completely Demystified".  This presentation
+helped enlighten many on the concept of unicode, clear up many misconceptions,
+and explain how to handle it properly in Python.  Check out <a
+href="http://farmdev.com/talks/unicode">his slides</a> for more details, but
+the general idea here is to follow these three rules:
+<ul>
+    <li>decode early</li>
+    <li>unicode everywhere</li>
+    <li>encode late</li>
+</ul>
+His solution to decoding to unicode turns out to be quite elegant compared to
+some nasty try/except UnicodeDecodeError blocks that I have written in the past
+;)
+<blockquote><code>
+<font color="#a52a2a"><b>def</b></font>&nbsp;<font color="#008b8b">to_unicode_or_bust</font>(obj, encoding='<font color="#ff00ff">utf-8</font>'):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#a52a2a"><b>if</b></font>&nbsp;isinstance(obj, basestring):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#a52a2a"><b>if</b></font>&nbsp;<font color="#a52a2a"><b>not</b></font>&nbsp;isinstance(obj, unicode):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;obj = unicode(obj, encoding)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#a52a2a"><b>return</b></font>&nbsp;obj<br>
+</code></blockquote>
+</p>
+<p>
+Later that night I went and shined some light on some dark corners of
+certain projects that I've been working on to try and handle unicode
+the Right Way.
+</p>
+<p>
+<b>Grassyknoll</b><br>
+After the code sprints, I got a chance to see these guys show off their hard
+work.  <a href="http://code.google.com/p/grassyknoll/">grassyknoll</a> is a
+search engine written in Python.  With the ability to handle multiple backends,
+frontends, and wire formats, grassyknoll has a ton of potential to
+revolutionize the open source search engine.  There has been recent talk in
+Fedora land about what kind of search engine to use, and I think grassyknoll is
+definitley a viable option.
+</p>
+<p>
+<b>Packaging BOF</b><br>
+Toshio, Spot, and I attended a Packaging BOF where we discussed our
+experiences with distutils and setuptools with a bunch of people from various
+companies and distros.  This then sparked discussions on python-dev and the
+distutils-sig mailing lists.  You can also find the details of the BOF session
+on the <a href="http://wiki.python.org/moin/PackagingBOF">Python wiki</a>.  There
+is definitely a lot of energy behind this, so hopefully we'll see some good changes
+in setuptools in the near future that will make our lives as distro packagers much easier :)
+</p>
+<p>
+<p>
+<b>Orbited</b><br>
+Orbited is an HTTP daemon that is optimized for long-lasting comet
+connections.  This allows you to write real-time web applications with
+ease.  For example, embeding an irc channel anywhere:
+<p>
+<iframe style="width:695px;height:390px;scrolling:no;border:0px;"
+src="http://fedora.orbited.org:8000/static/chat.html?channel=fedora-devel"></iframe></center>
+</p>
+<p>
+You can also use orbited as a WSGI server!  Toshio did some brief benchmarking
+of of CherryPy{2,3}, Paste, and Orbited WSGI servers, and orbited seemed to be
+the clear winner in all scenerios.  There is a good chance that we will be using
+orbited to handle our comet widgets within MyFedora :)
+</p>
+</p>
+<b>Code Sprints</b><br>
+I stayed the entire time for the code sprints, and mainly focused on
+TurboGears hacking.
+This is what I ended up working on:
+<ul>
+<li>Added SQLAlchemy support to turbogears.testutil.DBTest (<a
+   href="http://trac.turbogears.org/ticket/1764">Ticket #1764</a>).
+ 		When you inherit from this class, it will automatically set up and tear down your SQLObject
+ 		or SQLAlchemy database before and after each of your unit tests.</li>
+<li>Added a <a href="http://code.google.com/p/twtools/source/browse/trunk/toscawidgets/widgets/twtools/jquery/flot.py">FlotWidget</a>
+using <a href="http://toscawidgets.org">ToscaWidgets</a> to <a
+href="http://code.google.com/p/twtools/">twTools</a> This widget
+allows you to create attractive graphs with ease.</li>
+<li>Made the TurboGears2 templating engine configurable (<a
+   href="http://trac.turbogears.org/ticket/1680">Ticket #1680</a>).
+   Things were hardcoded to use genshi; this is no longer the case.</li>
+<li>WebTest integration for unit test (<a
+   href="http://trac.turbogears.org/ticket/1762">Ticket #1762</a>).  I
+   wrote a some high level unit testing classes that wrap a <a href="http://pythonpaste.org/webtest/">WebTest</a> object
+   around your WSGI app.  This gives you an extremely powerful API to
+   write "framework independent" unit tests.  The WebTest.get/post
+   methods simply return <a href="http://pythonpaste.org/webob/">WebOb</a> objects, which allow for drastic
+   simplification of your unittests.  This also helped decouple the TG
+   testutils from using CherryPy internals (one step closer to CherryPy3
+   support in TurboGears).  As <a href="http://groups.google.com/group/turbogears-trunk/browse_thread/thread/62f781b69f469b8f?hl=en">I mentioned</a> on the TurboGears-trunk list,
+   these changes will make writing unit tests a breeze: </li>
+<blockquote><code>
+<font color="#a52a2a"><b>class</b></font>&nbsp;<font color="#008b8b">TestPages</font>(testutil.DBWebTest):<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#a52a2a"><b>def</b></font>&nbsp;<font color="#008b8b">test_forbidden</font>(self):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.app.get('<font color="#ff00ff">/hot_action</font>', status=403)<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#a52a2a"><b>def</b></font>&nbsp;<font color="#008b8b">test_webob_response</font>(self):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;user = User(user_name=u&quot;<font color="#ff00ff">test</font>&quot;, password=u&quot;<font color="#ff00ff">test</font>&quot;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.login_user(user)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;res = self.app.get('<font color="#ff00ff">/hot_action</font>')<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#a52a2a"><b>assert</b></font>&nbsp;&quot;<font color="#ff00ff">Hot WSGI action</font>&quot;&nbsp;<font color="#a52a2a"><b>in</b></font>&nbsp;res<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#a52a2a"><b>assert</b></font>&nbsp;res.namespace['<font color="#ff00ff">tg_flash</font>'] == u'<font color="#ff00ff">Hot WSGI action</font>'&nbsp;<br>
+</code></blockquote>
+The WebTest integration is planned to hit in the TurboGears 1.1 release, deprecating testutils.{call,create_request}.
+</ul>
+</p>
+<p>
+Want to read more blog posts about PyCon 2008?  You can find links to lots of PyCon related posts <a href="http://nxsy.org/blog/archives/2008/03/18/pycon-2008-blog-coverage-outstanding">here</a> and on <a href="http://planet.python.org/">Planet Python</a>.

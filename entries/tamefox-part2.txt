@@ -1,0 +1,150 @@
+Taming the fox (part 2)
+#mdate Sm
+#tags code,hacks
+<p>
+So, in my <a href="http://lewk.org/blog/tamefox">previous post</a> I wrote a script that uses xdotool to put firefox to
+sleep when it does not have focus.  The implementation was pretty
+straight-forward, but not optimal.  Thanks to some help from <a href="http://semicomplete.com">Jordan Sissel</a>, I threw
+together a Python script that accomplishes this goal much more effectively, using the python-xlib module instead of xdotool.
+</p>
+<blockquote></code>
+<a href="http://lmacken.fedorapeople.org/tamefox.py">http://lmacken.fedorapeople.org/tamefox.py</a>
+</code>
+</blockquote>
+
+<blockquote><code>
+<font color="#cd00cd">import</font>&nbsp;os<br>
+<font color="#cd00cd">from</font>&nbsp;signal <font
+color="#cd00cd">import</font>&nbsp;SIGSTOP, SIGCONT<br>
+<font color="#cd00cd">from</font>&nbsp;Xlib <font
+color="#cd00cd">import</font>&nbsp;X, display, Xatom<br>
+<br>
+<font color="#0000ff"><b>def</b></font>&nbsp;<font
+color="#008b8b">watch</font>(properties):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="background-color: #ffffff"><font
+color="#000000">&quot;&quot;&quot;</font></span><font color="#00cd00">&nbsp;A
+generator that yields events for a list of X properties </font><span
+style="background-color: #ffffff"><font
+color="#000000">&quot;&quot;&quot;</font></span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;dpy = display.Display()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;screens = dpy.screen_count()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;atoms = {}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;wm_pid = dpy.get_atom(<span style="background-color:
+#ffffff"><font color="#000000">'</font></span><font
+color="#00cd00">_NET_WM_PID</font><span style="background-color:
+#ffffff"><font color="#000000">'</font></span>)<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#0000ff"><b>for</b></font>&nbsp;property
+<font color="#0000ff"><b>in</b></font>&nbsp;properties:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;atomid =
+dpy.get_atom(property, only_if_exists=True)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font
+color="#0000ff"><b>if</b></font>&nbsp;atomid != X.NONE:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;atoms[atomid]
+= property<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#0000ff"><b>for</b></font>&nbsp;num <font
+color="#0000ff"><b>in</b></font>&nbsp;range(screens):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;screen = dpy.screen(num)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;screen.root.change_attributes(event_mask=X.PropertyChangeMask)<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font
+color="#0000ff"><b>while</b></font>&nbsp;True:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ev = dpy.next_event()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font
+color="#0000ff"><b>if</b></font>&nbsp;ev.type == X.PropertyNotify:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font
+color="#0000ff"><b>if</b></font>&nbsp;ev.atom <font
+color="#0000ff"><b>in</b></font>&nbsp;atoms:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;data
+= ev.window.get_full_property(ev.atom, 0)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;id
+= int(data.value.tolist()[0])<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;window
+= dpy.create_resource_object(<span style="background-color: #ffffff"><font
+color="#000000">'</font></span><font color="#00cd00">window</font><span
+style="background-color: #ffffff"><font color="#000000">'</font></span>,
+id)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if
+window.id == 0: continue<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pid
+= int(window.get_full_property(wm_pid, 0).value.tolist()[0])<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;title
+= window.get_full_property(Xatom.WM_NAME, 0).value<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font
+color="#0000ff"><b>yield</b></font>&nbsp;atoms[ev.atom], title, pid, data<br>
+<br>
+<font color="#0000ff"><b>def</b></font>&nbsp;<font
+color="#008b8b">tamefox</font>():<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="background-color: #ffffff"><font
+color="#000000">&quot;&quot;&quot;</font></span><font
+color="#00cd00">&nbsp;Puts firefox to sleep when it loses focus </font><span
+style="background-color: #ffffff"><font
+color="#000000">&quot;&quot;&quot;</font></span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;alive = True<br>
+&nbsp;&nbsp;&nbsp;&nbsp;ff_pid = None<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#0000ff"><b>for</b></font>&nbsp;property,
+title, pid, event <font color="#0000ff"><b>in</b></font>&nbsp;watch([<span
+style="background-color: #ffffff"><font color="#000000">'</font></span><font
+color="#00cd00">_NET_ACTIVE_WINDOW</font><span style="background-color:
+#ffffff"><font color="#000000">'</font></span>]):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font
+color="#0000ff"><b>if</b></font>&nbsp;title.endswith(<span
+style="background-color: #ffffff"><font color="#000000">'</font></span><font
+color="#00cd00">Firefox</font><span style="background-color: #ffffff"><font
+color="#000000">'</font></span>) <font
+color="#0000ff"><b>or</b></font>&nbsp;title.endswith(<span
+style="background-color: #ffffff"><font color="#000000">'</font></span><font
+color="#00cd00">Vimperator</font><span style="background-color: #ffffff"><font
+color="#000000">'</font></span>):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ff_pid
+= pid<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font
+color="#0000ff"><b>if</b></font>&nbsp;<font
+color="#0000ff"><b>not</b></font>&nbsp;alive:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font
+color="#0000ff"><b>print</b></font>&nbsp;<span style="background-color:
+#ffffff"><font color="#000000">'</font></span><font color="#00cd00">Waking up
+firefox</font><span style="background-color: #ffffff"><font
+color="#000000">'</font></span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;os.kill(ff_pid,
+SIGCONT)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;alive
+= True<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font
+color="#0000ff"><b>elif</b></font>&nbsp;ff_pid <font
+color="#0000ff"><b>and</b></font>&nbsp;alive <font
+color="#0000ff"><b>and</b></font>&nbsp;<font
+color="#0000ff"><b>not</b></font>&nbsp;title.startswith(<span
+style="background-color: #ffffff"><font color="#000000">'</font></span><font
+color="#00cd00">Opening</font><span style="background-color: #ffffff"><font
+color="#000000">'</font></span>) <font
+color="#0000ff"><b>and</b></font>&nbsp;<font color="#ff1493">\</font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;title
+<font color="#0000ff"><b>not</b></font>&nbsp;<font
+color="#0000ff"><b>in</b></font>&nbsp;(<span style="background-color:
+#ffffff"><font color="#000000">'</font></span><font
+color="#00cd00">Authentication Required</font><span style="background-color:
+#ffffff"><font color="#000000">'</font></span>, <span style="background-color:
+#ffffff"><font color="#000000">'</font></span><font
+color="#00cd00">Confirm</font><span style="background-color: #ffffff"><font
+color="#000000">'</font></span>, <span style="background-color: #ffffff"><font
+color="#000000">'</font></span><font color="#00cd00">Alert</font><span
+style="background-color: #ffffff"><font color="#000000">'</font></span>):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font
+color="#0000ff"><b>print</b></font>&nbsp;<span style="background-color:
+#ffffff"><font color="#000000">'</font></span><font color="#00cd00">Putting
+firefox to sleep</font><span style="background-color: #ffffff"><font
+color="#000000">'</font></span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;os.kill(ff_pid,
+SIGSTOP)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;alive
+= False<br>
+<br>
+<font color="#0000ff"><b>if</b></font>&nbsp;__name__ == <span
+style="background-color: #ffffff"><font color="#000000">'</font></span><font
+color="#00cd00">__main__</font><span style="background-color: #ffffff"><font
+color="#000000">'</font></span>:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;tamefox()<br>
+
+</code></blockquote>

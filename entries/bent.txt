@@ -1,0 +1,15 @@
+bent
+#mdate Sm
+#tags music
+<p>
+So recently I've been working on a little project in my free time that involves
+<a href="http://www.anti-theory.com/soundart/circuitbend/">circuit bending</a> a little $5 keyboard I bought from goodwill.
+<br>
+<center>
+    <img src="/img/toy.png">
+</center>
+<br>
+I sat down with today with my rio mp3 player and recorded a little bit with a 
+prototype I've been working on: <a href="http://lewk.org/0.ogg">0.ogg</a> (276.1k)
+(warning: it's pretty out there)
+</p>

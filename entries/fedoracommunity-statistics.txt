@@ -1,0 +1,32 @@
+Fedora Community Statistics
+#mdate Sm
+#tags Fedora,code,metrics
+<p>
+<a href="http://fedoracommunity.fedorahosted.org"><img src="http://fedorapeople.org/groups/designteam/Projects/Fedora%20Community/Fedora%20Community%20Banners/fedora-community-plain.png" align="right"/></a>
+    I'm pleased to announce that version 0.4.0 of the <a href="http://fedoracommunity.fedorahosted.org">Fedora Community</a> dashboard has just hit <a href="https://admin.fedoraproject.org/community">production</a>.  Along with the usual batch of bugfixes, this release
+contains a new '<a href="https://admin.fedoraproject.org/community/statistics">Statistics</a>' section that contains metrics from a variety of different pieces of Fedora Infrastructure.
+</p>
+<p>
+    Thanks goes to <a href="http://ianweller.org/">Ian Weller</a> for the wiki stats, <a href="http://skvidal.wordpress.com/">Seth Vidal</a> for the torrent
+    stats, and <a href="http://www.domsch.com/">Matt Domsch</a> & <a href="http://jspaleta.livejournal.com/">Jef Spaleta</a> for the map generation code.  I ended up writing the updates
+metrics, package stats, and users/mirrors widgets.  Enjoy!
+</p>
+
+<p>
+    <center>
+<a href="https://admin.fedoraproject.org/community/statistics/users"><img src="http://lmacken.fedorapeople.org/img/fedoracommunity-userstats.png"/></a>
+<br/>
+<a href="https://admin.fedoraproject.org/community/statistics/mirrors"><img src="http://lmacken.fedorapeople.org/img/fedoracommunity-mirrorstats.png"/></a>
+<br/>
+<a href="https://admin.fedoraproject.org/community/statistics/packages"><img src="http://lmacken.fedorapeople.org/img/fedoracommunity-packagestats.png"/></a>
+<br/>
+<a href="https://admin.fedoraproject.org/community/statistics/accounts"><img src="http://lmacken.fedorapeople.org/img/fedoracommunity-accountstats.png"/></a>
+<br/>
+<a href="https://admin.fedoraproject.org/community/statistics/updates"><img src="http://lmacken.fedorapeople.org/img/fedoracommunity-updatestats.png"/></a>
+<br/>
+<a href="https://admin.fedoraproject.org/community/statistics/wiki"><img src="http://lmacken.fedorapeople.org/img/fedoracommunity-wikistats.png"/></a>
+<br/>
+<a href="https://admin.fedoraproject.org/community/statistics/torrents"><img src="http://lmacken.fedorapeople.org/img/fedoracommunity-torrentstats.png"/></a>
+</center>
+
+</p>

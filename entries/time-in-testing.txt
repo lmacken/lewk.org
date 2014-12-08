@@ -1,0 +1,73 @@
+Time spent in updates-testing purgatory
+#mdate Sm
+#tags Fedora,bodhi,code,Python
+<img src="https://admin.fedoraproject.org/updates/static/images/bodhi-icon-48.png" align="right"/>
+<p> <a href="http://fedoraproject.org/wiki/WillWoods">Will Woods</a> asked me on IRC earlier today how easy it would be to determine
+the amount of time Fedora updates spend in testing within <a
+href="http://fedorahosted.org/bodhi">bodhi</a>.  It turned out to be fairly
+easy to calculate, so I thought I would share the code and results.  </p>
+
+<p>
+<blockquote><code>
+    <font face="monospace">
+<font color="#cd00cd">from</font>&nbsp;datetime <font color="#cd00cd">import</font>&nbsp;timedelta<br>
+<font color="#cd00cd">from</font>&nbsp;bodhi.model <font color="#cd00cd">import</font>&nbsp;PackageUpdate<br>
+<br>
+deltas = []<br>
+occurrences = {}<br>
+accumulative = timedelta()<br>
+<br>
+<font color="#0000ff"><b>for</b></font>&nbsp;update <font color="#0000ff"><b>in</b></font>&nbsp;PackageUpdate.select():<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#0000ff"><b>for</b></font>&nbsp;comment <font color="#0000ff"><b>in</b></font>&nbsp;update.comments:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#0000ff"><b>if</b></font>&nbsp;comment.text == <span style="background-color: #ffffff"><font color="#000000">'</font></span><font color="#00cd00">This update has been pushed to testing</font><span style="background-color: #ffffff"><font color="#000000">'</font></span>:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#0000ff"><b>for</b></font>&nbsp;othercomment <font color="#0000ff"><b>in</b></font>&nbsp;update.comments:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#0000ff"><b>if</b></font>&nbsp;othercomment.text == <span style="background-color: #ffffff"><font color="#000000">'</font></span><font color="#00cd00">This update has been pushed to stable</font><span style="background-color: #ffffff"><font color="#000000">'</font></span>:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;delta = othercomment.timestamp - comment.timestamp<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;deltas.append(delta)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;occurrences[delta.days] = occurrences.setdefault(delta.days, 0) + 1<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;accumulative += deltas[-1]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#0000ff"><b>break</b></font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#0000ff"><b>break</b></font><br>
+<br>
+deltas.sort()<br>
+all = PackageUpdate.select().count()<br>
+percentage = int(float(len(deltas)) / float(all) * 100)<br>
+mode = sorted(occurrences.items(), cmp=<font color="#0000ff"><b>lambda</b></font>&nbsp;x, y: cmp(x[1], y[1]))[-1][0]<br>
+<br>
+<font color="#0000ff"><b>print</b></font>&nbsp;<span style="background-color: #ffffff"><font color="#000000">&quot;</font></span><font color="#00cd00">%d out of %d updates went through testing (%d%%)</font><span style="background-color: #ffffff"><font color="#000000">&quot;</font></span>&nbsp;% (len(deltas), all, percentage)<br>
+<font color="#0000ff"><b>print</b></font>&nbsp;<span style="background-color: #ffffff"><font color="#000000">&quot;</font></span><font color="#00cd00">mean = %d days</font><span style="background-color: #ffffff"><font color="#000000">&quot;</font></span>&nbsp;% (accumulative.days / len(deltas))<br>
+<font color="#0000ff"><b>print</b></font>&nbsp;<span style="background-color: #ffffff"><font color="#000000">&quot;</font></span><font color="#00cd00">median = %d days</font><span style="background-color: #ffffff"><font color="#000000">&quot;</font></span>&nbsp;% deltas[len(deltas) / 2].days<br>
+<font color="#0000ff"><b>print</b></font>&nbsp;<span style="background-color: #ffffff"><font color="#000000">&quot;</font></span><font color="#00cd00">mode = %d days</font><span style="background-color: #ffffff"><font color="#000000">&quot;</font></span>&nbsp;% mode<br>
+</font>
+</code></blockquote>
+</p>
+<hr width="40%"/>
+<p><b>
+<blockquote><code>
+4878 out of 10829 updates went through testing (45%)<br/>
+mean = 17 days<br/>
+median = 11 days<br/>
+mode = 6 days<br/>
+</code></blockquote>
+</b></p>
+
+<p> So, it seems that the majority of updates leave updates-testing in less
+than a week.  This is interesting when taking into consideration the testing workflow
+mechanisms that bodhi employs.  An update can go from testing to stable in two
+ways: 1) The update's karma can reach an optional stable threshold, and
+automatically get pushed to the stable repository based on positive community
+feedback.  2) The developer can request that the update be marked as stable.
+After an update sits in testing for two weeks, bodhi will send the developer
+nagmail, which seems to help mitigate stale updates.  When initially deploying
+bodhi, I thought that we would get bogged down with a ton of stale testing updates and would
+have to implement a timeout to have them automatically get marked
+as stable.  This is still a viable option (which would require FESCo
+rubberstamping), but I'm quite surprised to see how effective this
+community-driven workflow is already.  Now we just need to encourage more people to use it :)
+</p>
+<p>
+Due to the limitations of the current model I couldn't figure out an easy way
+to determine which updates were marked as stable by positive community
+feedback.  This issue will be assessed with the long-awaited SQLAlchemy
+port that I will hopefully finish up at some point early next year.
+</p>

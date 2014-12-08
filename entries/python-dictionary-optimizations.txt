@@ -1,0 +1,69 @@
+Python dictionary optimizations
+#mdate Sm
+#tags Python,code
+<p>
+In my recent journey through the book <a
+href="http://www.amazon.com/Beautiful-Code-Leading-Programmers-Practice/dp/0596510047">Beautiful Code</a>, I came across a
+chapter devoted to Python's dictionary implementation.  I found the whole thing
+quite facinating, due to the sheer simplicity and power of the design.  The
+author mentions various special-case optimizations that the Python developers
+cater for in the CPython dictionary implementation, which I think are valuable
+to share.
+</p>
+<p>
+<b>Key lookups</b><br/>
+In CPython, all PyDictObject's are optimized for dictionaries
+containing only string keys.  This seems like a very common use case that is
+definitely worth catering for.  The key lookup function pointer looks like this:
+</p>
+<code><blockquote><pre>
+struct PyDictObject {
+    PyDictEntry *(*ma_lookup)(PyDictObject *mp, PyObject *key, long hash);
+    ...
+</pre></blockquote></code>
+<p>
+<b>ma_lookup</b> is initially set to the <b>lookdict_string</b> function
+(renamed to <b>lookdict_unicode</b> in 3.0), which assumes that both the keys
+in the dictionary and the key being searched for are standard
+PyStringObject's.  It is then able to make a couple of optimiziations, such as
+mitigating various error checks, since string-to-string comparison never raise
+exceptions.  There is also no need for rich object comparisons either, which
+means we avoid calling <b>PyObject_RichCompareBool</b>, and always use
+<b>_PyString_Eq</b> directly.
+</p>
+<p>
+This string-optimized key lookup function is utilized until you search for a
+non-string key.  When lookdict_string detects this, it permanently changes the
+ma_lookup function to a slower, more generic lookdict function.  Here is an
+example of how to trigger this degradation:
+</p>
+<code><blockquote><pre>
+>>> d = {'foo': 'bar'}
+>>> d.get(1) # Congratulations, your dictionary is now slower...
+>>> d.get(u'foo') # Yes, even unicode objects trigger this degradation as well
+</pre></blockquote></code>
+<p>
+Jython does not contain this optimization, however, it does have a
+string-specialized map object, org.python.core.PyStringMap, which is used for
+the __dict__ underpinning of all class instances and modules.  User code that
+creates a dictionary utilizes a different class, org.python.core.PyDictionary,
+which is a heavyweight object that uses the java.util.Hashtable along with some
+extra indirection, allowing it to be subclassed.
+</p>
+<p>
+<b>Small dictionaries</b><br/>
+Python's dictionary makes an effort to never be more than 2/3rds full.  Since the
+default size of dict is 8, this allows you to have 5 active entries in your
+dict while avoiding an additional malloc.  Dictionaries used for keyword
+arguments are usually within this limit, and thus are fairly efficient (along
+with the fact that they most likely come from a pool of cached unused dicts).
+This also can help improve cache locality.  For example, the PyDictObject
+structure uses 124 bytes of space (on x86 w/gcc) and therefore can fit into two
+64-byte cache lines.
+</p>
+<p>
+So, the moral of the story: use dictionaries with string-only keys, and only
+look for string keys within them.  If you can keep them small enough to
+avoid the extra malloc (<= 5), bonus.  As expected, things get better in
+Python 3.0, as unicode keys will no longer slow your dictionary down.
+</p>

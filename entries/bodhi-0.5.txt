@@ -1,0 +1,84 @@
+bodhi 0.5!
+#mdate Sm
+#tags Fedora,bodhi,code
+<p>
+<img src="https://admin.fedoraproject.org/updates/static/images/bodhi-icon-48.png" align="right"/>
+<p>
+As many have already noticed, I performed a large bodhi upgrade recently.  A
+few weeks ago, during The Incident, I was forced to perform what was originally
+going to be a week long bodhi migration and upgrade, overnight.  During the
+past two weeks I've pushed out 24 revisions of bodhi to our infrastructure,
+fixing various show-stoppers, and helping to make sure that updates got out the door.
+</p>
+<p>
+One of the most noticable changes is that bodhi is much more responsive.
+Previously, bodhi was a single python process, running on a single server.
+This single server was also responsible for composing the updates repositories,
+and rawhide, among lots of other bodhi-related churn.  This lead to much pain
+and suffering for all.
+</p>
+<p>
+The bodhi deployment has since changed.  All bodhi requests are now load
+balanced to a bunch of app servers, each running mod_wsgi with multiple bodhi
+processes, each with multiple threads.  All of the hard work is now done on an
+isolated releng server.  This separate bodhi "masher" is now responsible for
+composing repositories, updating bugs, generating update notices, sending
+emails, extended metadata generation, and calculating metrics.  I also added
+support for inter-bodhi communication, which allows our bodhi web frontends to
+kick off push requests to our bodhi-masher instance.
+</p>
+<p>
+Some of the new features in this release:
+<ul>
+<li>A much more flexible karma automatism scheme. Stable/unstable karma
+  thresholds are now fully configurable</li>
+<li>Support for bug aliases</li>
+<li>A 'newpackage' update type</li>
+<li>Newer updates which obsolete older ones will now inherit their bugs and notes.</li>
+<li>A shiny new API in the fedora.client.bodhi module</li>
+<li>Lots of improved releng and security team support, making our lives little easier</li>
+<li>An improved `make update` template (be sure to update your Makefile.common)</li>
+<li>Some new bodhi-client features</li>
+<li>Creating updates for multiple releases using a single form
+  Note: This is not perfect yet.  You can use the "New Update Form" to add any
+  number of builds for any number of releases, but bodhi will still create a
+  single update for each.  This issue will be resolved in the next major bodhi
+  release, which will contain a full model redesign.</li>
+<li>updateinfo.xml generation takes about 20 seconds, instead of 20 minutes.</li>
+<li>A lot of metrics enhancements</li>
+<li>A ton of bug and usability fixes</li>
+</ul>
+</p>
+<p>
+Bodhi is far from being feature complete.  Some new features in the pipeline:
+<ul>
+<li>DeltaRPM generation</li>
+<li>Security issue (CVE) tracking and triaging</li>
+<li>Dependency closure verification, utilizing the power of rpmgrok.</li>
+<li>A complete remodeling from SQLObject to SQLAlchemy, which is almost complete,
+  will give us a lot more flexibility, speed, and power over our update model.
+  This will also allow for things such as having multi-builds for multiple
+  releases in a single update.</li>
+</ul>
+</p>
+<p>
+As always,
+<ul>
+<li>File tickets <a href="https://fedorahosted.org/bodhi/newticket">here</a></li>
+<li>Help out <a href="https://fedorahosted.org/bodhi/report/1">here</a></li>
+<li>Subscribe to the bodhi mailing list <a href="https://fedorahosted.org/mailman/listinfo/bodhi">here</a></li>
+<li>You can always find bodhi <a
+href="http://bodhi.fedoraproject.org">here</a></li>
+</ul>
+</p>
+<p>
+Also, if you're currently having issues with the bodhi client, a fixed version
+will be going out with the next batch of updates.  For the impatient, you can
+pull fixed versions from koji (also, make sure your Makefile.common is up to
+date):
+</p>
+<code><blockquote><pre>
+    koji download-build --arch=noarch python-fedora-0.3.5-1.fc10
+    koji download-build --arch=noarch bodhi-0.5.2-1.fc9
+</pre></blockquote></code>
+

@@ -1,0 +1,18 @@
+Speed up Windows with... encryption !!?!
+#mdate Sm
+#tags windows,security,encryption,open source
+<p>
+I was listening to the <a href="http://twit.tv/sn133">Security Now!</a> podcast yesterday, where <a href="http://www.grc.com">Steve Gibson</a> talked about the latest release of <a href="http://www.truecrypt.org/">TrueCrypt</a>.  I've had great experiences with TrueCrypt in the past, and Steve seems to have nothing but good things to say about it as well.
+</p>
+<p>
+The most fascinating thing that he mentioned was that in his benchmarks (which entailed restoring a very fragged XP image, then running a batch script which used ntimer to clock the windows defraggers and vopt), Windows ran <b>significantly *FASTER*</b> when fully-encrypted with TrueCrypt, <b>than without</b>.
+</p>
+<p>
+So it seems that the TrueCrypt guys have created drivers that not only encrypt/decrypt your data seemlessly on the fly, but are actually quite faster than the default Windows drivers.  Amazing.
+</p>
+<p>
+I haven't tried to reproduce this locally, as I try to avoid firing up my
+Windows vm guest at all costs.  However, I'm interested to hear if anyone else
+notices this dramatic performance boost that Steve talks about when
+using TrueCrypt5 in Windows.
+</p>

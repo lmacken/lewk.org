@@ -1,0 +1,21 @@
+Fedora 7 Update Metrics
+#mdate Sm
+#tags Fedora,bodhi,metrics
+<p>
+<img src="/img/metrics.png" align="right" hspace="10"/>
+Fedora 7 reached <a href="http://fedoraproject.org/wiki/LifeCycle">End of Life</a> on Friday, June 13th.
+Here are some graphs that I generated with <a href="http://fedorahosted.org/bodhi">bodhi</a>.
+
+  <center>
+      <img src="/img/f7-updates.png"/><br/>
+      <img src="/img/f7-most-updated.png"/><br/>
+      <img src="/img/f7-active-devs.png"/><br/>
+      <img src="/img/f7-top-testers.png"/><br/>
+      <img src="/img/f7-most-tested.png"/><br/>
+      <img src="/img/f7-best-karma.png"/><br/>
+  </center>
+
+  <ul>
+      <li>Fedora 7 updates receieved a total of 501 pieces of feedback from testers, 33 of which were anonymous.</li>
+  </ul>
+</p>

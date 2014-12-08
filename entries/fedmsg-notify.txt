@@ -1,0 +1,213 @@
+Keeping your finger on the pulse of the Fedora community
+#tags Fedora,fedmsg,Python,code
+
+<p>
+<img src="http://www.fedmsg.com/en/latest/_static/fedmsg.png" align="right" title="Hop on the bus!"/>
+
+For those who haven't been keeping up with all of the awesome code <a
+href="http://threebean.org/blog">Ralph Bean</a> has been churning out lately,
+be sure to checkout <a href="http://fedmsg.com">fedmsg.com</a>. Hop on <a
+href="http://webchat.freenode.net/?channels=fedora-fedmsg">#fedora-fedmsg</a>
+on Freenode or load up <a href="https://apps.fedoraproject.org/busmon">busmon</a> to see it in action.
+Not all of the Fedora Infrastructure services currently fire off fedmsgs, but we're <a
+href="http://fedmsg.readthedocs.org/en/latest/status/">getting very close</a>.
+
+</p>
+<p>
+This technology is built on top of <a href="http://github.com/mokshaproject">Moksha</a>, which I created many
+years ago while writing the first version of the <a
+href="https://fedorahosted.org/fedoracommunity/">fedoracommunity</a> app.
+It's come a long way since then, and now can speak <a
+href="http://zeromq.org">&Oslash;MQ</a> over WebSockets, as well as <a
+href="http://amqp.org">AMQP</a> and <a href="stomp.codehaus.org">STOMP</a> over <a href="http://orbited2.org">Orbited</a>. Now the time has finally come
+to bring Moksha to the desktop!
+</p>
+
+<p>
+<h3>
+    Introducing fedmsg-notify
+</h3>
+
+<a href="http://github.com/fedora-infra/fedmsg-notify">fedmsg-notify</a> lets
+you get realtime desktop notifications of activity within the Fedora community.
+It allows you to tap into the firehose of contributions as they happen and
+filter them to your liking.  It works with any window manager that supports
+the <a
+href="https://developer.gnome.org/notification-spec/">notification-spec</a>,
+however I've only seen the gravatars show up using GNOME.
+</p>
+
+<p>
+<center><img src="http://lewk.org/img/fedmsg-notify-0-crop.png"></center>
+</p>
+
+<p>
+For <a href="https://www.gnome.org/gnome-3">GNOME Shell</a> users, you can
+[optionally] install <code><a
+href="https://github.com/lmacken/gnome-shell-extension-fedmsg">gnome-shell-extension-fedmsg</a></code>,
+and then enable it with the <code>gnome-tweak-tool</code> or by running
+<code>`gnome-shell-extension-tool -e fedmsg@lmacken-redhat.com`</code> (and
+        then hit alt+f2 and type 'r' to reload the shell). You will then be graced with the presence of The Bus:
+</p>
+<p>
+<center><img src="http://lewk.org/img/gnome-shell-extension-fedmsg.png"></center>
+</p>
+
+<p>
+For those who aren't running GNOME shell, you can simply <code>yum install
+fedmsg-notify</code>, and then run <code>fedmsg-notify-config</code>, or
+launch it from your Settings menu. Due to a dependency on Twisted's
+gtk3reactor, fedmsg-notify is currently only available on Fedora 18 and newer.
+</p>
+
+<p>
+<center>
+    <img src="http://lewk.org/img/fedmsg-notify-config-0.png"/>
+</center>
+
+</p>
+<p>
+The first tab shows you all services that are currently hooked into fedmsg. As
+we add new ones, the gui will automatically display them. These services are
+defined in the <a
+    href="https://github.com/fedora-infra/fedmsg_meta_fedora_infrastructure">fedmsg_meta_fedora_infrastructure</a>
+package.
+</p>
+
+<p>
+<center>
+    <img src="http://lewk.org/img/fedmsg-notify-config-1.png"/>
+</center>
+
+</p>
+<p>
+The Advanced tab lets you further customize what messages you want to see. The "Bugs that you
+have encountered" option will display all messages that reference any Bugzilla
+numbers for crashes that you have hit locally with <a
+    href="http://abrt.fedorahosted.org">ABRT</a>. The other filters involve
+querying your local yum database or the <a href="https://admin.fedoraproject.org/pkgdb">PackageDB</a>.
+</p>
+
+<h3>Under the hood</h3>
+
+<p>
+The fedmsg-notify-daemon itself is fairly minimal (see <a
+href="https://github.com/fedora-infra/fedmsg-notify/blob/develop/fedmsg_notify/daemon.py">daemon.py</a>).
+At it's core, it's just a <a href="http://twistedmatrix.com">Twisted</a>
+reactor that consumes &Oslash;MQ messages. <a
+href="http://mokshaproject.net">Moksha</a> does all of the heavy lifting behind
+the scenes, so all we really have to do is specify a <code>topic</code> to subscribe to and define a <code>consume</code> method
+that gets called with each message. This is essentially just a basic <a
+href="http://moksha.readthedocs.org/en/latest/main/Consumers/">Moksha
+Consumer</a> with some fedmsg + DBus glue.
+</p>
+
+<code class="codeblock"><blockquote><pre>
+<span class="Statement">class</span> <span class="Identifier">FedmsgNotifyService</span>(dbus<span class="Normal">.</span>service<span class="Normal">.</span>Object, fedmsg<span class="Normal">.</span>consumers<span class="Normal">.</span>FedmsgConsumer):
+    topic = <span class="Constant">'org.fedoraproject.*'</span>
+
+    <span class="Statement">def</span> <span class="Identifier">consume</span>(<span class="Type">self</span>, msg): <span class="Normal">&#8230;</span>
+</pre></blockquote></code>
+
+<p>
+The daemon will automatically startup upon login, or will get activated by DBus
+when enabled via the GUI. When a message arrives, it filters it accordingly,
+downloads &amp; caches the icons, [optionally] relays the message over DBus, and then
+displays the notification on your desktop.
+</p>
+
+<p>
+The API for writing custom filters is dead simple (see <a
+    href="https://github.com/fedora-infra/fedmsg-notify/blob/develop/fedmsg_notify/filters.py">filters.py</a>).
+Here is an example of one:
+
+<code class="codeblock"><blockquote><pre>
+<span class="Statement">class</span> <span class="Identifier">MyPackageFilter</span>(Filter):
+    <span class="Constant">&quot;&quot;&quot; Matches messages regarding packages that a given user has ACLs on &quot;&quot;&quot;</span>
+    __description__ = <span class="Constant">'Packages that these users maintain'</span>
+    __user_entry__ = <span class="Constant">'Usernames'</span>
+
+    <span class="Statement">def</span> <span class="Identifier">__init__</span>(<span class="Type">self</span>, settings):
+        <span class="Type">self</span><span class="Normal">.</span>usernames = settings<span class="Normal">.</span>replace(<span class="Constant">','</span>, <span class="Constant">' '</span>)<span class="Normal">.</span>split()
+        <span class="Type">self</span><span class="Normal">.</span>packages = <span class="Identifier">set</span>()
+        reactor<span class="Normal">.</span>callInThread(<span class="Type">self</span><span class="Normal">.</span>_query_pkgdb)
+
+    <span class="Statement">def</span> <span class="Identifier">_query_pkgdb</span>(<span class="Type">self</span>):
+        <span class="Statement">for</span> username <span class="Statement">in</span> <span class="Type">self</span><span class="Normal">.</span>usernames:
+            log<span class="Normal">.</span>info(<span class="Constant">&quot;Querying the PackageDB for </span><span class="Special">%s</span><span class="Constant">'s packages&quot;</span> % username)
+            <span class="Statement">for</span> pkg <span class="Statement">in</span> PackageDB()<span class="Normal">.</span>user_packages(username)[<span class="Constant">'pkgs'</span>]:
+                <span class="Type">self</span><span class="Normal">.</span>packages<span class="Normal">.</span>add(pkg[<span class="Constant">'name'</span>])
+
+    <span class="Statement">def</span> <span class="Identifier">match</span>(<span class="Type">self</span>, msg, processor):
+        packages = processor<span class="Normal">.</span>packages(msg)
+        <span class="Statement">for</span> package <span class="Statement">in</span> <span class="Type">self</span><span class="Normal">.</span>packages:
+            <span class="Statement">if</span> package <span class="Statement">in</span> packages:
+                <span class="Statement">return</span> <span class="Type">True</span>
+</pre></blockquote></code>
+
+The <code>fedmsg-notify-config</code> interface (see <a
+    href="https://github.com/fedora-infra/fedmsg-notify/blob/develop/fedmsg_notify/gui.py">gui.py</a>),
+automatically introspects the filters and populates the Advanced tab with the
+appropriate labels, switches, and text entries.
+</p>
+
+
+<p>
+<h3>Consuming fedmsg over DBus</h3>
+
+Let's say you want to write an application that listens to fedmsg, but you
+don't want to deal with spinning up your own connection, or you're not using
+Python, etc. For these cases, fedmsg-notify supports relaying messages over DBus. This
+functionality can be enabled by running `<code>gsettings set
+org.fedoraproject.fedmsg.notify emit-dbus-signals true</code>`. You can then
+easily listen for the <code>MessageReceived</code> DBus signal, like so:
+
+<code class="codeblock"><blockquote><pre>
+<span class="Statement">import</span> json, dbus
+
+<span class="Statement">from</span> gi<span class="Normal">.</span>repository <span class="Statement">import</span> GObject
+<span class="Statement">from</span> dbus<span class="Normal">.</span>mainloop<span class="Normal">.</span>glib <span class="Statement">import</span> DBusGMainLoop
+
+<span class="Statement">def</span> <span class="Identifier">consume</span>(topic, body):
+    <span class="Statement">print</span>(topic)
+    <span class="Statement">print</span>(json<span class="Normal">.</span>loads(body))
+
+DBusGMainLoop(set_as_default=<span class="Type">True</span>)
+bus = dbus<span class="Normal">.</span>SessionBus()
+bus<span class="Normal">.</span>add_signal_receiver(consume, signal_name=<span class="Constant">'MessageReceived'</span>,
+                        dbus_interface=<span class="Constant">'org.fedoraproject.fedmsg.notify'</span>,
+                        path=<span class="Constant">'/org/fedoraproject/fedmsg/notify'</span>)
+loop = GObject<span class="Normal">.</span>MainLoop()
+loop<span class="Normal">.</span>run()
+</pre></blockquote></code>
+</p>
+
+<h3> Contributing </h3>
+
+<p>
+If you're interested in helping out with any layer of the fedmsg stack, hop
+in <a href="http://webchat.freenode.net/?channels=fedora-apps">#fedora-apps</a>, and
+fork it on GitHub:
+</p>
+<p>
+    <ul>
+        <li>
+        <a href="https://github.com/lmacken/gnome-shell-extension-fedmsg">lmacken/gnome-shell-extension-fedmsg</a><br/>
+        </li>
+        <li>
+        <a href="https://github.com/fedora-infra/fedmsg-notify">fedora-infra/fedmsg-notify</a><br/>
+        </li>
+        <li>
+        <a href="https://github.com/fedora-infra/fedmsg_meta_fedora_infrastructure">fedora-infra/fedmsg_meta_fedora_infrastructure</a><br/>
+        </li>
+        <li>
+        <a href="https://github.com/fedora-infra/fedmsg">fedora-infra/fedmsg</a><br/>
+        </li>
+        <li>
+        <a href="https://github.com/mokshaproject/moksha">mokshaproject/moksha</a><br/>
+        </li>
+    </ul>
+</p>
+<p>
+<b>Hop on the bus!</b>
+</p>

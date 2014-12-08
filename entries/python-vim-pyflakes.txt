@@ -1,0 +1,22 @@
+Good Python Habits: vim + pyflakes
+#mdate Sm
+#tags Python,vim,hacks
+<p>
+Here is a neat little hack for running <a
+href="http://divmod.org/trac/wiki/DivmodPyflakes">pyflakes</a> on Python
+files after you save them.  I like using pyflakes for quickly catching dumb
+errors, but you could easily replace it with a more comprehensive tool like
+<a href="http://pychecker.sourceforge.net">pychecker</a>, or <a href="http://www.logilab.org/857">pylint</a> for more strict <a href="http://www.python.org/dev/peps/pep-0008/">PEP8</a> compliance.
+</p>
+<p>
+All you have to do is throw this in your ~/.vimrc
+</p>
+
+<blockquote><code>
+au BufWritePost *.py !pyflakes %
+</code></blockquote>
+
+<p>
+This has saved me *tons* of time and frustration over the past few weeks, and
+I have no idea I lived without it.
+</p>

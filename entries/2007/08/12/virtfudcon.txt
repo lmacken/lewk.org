@@ -1,0 +1,9 @@
+Bodhi Presentation at Virtual FUDCon
+#mdate Aug 15 23:49:48 2007
+#tags Fedora,presentations,bodhi
+<p><div xmlns="http://www.w3.org/1999/xhtml"><p>
+<img src="https://hosted.fedoraproject.org/projects/bodhi/attachment/wiki/Screenshots/bodhi.png?format=raw" align="right" hspace="4"/>
+I'm going to be giving a presentation on <a href="https://hosted.fedoraproject.org/projects/bodhi/">Bodhi</a> at the <a href="http://fedoraproject.org/wiki/JefSpaleta/VirtualFudCon">Virtual FUDCon</a> August 15th at 1900-2000 UTC (3pm EST).  I'll be covering the past, present, and future of Fedora updates, as well as diving into some technical aspects of the Bodhi project.  If all goes to plan, this will be a live audio-enabled presentation, where people can follow the slides as well as converse on IRC.  I try to post my slides, and [hopefully] a recording of the presentation next week.
+</p>
+<b>*Update*</b>
+You can find the IRC transcripts from my presentation <a href="http://lmacken.fedorapeople.org/bodhi-FUDCon2007/">here</a>, and my slides <a href="http://lmacken.fedorapeople.org/bodhi.pdf">here</a>.</div></p>

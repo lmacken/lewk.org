@@ -1,0 +1,11 @@
+Fedora 12 is here!
+#tags Fedora,linux
+<p>
+<center>
+<a href="http://fedoraproject.org"><img src="http://fedoraproject.org/static/images/f12launch.png"/></a>
+<br/><br/>
+<b>Install it with the liveusb-creator!</b><br/><br/>
+<a href="http://liveusb-creator.fedorahosted.org"><img
+src="https://fedorahosted.org/liveusb-creator/attachment/wiki/img/liveusb-creator-logo.png?format=raw"/></a>
+</center>
+</p>

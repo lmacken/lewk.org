@@ -1,0 +1,99 @@
+Use your Nose!
+#mdate Sm
+#tags code,Python,nose,bodhi,TurboGears
+<p>
+Every programmer out there [<i>hopefully</i>] knows that unittests are an essential part of any growing body of code, especially in the open source world.  However, most hackers out either never write test cases (let alone comments), or usually put them off until "later" (aka: never).  Having to deal with Java and JUnit tests in college not only made me not want to write unit tests, but it made me want to kill myself and everyone around me.  Thankfully, I learned Python.
+</p>
+<p>
+So, I just happen to maintain a piece of software in Fedora called <a href="http://somethingaboutorange.com/mrl/projects/nose/">nose</a> (which lives in the python-nose package).  <a href="http://somethingaboutorange.com/mrl/projects/nose/">Nose</a> is a discovery-based unittest extension for Python, and is also a part of the <a href="http://turbogears.org">TurboGears</a> stack.  If you're hacking on a TurboGears project, the turbogears.testutil module provides some incredibly useful features that make writing tests powerfully trivial.
+</p>
+<p>
+For example, in the code below (taken from <a href="https://hosted.fedoraproject.org/projects/bodhi/">bodhi</a>), I create a test case that utilizes a fresh SQLite database in memory.  Inheriting from the the testutil.DBTest parent class, this database will be created and torn down automagically before and after each test case is run -- ensuring that my tests are executed in complete isolation.  With this example, I wrote a test case to ensure that unauthenticated people cannot create a new update.
+</p>
+<p>
+<blockquote>
+<code>
+<pre>
+<strong>import</strong> <font color="#2040a0">urllib</font>, <font color="#2040a0">cherrypy</font>
+<strong>from</strong> <font color="#2040a0">turbogears</font> <strong>import</strong> <font color="#2040a0">update_config</font>, <font color="#2040a0">database</font>, <font color="#2040a0">testutil</font>, <font color="#2040a0">url</font>
+
+<font color="#2040a0">update_config</font><font color="4444FF">(</font><font color="#2040a0">configfile</font><font color="4444FF">=</font><font color="#008000">'dev.cfg'</font>, <font color="#2040a0">modulename</font><font color="4444FF">=</font><font color="#008000">'bodhi.config'</font><font color="4444FF">)</font>
+<font color="#2040a0">database</font>.<font color="#2040a0">set_db_uri</font><font color="4444FF">(</font><font color="#008000">&quot;sqlite:///:memory:&quot;</font><font color="4444FF">)</font>
+
+<strong>class</strong> <font color="#2040a0">TestControllers</font><font color="4444FF">(</font><font color="#2040a0">testutil</font>.<font color="#2040a0">DBTest</font><font color="4444FF">)</font><font color="4444FF">:</font>
+
+<strong>   <font color="ff0000"> def</font><font color="ff0000"> test_unauthenticated_update</font><font color="2040a0">(self)</font>:
+</strong>        <font color="#2040a0">params</font> <font color="4444FF">=</font> <font color="4444FF"><strong>{</strong></font>
+                <font color="#008000">'builds'</font>  <font color="4444FF">:</font> <font color="#008000">'TurboGears-1.0.2.2-2.fc7'</font>,
+                <font color="#008000">'release'</font> <font color="4444FF">:</font> <font color="#008000">'Fedora 7'</font>,
+                <font color="#008000">'type'</font>    <font color="4444FF">:</font> <font color="#008000">'enhancement'</font>,
+                <font color="#008000">'bugs'</font>    <font color="4444FF">:</font> <font color="#008000">'1234 5678'</font>,
+                <font color="#008000">'cves'</font>    <font color="4444FF">:</font> <font color="#008000">'CVE-2020-0001'</font>,
+                <font color="#008000">'notes'</font>   <font color="4444FF">:</font> <font color="#008000">'foobar'</font>
+        <font color="4444FF"><strong>}</strong></font>
+        <font color="#2040a0">path</font> <font color="4444FF">=</font> <font color="#2040a0">url</font><font color="4444FF">(</font><font color="#008000">'/save?'</font> <font color="4444FF">+</font> <font color="#2040a0">urllib</font>.<font color="#2040a0">urlencode</font><font color="4444FF">(</font><font color="#2040a0">params</font><font color="4444FF">)</font><font color="4444FF">)</font>
+        <font color="#2040a0">testutil</font>.<font color="#2040a0">createRequest</font><font color="4444FF">(</font><font color="#2040a0">path</font>, <font color="#2040a0">method</font><font color="4444FF">=</font><font color="#008000">'POST'</font><font color="4444FF">)</font>
+        <strong>assert</strong> <font color="#008000">&quot;You must provide your credentials before accessing this resource.&quot;</font> <strong>in</strong> <font color="#2040a0">cherrypy</font>.<font color="#2040a0">response</font>.<font color="#2040a0">body</font><font color="4444FF">[</font><font color="#FF0000">0</font><font color="4444FF">]</font>
+</pre>
+</code>
+</blockquote>
+
+In the above example, the TestControllers class is automatically detected by nose, which then executes each method that begins with the word 'test'.  To run your unittests, just type 'nosetests'.
+
+<blockquote><code><pre>
+[lmacken@tomservo bodhi]$ nosetests
+.................................
+----------------------------------------------------------------------
+Ran 33 tests in 16.798s
+
+OK
+</pre></code></blockquote>
+
+Now, for the fun part.  Nose comes equipped with a profiling plugin that will profile your test cases using Python's <a href="http://docs.python.org/lib/module-hotshot.html">hotshot</a> module.
+
+So, I went ahead and added a 'profile' target to bodhi's Makefile:
+
+<blockquote><code><pre>
+profile:
+    nosetests --with-profile --profile-stats-file=nose.prof
+    python -c "import hotshot.stats ; stats = hotshot.stats.load('nose.prof') ; stats.sort_stats('time', 'calls') ; stats.print_stats(20)"
+</pre></code></blockquote>
+
+Now, typing 'make profile' will execute and profile all of our unit tests, and spit out the top 20 method calls -- ordered by internal time and call count.
+
+<blockquote><code><pre>
+[lmacken@tomservo bodhi]$ make profile
+nosetests --with-profile --profile-stats-file=nose.prof
+.................................
+----------------------------------------------------------------------
+Ran 33 tests in 42.878s
+
+OK
+python -c "import hotshot.stats ; stats = hotshot.stats.load('nose.prof') ; stats.sort_stats('time', 'calls') ; stats.print_stats(20)"
+         800986 function calls (702850 primitive calls) in 42.878 CPU seconds
+
+   Ordered by: internal time, call count
+   List reduced from 3815 to 20 due to restriction <20>
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+       14   13.675    0.977   13.675    0.977 /usr/lib/python2.5/socket.py:71(ssl)
+       31   10.683    0.345   10.683    0.345 /usr/lib/python2.5/httplib.py:994(_read)
+2478/2429    9.297    0.004    9.677    0.004 <string>:1(<module>)
+        1    0.604    0.604    0.604    0.604 /usr/lib/python2.5/commands.py:50(getstatusoutput)
+     2999    0.536    0.000    0.539    0.000 /usr/lib/python2.5/site-packages/sqlobject/sqlite/sqliteconnection.py:177(_executeRetry)
+   105899    0.448    0.000    0.773    0.000 Modules/pyexpat.c:871(Default)
+       60    0.327    0.005    1.102    0.018 /usr/lib/python2.5/site-packages/kid/parser.py:343(_buildForeign)
+   105899    0.325    0.000    0.325    0.000 /usr/lib/python2.5/site-packages/kid/parser.py:452(_default)
+     3396    0.280    0.000    0.420    0.000 /usr/lib/python2.5/site-packages/cherrypy/config.py:107(get)
+     2965    0.263    0.000    0.263    0.000 /usr/lib/python2.5/logging/__init__.py:364(formatTime)
+44964/6587    0.238    0.000    0.252    0.000 /usr/lib/python2.5/site-packages/kid/parser.py:156(_pull)
+       60    0.116    0.002    0.116    0.002 /usr/lib/python2.5/site-packages/kid/compiler.py:38(py_compile)
+     8127    0.114    0.000    0.114    0.000 /usr/lib/python2.5/site-packages/cherrypy/_cputil.py:311(lower_to_camel)
+     8982    0.110    0.000    0.137    0.000 /usr/lib/python2.5/site-packages/sqlobject/dbconnection.py:902(__getattr__)
+13740/4044    0.108    0.000    2.176    0.001 /usr/lib/python2.5/site-packages/kid/parser.py:209(_coalesce)
+24353/4026    0.107    0.000    2.143    0.001 /usr/lib/python2.5/site-packages/kid/parser.py:174(_track)
+     3170    0.093    0.000    0.398    0.000 /usr/lib/python2.5/logging/__init__.py:405(format)
+        1    0.082    0.082    0.082    0.082 /usr/lib/python2.5/site-packages/rpm/__init__.py:5(<module>)
+     4777    0.081    0.000    1.320    0.000 /usr/lib/python2.5/site-packages/kid/serialization.py:564(generate)
+  759/176    0.074    0.000    0.210    0.001 /usr/lib/python2.5/sre_parse.py:385(_parse)
+</pre></code></blockquote>

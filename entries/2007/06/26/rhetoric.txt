@@ -1,0 +1,11 @@
+an abundance of rhetoric
+#mdate Jun 28 01:42:49 2007
+#tags life,presentations
+<p><div xmlns="http://www.w3.org/1999/xhtml"><p>
+So half-summer classess are way more intense than I ever expected (5 week as opposed to the standard 10 week quarters).  I'm in the midst of week 4 (essentially week 8) of Ancient Philosophy, which completes my minor, and Artificial Intelligence, which concludes my CS classes at RIT.  With very limited time for bloggery, here is what I've been up to recently:
+</p><ul><li>Gave a Fedora 7 presentation at BarCampROC.  I got a chance to meet Fedora Ambassador <a href="http://fedoraproject.org/wiki/KarlieRobinson">Karlie Robinson</a>, and discussed and learned about some interesting viral marketing techniques.</li>
+<li>I saw two presentations by <a href="http://en.wikipedia.org/wiki/Radia_Perlman">Radia Perlman</a>, the "mother of the internet", here at RIT.  Radia is incredibly down to earth, and incredibly brilliant.</li>
+<li>Caught a talk about <a href="http://haiku-os.org/">Haiku OS</a> by a <a href="www.csh.rit.edu">CSH</a> alum, Michael Phipps.  You can watch a Google Tech Talk about HaikuOS <a href="http://video.google.com/videoplay?docid=236331448076587879">here</a></li>
+<li>Saw an amazing convocation speech for my graduation by Bill Clinton.  He definitely dropped the word "Ubuntu".</li>
+<li>Designed and implemented an expert system for my AI class called Scrutiny (and wrote a 10 page paper about it).  The initial prototype is written in pure Python, powered by an SQLite db, and has a set of plugins to aid in the sustainment of computer system security.  It's a robust forward-chaining fact-driven rule-based expert system and wields the Python framework <a href="http://turbogears.org">TurboGears</a>.  I read few IEEE papers on expert system design and benchmarking, and implemented a handful of test cases such as {sequential,disjunctive,conjuntive} knowledge inference, and it performed surprisingly well.  Buzzwords aside, I'll be releasing it in a couple of weeks when my class is over.</li>
+</ul></div></p>

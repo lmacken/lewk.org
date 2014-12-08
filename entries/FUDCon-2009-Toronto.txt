@@ -1,0 +1,220 @@
+FUDCon Toronto 2009
+#mdate Sm
+#tags Fedora,FUDCon,code,liveusb-creator,TurboGears,Moksha,bodhi,Python
+<img src="http://fedoraproject.org/w/uploads/4/49/FUDCon_F13_logo.png" align="right"/>
+<p>
+Another <a href="http://fedoraproject.org/wiki/FUDCon">FUDCon</a> is in the books, this time in Toronto.  It was great to catch up
+with many people, put faces to some names, and meet a bunch of new contributors.
+I gave a session on <a href="http://moksha.fedorahosted.org">Moksha</a>, which
+I'll talk about below, and was also on the Fedora Infrastructure panel
+discussion.
+<p>
+My goal this FUDCon wasn't to crank out a ton of code, but to focus on
+gathering and prioritizing requirements and to help others be productive.
+Here are some of the projects I focused on.
+</p>
+<h3>Moksha</h3>
+<p>
+<a href="http://moksha.fedorahosted.org">Moksha</a> is a project I created a little over a year ago, which is the base of a
+couple of other applications I've been working on as well: <a
+href="https://admin.fedoraproject.org/community">Fedora Community</a> and <a
+href="http://civx.us">CIVX</a>.  I'll be blogging about these in more detail later.
+</p>
+<p>
+One of the main themes of FUDCon this year was <a href="https://fedoraproject.org/wiki/Messaging_SIG">Messaging</a> (<a href="http://www.amqp.org/">AMQP</a>), and Moksha
+is a large part of this puzzle, as it allows you to wield AMQP within web
+applications.  During my session the demo involved busting open a terminal,
+creating a consumer that reacts to all messages, creating a message producer,
+and then creating a live chat widget -- all of which hooked up to Fedora's AMQP
+broker.
+</p>
+<p>
+I'll be turning my slides into an article, so expect a full blog post
+explaining the basics soon.  In the mean time, I found <a
+href="http://pseudogen.blogspot.com/2009/12/fudcon-day-one-awesomeness-that-is.html">Adam Miller's</a> description to be extremely amusing:
+</p>
+<p>
+<blockquote>
+"I walked into a session called "Moksha and Fedora
+Community -- Real-time web apps with Python and AMQP" which blew my mind. This
+is Web3.0 (not by definition, but that's what I'm calling it), Luke Macken and
+J5 completely just stepped over web2.0 and said "pffft, childs play" (well not
+really but in my mind I assume it went something like that). This session
+showed off technology that allows real time message passing in a web browser as
+well as "native" support for standard protocols. The project page is
+<a href="https://fedorahosted.org/moksha/">https://fedorahosted.org/moksha/</a> and I think everyone on the planet should take
+some time to go there and enjoy the demo, prepare to have your mind blown. Oh,
+and I also irc transcribed that one as well
+<a href="http://meetbot.fedoraproject.org/fudcon-room-3/2009-12-05/fudcon-room-3.2009-12-05-22.07.log.html">http://meetbot.fedoraproject.org/fudcon-room-3/2009-12-05/fudcon-room-3.2009-12-05-22.07.log.html</a> ... presentation slides found:
+<a href="http://lmacken.fedorapeople.org/moksha-FUDConToronto-2009.odp">http://lmacken.fedorapeople.org/moksha-FUDConToronto-2009.odp</a>"
+</blockquote>
+</p>
+
+</p>
+<h3>Fedora Community</h3>
+<p>
+So after we released v1.0 of Fedora Community for F12, all of us
+went off in seperate directions to hack on various things.  <a href="http://www.j5live.com">J5</a> wrote <a href="https://fedorahosted</a>.org/kamaloka-js/">AMQP
+javascript bindings</a>, which I then integrated into Moksha.  <a href="http://mairin.wordpress.com">Máirín Duffy</a> built a <a href="http://mairin.wordpress.com/2009/10/17/open-source-portable-usability-testing-lab-part-2-the-parts">portable usability lab</a> and has been doing great research on the usability of the project.  And I dove back into Moksha to solidify the platform.
+</p>
+<p>
+After we deploy our AMQP broker for Fedora, and once we have start adding <a href="https://fedoraproject.org/wiki/Messaging_SIG#Shims">shims</a>
+into our existing infrastructure, we'll then be able to start creating live widgets and message consumers that can react to events, allowing us to wield Fedora in real-time.  This will let us to keep our fingers on the pulse of Fedora,
+automate and facilitate tedious tasks, and gather metrics as things happen.
+</p>
+<p>
+During the hackfests I also did some work on our current Fedora Community
+deployment.  Over the past few weeks some of our widgets randomly died, and we
+haven't been receiving proper error messages.  So, I successfully hooked up
+<a href="http://pypi.python.org/pypi/WebError">WebError</a> and the team is now getting traceback emails, which will help us fix
+problems much faster (or at least nag the hell out of us about them).
+</p>
+<p>
+I also worked with <a href="http://ianweller.org/">Ian Weller</a> on the new Statistics section of the dashboard,
+which has yet to hit production.  Ian and I wrote Wiki metrics, <a href="http://skvidal.wordpress.com/">Seth Vidal</a> wrote BitTorrent
+metrics, and I wrote Bodhi metrics.  We've also got <a href="http://fedoraproject.org/wiki/Statistics">many more</a> to come.  My main concern
+was a blocker issue that we were hitting with our <a href="http://code.google.com/p/flot/">flot</a> graphs when you quickly
+bounce between tabs.  I ended up "fixing" the bug, so I'll be pushing what we
+have of the stats branch into production in the near future.
+</p>
+<h3>TurboGears2</h3>
+<p>
+
+<a href="http://www.turbogears.org">TurboGears</a> has definitely been our favorite web framework within Fedora's
+Infrastructure for many years now.  TurboGears2, a complete re-invention of
+itself, has been released recently, and is catching on *very* quickly in the
+community.  Tons of people are working on awesome new apps, and loving
+every minute of it.  I was also able to convert a rails hacker over to it,
+after he was able to quickly dive into one of the tutorials with ease.  See
+my <a href="http://lewk.org/blog/TurboGears2-in-Fedora">previous blog
+post</a> about getting up and running with TG2 in Fedora/EPEL.
+
+</p>
+
+<h3>python-fedora</h3>
+<p>
+One of my main tasks during the hackfests was to pull the authentication layer
+in Fedora Community that authenticates against the Fedora Account System, and
+port it over to python-fedora, so we can use it in any TurboGears2 application.
+I committed the initial port to python-fedora-devel, and have started working
+on integrating it into a default TG2 quickstart and document the process.
+There are still a couple of minor things I want to fix/clean up before
+releasing it, so expect a blog about it soon.
+</p>
+
+<h3><a href="http://bodhi.fedorahosted.org">Bodhi</a></h3>
+<p>
+
+It seems like yesterday that I was an intern at Red Hat working on an internal
+updates system for Fedora Core.  Coming up on 5 years later, and I am now working on my 3rd
+implementation of an updates system, Bodhi v2.0.  What's wrong with the current
+Bodhi you ask?  Well, if you talk to any user of it, you'll probably get a
+pretty long list.  Bodhi is the first TurboGears application written & deployed
+in Fedora Infrastructure, and uses the vanilla components (SQLObject, kid,
+CherryPy2).  The TG1 stack has been holding up quite nicely over the years,
+and is still supported upstream, but bodhi's current implemention and design
+does not make it easy to grow.
+</p>
+<p>
+Bodhi v2.0 will be implemented in TurboGears2, using SQLAlchemy for an ORM,
+Mako for templates, and ToscaWidgets2 for re-usable widgets.  It will be
+hook-based and plugin-driven, and will be completely distribution agnostic.
+Another important goal will be AMQP message-bus integration, which will allow
+other services or users to react to various events inside of the system as they
+happen.
+</p>
+<p>
+So far I've ported the old DB model from SQLObject to SQLAlchemy, and have
+begun porting the old unit tests, and writing new ones.  Come the new year,
+I'll be giving this much more of my focus.
+</p>
+<p>
+During the hackfests I got a chance to talk to <a
+href="http://www.ausil.us/">Dennis Gilmore</a> about various
+improvements that we need to make with regard to the update push process.  It
+was also great to talk to many different users of bodhi, who expressed various
+concerns, some of which I've already fixed.  I also got a chance to talk to
+<a href="https://fedoraproject.org/wiki/User:Laxathom">Xavier Lamien</a> about deploying Bodhi for <a href="http://rpmfusion.org">rpmfusion</a>.  On the bus ride home I
+helped explain to <a href="http://blog.melchua.com/">Mel</a> how Bodhi & Koji fit into the big picture of things.
+</p>
+<p>
+During the BarCamp sessions I also attended a session about the <a
+href="http://fedoraproject.org/wiki/Desktop/Whiteboards/UpdateExperience">Update
+Experience</a>, where we discussed many important issues surrounding updates.
+</p>
+<h3>liveusb-creator</h3>
+<p>
+
+So I got a chance to finally meet <a href="http://fedoraproject.org/wiki/User:Sdz">Sebastian Dziallas</a>, of <a href="http://wiki.sugarlabs.org/go/Sugar_on_a_Stick">Sugar on a Stick</a> fame,
+and was able to fix a few liveusb-creator issues on his laptop.  I ended up
+pushing out a new release a couple of days ago that contains some of those
+fixes, along with a new version of Sugar on a Stick.
+</p>
+<p>
+The liveusb-creator has been catching a lot of press recently (see the <a href="http://liveusb-creator.fedorahosted.org">front page</a> for a list).  Not only did it have a 2 page spread in Linux Format, but it was also featured in this weeks Wired.com article <a href="http://www.wired.com/geekdad/2009/12/new-sugar-on-a-stick-brings-much-needed-improvements/comment-page-1/#comment-31925">New Sugar on a Stick Brings Much Needed Improvements</a>.  Rock.
+</p>
+<h3>Python</h3>
+<p>
+There was lot of brainstorming done by <a href="http://dmalcolm.livejournal.com/">Dave Malcolm</a>, <a href="http://cgwalters.livejournal.com">Colin Walters</a>, <a href="http://www.advogato.org/person/badger/">Toshio Kuratomi</a>, <a href="http://codewiz.org/">Bernie Innocenti</a>, I, and many others about various improvements that we could make to the Python interpreter.  From speeding up startup time by doing some clever caching to potentially creating a new optimized compiled binary format.  We also looked into how WebError/abrt gather tracebacks, and discussed ways of enabling interactive traceback debugging for vanilla processes, without requiring a layer of WSGI middleware.
+</p>
+<p>
+There was also work done on <a href="http://lwn.net/Articles/365689">adding
+SystemTap probes to Python</a>, which is very exciting.  There are <a href="https://fedoraproject.org/wiki/Features/SystemtapStaticProbes#Python">many ideas</a> for various probe points, including one that I blogged about <a href="http://lewk.org/blog/python-dictionary-optimizations">previously</a>.
+</p>
+<h3>Intel iMac8,1 support</h3>
+<p>
+
+My iMac sucks at Linux.  This has been something
+that has been nagging me for a long time, and I've been slowly trying to chip away at
+the problems.  First, I've been doing work on a Mac port of the liveusb-creator.  I also
+started to work on a <a
+href="http://lmacken.fedorapeople.org/patches/linux-2.6.31-efifb-iMac.patch">kernel
+patch</a> for getting the EFI framebuffer working, and discussed how to do it
+with ajax and pjones.  The screen doesn't display anything after grub, and
+since we don't know the base address of the framebuffer, it involves writing
+code to iterate over memory trying to find some common pixel patterns.  I'm
+still trying to wrap my head around all of it, but I'll probably end up just buying them
+beer to fix it for me.
+</p>
+<p>
+<h3>Thincrust</h3>
+
+<a href="http://thincrust.net">Thincrust</a> is a project that I've been excited about for a while, and I
+actually have some appliances deployed in a production cloud.  I was able to
+run some ideas for various virtual appliances by one of the authors over some
+beers.  Some pre-baked virtual appliances that you can easily throw into a
+cloud that I would like to see:
+</p>
+<p>
+<ul>
+    <li><a href="http://wsgi.org">WSGI</a> appliance</li>
+    <li>TurboGears2, Pylons, Django, etc.</li>
+    <li>Moksha - Real-time web application in a box</li>
+    <li>func, certmaster, puppetmaster</li>
+    <li>Intrusion detection system</li>
+    <li>Many more that I can't think of right now</li>
+</ul>
+<p>
+<h3>dogtail</h3>
+
+I'm glad to see that <a href="https://fedorahosted.org/dogtail">dogtail</a> is
+still exciting people in the community.  It still has a lot of potential to
+improve not only the way we test graphical software, but we also discussed ways
+of using it to teach people and automate various desktop tasks. What if you
+logged in after a fresh install and got the following popup bubble:
+</p>
+<p>
+<b>Hi, welcome to Fedora, what can I help you do today?</b>
+<ul>
+        <li>Installing new software</li>
+        <li>Setting up an email client</li>
+        <li>Using and RSS news reader</li>
+        <li>More...</li>
+</ul>
+</p>
+<p>
+Each task would then allow Fedora to take the wheel and walk the user through
+various steps.  I had this idea a while ago, when dogtail first came out, and I still
+think it would be totally awesome.  Anyway, this was not a focus of the
+hackfests, but merely a conversation that I had while walking to lunch :)
+</p>

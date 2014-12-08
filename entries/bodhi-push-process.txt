@@ -1,0 +1,62 @@
+bodhi updates push process
+#mdate Sm
+#tags code,Fedora,bodhi,metrics
+<img src="https://admin.fedoraproject.org/updates/static/images/bodhi-icon-48.png" align="right"/>
+
+<p>
+<a href="http://bodhi.fedorahosted.org">Bodhi</a>'s push process is something
+that is usually quite opaque to Fedora package maintainers.  Once an update
+request goes into bodhi, the developer sits back and waits for the update to go
+to where it needs to go.  The ball is then in releng's court, as they must
+sign the packages, and tell bodhi to begin the push.  From there, bodhi
+does it's thing for a while, and then updates magically end up on our users machines. Yay!
+</p>
+
+<p>
+Pushing updates used to take the better part of a day, mostly due to dumb code
+and lots of filesystem churn over NFS.  Thankfully, a lot of the code is now
+much smarter, and people like jkeating and mmcgrath have been helping to
+address the NFS & infrastructure bottlenecks.
+</p>
+
+<p>
+Hopefully I can help shed some light on one of the dark corners of bodhi known
+as The Masher.  Here are some statistics of the last updates push that happened
+earlier today.
+<p>
+
+<p>
+<center>
+<table border=1>
+<tr> <td>Initial push request from releng</td><td></td> </tr>
+<tr> <td>Check koji tag / bodhi status consistency</td><td>38s</td> </tr>
+<tr> <td>Move all of the build tags in Koji</td>  <td>9m32s</td> </tr>
+<tr> <td>Update the comps CVS module </td> <td>11s</td> </tr>
+<tr> <td>Mash f9-updates-testing </td> <td>4m16s</td> </tr>
+<tr> <td>Mash f9-updates </td> <td>1h3m8s</td> </tr>
+<tr> <td>Mash f10-updates-testing </td> <td>12m43s</td> </tr>
+<tr> <td>Mash f10-updates </td> <td>37m51s</td> </tr>
+<tr> <td>Set update ids, state modifications, updates-testing digest generation</td> <td>1m57s</td> </tr>
+<tr> <td>Generate updateinfo.xml </td> <td>5m55s</td> </tr>
+<tr> <td>Repo sanity checks & symlinking to go live </td> <td>1m4s</td> </tr>
+<tr> <td>Cache latest repodata, and remove old </td> <td>1m14s</td> </tr>
+<tr> <td>Wait for updates to hit the master mirror </td> <td>1h1s</td> </tr>
+<tr> <td>Send update notices, update/close bugs, notify developers/commenters </td> <td>11m11s</td> </tr>
+<tr><td><b>Total</b></td><td><b>3h49m42s</b></td></tr>
+</table>
+</center>
+</p>
+<br/>
+<p>
+So we've obviously made some great improvements here, and once the signing
+server is deployed, you can probably expect a much more frequent/consistent flow of updates.
+However, I definitely think there is still a lot of low-hanging fruit in this
+process, and many steps can probably be done in parallel.  We're going to be
+adding <a
+href="http://fedoraproject.org/wiki/Releases/FeaturePresto">DeltaRPM</a>
+generation into the mix in the near future, so I'll give an update a bit later
+with some details as to how that effects the process.
+</p>
+<p>
+Anyway... if you know Python, and enjoy optimizing code -- come talk to me :)
+</p>

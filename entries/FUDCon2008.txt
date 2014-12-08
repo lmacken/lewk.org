@@ -1,0 +1,57 @@
+FUDCon
+#mdate Sm
+#tags Fedora,code,TurboGears,func
+<p>
+So <a href="http://fedoraproject.org/wiki/FUDCon">FUDCon</a> happened over the weekend in Raleigh, North Carolina.  It was a great chance to meet a bunch of new people, catch up with some old friends, and kick around in the south for a bit.
+  I was amazed to see such a huge turnout for the first day of the hackfest.  It was nice to see a ton of new contributors looking to dive in head first into projects.  My goal for the day was to hack on the <a href="http://fedoraproject.org/wiki/MyFedora">MyFedora</a> framework, and solidify our architecture and base widget classes, making it easy to create and display your own widgets.  It's probably safe to say that we exceeded those expectations.
+</p>
+<p>
+I sat down with J5, Toshio, and Douglas Warner, fired up a Gobby instance, and started hacking.  Thanks to the wonders of distributed source control (git!), TurboGears, and Gobby, we were all able to simultaneously run, commit, and hack on the code.  The result of our days work turns out to be a pretty solid architecture for writing, configuring, and displaying reusable Python widgets (based on <a href="http://toscawidgets.org">ToscaWidgets</a>) that can pull from various data sources.  For example, writing a widget to display the latest entries in an RSS feed couldn't really be much easier:
+</p>
+<blockquote><code>
+<font color="#a52a2a"><b>class</b></font>&nbsp;<font color="#008b8b">FedoraPeopleWidget</font>(RSSWidget):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;url = '<font color="#ff00ff"><a href="http://planet.fedoraproject.org/rss20.xml">http://planet.fedoraproject.org/rss20.xml</a></font>'<br>
+&nbsp;&nbsp;&nbsp;&nbsp;title = '<font color="#ff00ff">Fedora People</font>'<br>
+</code></blockquote>
+<p>
+The next day during the MyFedora session we got a chance to show off some of the work we did, and get some more ideas from various types of contributors.
+
+This project has the potential to make a lot of peoples lives easier, so if you're interested in helping out, grab the code and dive in:
+<code>$ git clone git://git.fedorahosted.org/git/myfedora.git</code>
+</p>
+<p>
+Toshio and I gave a session on TurboGears, which seemed to go pretty well.  Lots of good discussion and code examples.  You can checkout the slides for my presentation here: <a href="http://tg.lewk.org">http://tg.lewk.org</a>.
+</p>
+<p>
+I was going to be giving a session on <a href="http://fedorahosted.org/bodhi">bodhi</a>, which we eventually merged with the TurboGears talk.  However, the TG session went a lot longer than expected, and bodhi never emerged.  So, for those who were interested, you can find my bodhi slides <a href="http://lmacken.fedorapeople.org/bodhi.odp">here</a>, and some <a href="http://lmacken.fedorapeople.org/bodhi-FUDCon2007/">transcripts</a> from our last virtual fudcon.
+</p>
+<p>
+The <a href="http://packagekit.org">PackageKit</a> session went well too.  People definitely were interested, and also had some interesting ideas.
+</p>
+<p>
+Saturday night was FUDPub, where we had the back room of the Flying Saucer all to ourselves.  People kept feeding me drinks, and I didn't complain.  Good times :)
+</p>
+<p>
+Sunday was the second day of the hackfests.  I decided to context-switch a bit and get my <a href="http://fedorahosted.org/func">func</a> on.  I wrote a <a href="https://fedorahosted.org/func/changeset/8c4a154f196383f6d0969934e10641e83ac51af4">patch</a> that adds a "mem" method to the ProcessModule that returns per-program memory usage from your minion in the format of <code>[[Private, Shared, Total RAM used, Program], ...]</code>.  This allows you to do something like,
+
+<blockquote><code>
+[lmacken@crow ~]$ sudo func "*" call process mem<br/>
+on https://tomservo:51234 running process mem ()<br/>
+[['16.8 MiB', '6.5 MiB', '23.4 MiB', 'Xorg'],<br/>
+&nbsp;['21.7 MiB', '8.3 MiB', '30.1 MiB', 'tomboy'],<br/>
+&nbsp;['33.6 MiB', '2.3 MiB', '35.9 MiB', 'ssh (5)'],<br/>
+&nbsp;['23.2 MiB', '14.3 MiB', '37.5 MiB', 'deskbar-applet'],<br/>
+&nbsp;['139.9 MiB', '9.9 MiB', '149.8 MiB', 'firefox-bin']]
+</code></blockquote>
+</p>
+<p>
+I also discussed a potential TurboGears <a href="https://fedorahosted.org/func/wiki/FuncWebNotes">FuncWeb</a> implementation with Michael DeHaan.  I got a chance to create create a skeleton project, and jot some ideas down.  Just as I was about to dive in, I got a phone call notifying me of my flight cancellation.  I then had to immediately sketch off to catch a 2:20pm flight and head back to Boston.
+</p>
+<p>
+Last night I got a little bit A.D.D. and <a href="https://fedorahosted.org/func/changeset/23c9c26d270ff766133e7aeebffc99a35633ef41">re-wrote</a> <a href="https://fedorahosted.org/func/changeset/79d75b06a1bdae8c5c42026de606ed1787be6030">some</a> <a href="https://fedorahosted.org/func/changeset/a433b0073efcbeb2028dceed5105cc40f5936ddf">chunks</a> of the func minion module_loader/server to make <a href="https://fedorahosted.org/func/wiki/HowToWriteAndDistributeNewModules">writing func modules</a> a lot easier.
+</p>
+<p>
+So, the moral of the story is: <b>FUDCon rocks</b>.  Feeding large quantities of geeks caffeine, beer, and barbeque can result in amazing things.
+</p>
+<p>
+Of course there are no ups without downs, so I was stuck dealing with a nasty cold most of the time there, and my laptop power adapter melted as well.  Thankfully, both of those issue have since been resolved  :)</p>

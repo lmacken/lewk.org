@@ -1,0 +1,82 @@
+Recovering a Pyblosxom blog using liferea's RSS cache
+#mdate Sm
+#tags Python,vim,hackery
+<p>
+My buddy who used to host lewk.org didn't pay his bills, so his server got taken down last week.  What sucks is I that never backed up my Pyblosxom data.  What doesn't suck is that thankfully Liferea, my RSS reader, did for me.
+</p>
+<p>
+Grepping through <code>~/.liferea_1.2/cache/feeds</code>, I was able to find my blog cached in some XML format.  Then I wrote a little bit of code to re-create my Pyblosxom entry structure with the proper filenames and timestamps.
+</p>
+<blockquote><code>
+<font face="monospace">
+<font color="#0000ff">#!/usr/bin/python -tt</font><br>
+&quot;&quot;&quot;<br>
+<font color="#ff00ff">&nbsp;Turns XML into pyblosxom blog entries.</font><br>
+<br>
+<font color="#ff00ff">&nbsp;It parses BLOG_XML pulling out blog entires in the form of:</font><br>
+<br>
+<font color="#ff00ff">&nbsp;&nbsp;&nbsp;&nbsp; &lt;feed version=&quot;1.1&quot;&gt;</font><br>
+<font color="#ff00ff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;item&gt;</font><br>
+<font color="#ff00ff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;title&gt;&lt;/title&gt;</font><br>
+<font color="#ff00ff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;description&gt;&lt;/description&gt;</font><br>
+<font color="#ff00ff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;source&gt;<a href="http://foo.com/blog/2007/08/20/bar.html">http://foo.com/blog/2007/08/20/bar.html</a>&lt;/source&gt;</font><br>
+<font color="#ff00ff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;time&gt;1187621268&lt;/time&gt;</font><br>
+<font color="#ff00ff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;/item&gt;</font><br>
+<font color="#ff00ff">&nbsp;&nbsp;&nbsp;&nbsp; &lt;/feed&gt;</font><br>
+<br>
+<font color="#ff00ff">&nbsp;The file '2007/08/20/bar.txt' will be created in pyblosxom format with</font><br>
+<font color="#ff00ff">&nbsp;the appropriate timestamp.&nbsp;&nbsp;The #mdate is used by the pyblosxom.vim plugin.</font><br>
+<br>
+<font color="#ff00ff">&nbsp;&nbsp;&nbsp;&nbsp; title</font><br>
+<font color="#ff00ff">&nbsp;&nbsp;&nbsp;&nbsp; #mdate Aug 20 10:47:48 2007</font><br>
+<font color="#ff00ff">&nbsp;&nbsp;&nbsp;&nbsp; &lt;p&gt;description&lt;/p&gt;</font><br>
+&quot;&quot;&quot;<br>
+<br>
+<font color="#a020f0">import</font>&nbsp;os<br>
+<font color="#a020f0">import</font>&nbsp;time<br>
+<br>
+<font color="#a52a2a"><b>try</b></font>: <font color="#a020f0">from</font>&nbsp;xml.etree <font color="#a020f0">import</font>&nbsp;cElementTree<br>
+<font color="#a52a2a"><b>except</b></font>&nbsp;ImportError: <font color="#a020f0">import</font>&nbsp;cElementTree<br>
+iterparse = cElementTree.iterparse<br>
+<br>
+entries = {} <font color="#0000ff"># { 'title' : &lt;Element&gt; }</font><br>
+<br>
+BLOG_XML = '<font color="#ff00ff">blog.xml</font>'<br>
+BLOG_ROOT = '<font color="#ff00ff"><a href="http://foo.com/blog/">http://foo.com/blog/</a></font>'<br>
+<br>
+<font color="#a52a2a"><b>def</b></font>&nbsp;<font color="#008b8b">getField</font>(elem, field):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#a52a2a"><b>for</b></font>&nbsp;child <font color="#a52a2a"><b>in</b></font>&nbsp;elem:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#a52a2a"><b>if</b></font>&nbsp;child.tag == field:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#a52a2a"><b>return</b></font>&nbsp;child.text<br>
+<br>
+<font color="#0000ff">## Pull out all feed items, removing older duplicates</font><br>
+<font color="#a52a2a"><b>for</b></font>&nbsp;event, elem <font color="#a52a2a"><b>in</b></font>&nbsp;iterparse(BLOG_XML):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#a52a2a"><b>if</b></font>&nbsp;elem.tag == '<font color="#ff00ff">feed</font>':<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#a52a2a"><b>for</b></font>&nbsp;child <font color="#a52a2a"><b>in</b></font>&nbsp;elem:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#a52a2a"><b>if</b></font>&nbsp;child.tag == '<font color="#ff00ff">item</font>':<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;title = getField(child, '<font color="#ff00ff">title</font>')<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#a52a2a"><b>if</b></font>&nbsp;entries.has_key(title):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#a52a2a"><b>if</b></font>&nbsp;int(getField(child, '<font color="#ff00ff">time</font>')) &gt; <font color="#6a5acd">\</font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int(getField(entries[title], '<font color="#ff00ff">time</font>')):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;entries[title] = child<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#a52a2a"><b>else</b></font>:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;entries[title] = child<br>
+<br>
+<font color="#a52a2a"><b>for</b></font>&nbsp;title, entry <font color="#a52a2a"><b>in</b></font>&nbsp;entries.items():<br>
+&nbsp;&nbsp;&nbsp;&nbsp;source = getField(entry, '<font color="#ff00ff">source</font>').replace(BLOG_ROOT, '')<br>
+&nbsp;&nbsp;&nbsp;&nbsp;source = source.replace('<font color="#ff00ff">.html</font>', '<font color="#ff00ff">.txt</font>')<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#a52a2a"><b>if</b></font>&nbsp;<font color="#a52a2a"><b>not</b></font>&nbsp;os.path.isdir(os.path.dirname(source)):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;os.makedirs(os.path.dirname(source))<br>
+&nbsp;&nbsp;&nbsp;&nbsp;output = file(source, '<font color="#ff00ff">w</font>')<br>
+&nbsp;&nbsp;&nbsp;&nbsp;output.write(title + '<font color="#6a5acd">\n</font>')<br>
+&nbsp;&nbsp;&nbsp;&nbsp;mtime = time.localtime(int(getField(entry, '<font color="#ff00ff">time</font>')))<br>
+&nbsp;&nbsp;&nbsp;&nbsp;mdate = time.strftime(&quot;<font color="#ff00ff">%b %e %H:%M:%S %Y</font>&quot;, mtime)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;output.write(&quot;<font color="#ff00ff">#mdate %s</font><font color="#6a5acd">\n</font>&quot;&nbsp;% mdate)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;output.write(&quot;<font color="#ff00ff">&lt;p&gt;%s&lt;/p&gt;</font><font color="#6a5acd">\n</font>&quot;&nbsp;% getField(entry, '<font color="#ff00ff">description</font>'))<br>
+&nbsp;&nbsp;&nbsp;&nbsp;output.close()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;timestamp = time.strftime(&quot;<font color="#ff00ff">%y%m%d%H%M</font>&quot;, mtime)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;os.system(&quot;<font color="#ff00ff">touch -t %s %s</font>&quot;&nbsp;% (timestamp, source))<br>
+</font>
+</code></blockquote>
+<p>
+It also adds an <code>#mdate</code> tag into each entry, which read by the spiffy <a href="http://www.semicomplete.com/blog/geekery/pyblosxom-mdate-vim-hack.html">pyblosxom mdate vim hack</a> that <a href="http://semicomplete.com">Jordan Sissel</a> wrote to restore each entries original timestamp after editing.  His code only works on FreeBSD at the moment, so I started a <a href="http://hg.lewk.org/xml2pyblosxom/file/c8f7d7acfd31/pyblosxom.vim">pyblosxom.vim</a> plugin that works on Linux (hopefully it will eventually support both, along with a bunch of other handy functions).  You can find all of this code in my mercurial repo: <a href="http://hg.lewk.org/xml2pyblosxom">hg.lewk.org/xml2pyblosxom</a></p>

@@ -1,0 +1,73 @@
+python list generation optimization
+#tags code,yum
+<p>
+Menno Smits recently made some cleanups to <a href="http://linux.duke.edu/projects/yum">yum</a>'s <a href="http://devel.linux.duke.edu/cgi-bin/viewcvs.cgi/yum/yum/rpmsack.py?view=markup">RPMDBPackageSack</a> class.  In a mail to the yum-devel list, Menno <a href="https://lists.dulug.duke.edu/pipermail/yum-devel/2006-September/002566.html">points out</a> that python's list comprehension turns out to be 20% faster than using a <i>for</i> loop while appending items to a list.
+</p>
+<p>
+A simple <a href="https://lists.dulug.duke.edu/pipermail/yum-devel/attachments/20060910/abc0cb8e/listcomp-speed.py">benchmark script</a> shows the speed increase claim to be true.  Menno's script test two different methods, the first being the standard for/list.append() loop.
+
+<code><blockquote><pre>
+l1 = []
+for x in xrange(LOOPS):
+    if x % 2 == 0:
+        l1.append(x)
+</pre></blockquote></code>
+</p>
+<p>
+The second being list comprehension:
+
+<code><blockquote><pre>
+l2 = [x for x in xrange(LOOPS) if x % 2 == 0]
+</pre></blockquote></code>
+</p>
+<p>
+Both methods utilize python's <i>xrange</i>, which is a generator object written in pure C, and is faster than the plain old <i>range</i>.  Out of curiosity, I went ahead and modified this script to test a few more methods of generating the same list as above.
+</p>
+<p>
+Using a for loop, and an append function reference:
+
+<code><blockquote><pre>
+l3 = []
+append = l3.append
+for x in xrange(LOOPS):
+    if x % 2 == 0:
+        append(x)
+</pre></blockquote></code>
+</p>
+<p>
+Using the filter/lambda approach:
+
+<code><blockquote><pre>
+l4 = filter(lambda x: x % 2 == 0, xrange(LOOPS))
+</pre></blockquote></code>
+</p>
+<p>
+Using filter and a function reference to the lambda:
+
+<code><blockquote><pre>
+x = lambda x: x % 2 == 0
+l5 = filter(x, xrange(LOOPS))
+</pre></blockquote></code>
+</p>
+<p>
+The results were actually quite surprising.  Using a <a href="http://www.csh.rit.edu/~lewk/code/listcomp-speed.py">modified version</a> of Menno's script, I came up with these results after 10 iterations.  The percentages are compared to the standard for loop/list.append() method.
+
+<blockquote><pre><h3>
+    <b>for loop/append function reference:</b>  23% faster
+    <b>list comprehension:</b>  36% faster
+    <b>filter/lambda:</b>  40% faster
+    <b>filter/reference to lambda:</b>  57% faster
+</pre></blockquote></h3>
+
+As it turns out, using the filter/lambda approach seems to shave off <b>~57%</b> of the usual overhead from the for/list.append() approach.
+</p>
+
+<p>
+Although extremely powerful, filter/map/lambdas tend to compact code, thus making it more difficult to read/maintain.  This reason alone may cause people to completely stay away from them all together.
+</p>
+<p>
+Avoiding powerful language features because of 'readability' can be a mistake in my opinion.  Any competent programmer should have the ability to make their code understandable to anyone -- yes, it may actually require writing comments.  Even the most complex regular expressions can be written so they can be understood easily (see <a href="http://www.onlamp.com/pub/a/onlamp/2003/08/21/regexp.html">Five Habits for Successful Regular Expressions</a>).
+</p>
+<p>
+I still tend to agree with Donald Knuth's statement <i>"Premature optimization is the root of all evil"</i>.  Jumping right into a complex algorithm with maps/filters/lambdas/etc may not be the best idea, and will most likely make it a nightmare to debug down the road.
+</p>

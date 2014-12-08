@@ -1,0 +1,71 @@
+Transparent compression with FuseCompress
+#mdate Sm
+#tags mutt,email,optimization,compression
+<p>
+I proudly remain among a decreasing percentage of people who prefer
+to deal with all of their email themselves, as opposed to letting google store
+and datamine it.  I've been using my current email stack for about 6 years;
+since I was a freshman in college.  I pop all email from a variety of servers
+with fetchmail, process it with procmail, filter spam with
+spamassassin/pyzor/razor, and slay mail with mutt (with the sidebar patch, of
+course).  There are a few modifications that I'd eventually like to make to
+this stack (fetchmail->getmail, esmtp->mutt, and if I'm really crazy,
+mutt->nmh), and aside from the fact that you
+pretty much need a CS degree to understand most of the filters
+-- overall, it has been a pleasure to work with.
+</p>
+<p>
+After every Fedora release, I try to give evolution/tbird another
+shot, but I'm usually back to using mutt within hours ;) (I may give
+tbird another shot at some point, considering I was just introduced
+to <a href="http://muttator.mozdev.org">muttator</a>).
+</p>
+<p>
+Anyway... Since I now use a ThinkPad <a href="/blog/thinkpad-benchmarks">x300</a> as a primary
+workstation, I'm limited to only 64G of disk space.  After doing a fresh
+install over the weekend, I figured I might as well setup a virtual
+FuseCompress filesystem that I can use to store all of my mail and code in.
+<a href="http://miio.net/fusecompress">FuseCompress</a> supports a variety of compression libraries, but out of the box
+uses <a href="http://www.oberhumer.com/opensource/lzo/">lzo</a>, which is
+optimized for real-time data compression.  As it turns out, getting everything
+setup is extremely easy.
+</p>
+<p>
+<b>Compressing your existing data</b>.<br/>
+Here I move my email to ~/.Mail, and compress it.
+<br/>
+<blockquote><code><pre>
+  # yum -y install fusecompress
+  $ mv ~/{,.}Mail
+  $ fusecompress_offline ~/.Mail
+</pre></code></blockquote>
+</p>
+<p>
+<b>Mounting the compressed filesystem</b>.<br/>
+Now, all you need to do is throw the mountpoint in your /etc/fstab, and you're good
+to go.
+<br/>
+
+<blockquote><code><pre>
+  fusecompress#/home/lmacken/.Mail    /home/lmacken/Mail  fuse allow_other   0 0
+</pre></code></blockquote>
+</p>
+<p>
+I've been using this setup for a few days now, and haven't noticed
+any issues whatsoever.  The lzo compression is pretty decent, for a
+library that prefers speed over size.
+<br/>
+<blockquote><code><pre>
+[lmacken@x300 Mail]$ du -sh
+1.6G	.
+1.6G	total
+[lmacken@x300 Mail]$ du -sh --apparent-size
+3.4G	.
+3.4G	total
+</pre></code></blockquote>
+</p>
+<p>
+For better compression, you can easily set it to use bzip2.
+I'd be interested to hear about other people's email
+tips/tricks/tweaks/hacks!
+</p>

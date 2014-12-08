@@ -1,0 +1,83 @@
+Red Hat OpenShift Express & The Leafy Miracle
+#tags Red Hat,OpenShift,Cloud,Python,Pyramid,ToscaWidgets,jQuery,TurboGears,Yum,InfoVis,code
+<p>
+
+<a href="http://redhat.com">Red Hat</a> made a lot of awesome announcements
+this week at <a href="http://www.redhat.com/summit/">The Red Hat Summit</a>, one of which being <a href="http://openshift.redhat.com/app/">OpenShift</a>.
+</p>
+
+<p>
+I had the opportunity to play with the internal beta for a little while now,
+and I must say that as a developer I am extremely impressed with the service.
+Just being able to <code>git push</code> my code into to the cloud drastically simplifies
+large-scale software deployment, and makes it so I don't even have
+to leave my development environment.
+</p>
+
+<p>
+    I figured out a way to get <a href="http://turbogears.org">TurboGears2</a> and <a href="http://pylonsproject.com">Pyramid</a> running on OpenShift Express, and documented it <a href="https://www.redhat.com/openshift/blogs/deploying-turbogears2-python-web-framework-using-express">here</a> and <a href="https://www.redhat.com/openshift/blogs/deploying-a-pyramid-application-in-a-virtual-python-wsgi-environment-on-red-hat-openshift-expr">here</a>. After that, I proceeded to write my very first Pyramid application.
+</p>
+
+<p>
+    <b>[ The Leafy Miracle ]</b><br/>
+
+<p>
+    In memory of the proposed [and <a href="http://lewk.org/beefy.txt">rejected</a>] Fedora 16 codename "<a href="http://beefymiracle.org">Beefy Miracle</a>", this little app
+is called "Leafy Miracle".
+</p>
+
+<center>
+    <b style="font-size: 1.4em"><a href="http://leafy-miracle.rhcloud.com">leafy-miracle.rhcloud.com</a></b>
+<br/>
+<br/>
+</center>
+
+<center>
+    <a href="http://leafy-miracle.rhcloud.com"><img src="http://lewk.org/img/leafy.png" border="0"/></a>
+<br/><a href="http://pylonsproject.org/projects/pyramid/about"><img src="http://docs.pylonsproject.org/_images/pyramid_105x28_white.png" border="0"/></a>
+</center>
+</p>
+<b>[ Features & Tech ]</b><br/>
+
+<p>
+<ul>
+<li>Written in <a href="http://python.org">Python</a> using the <a href="http://pylonsproject.org">Pyramid</a> web framework</li>
+<li><a href="http://sqlalchemy.org">SQLAlchemy</a> database model of <a href="http://yum.baseurl.org">Yum</a> Categories, Groups, Packages, Dependencies, and Dependants</li>
+<li>Interactive graph widget, using <a href="http://toscawidgets.org/documentation/tw2.core">ToscaWidgets2</a> and the <a href="http://thejit.org">JavaScript InfoVis Toolkit</a></li>
+<li>Package mouse-over menus linking to downloads (<a href="https://admin.fedoraproject.org/community">community</a>), code (<a href="http://pkgs.fedoraproject.org/gitweb">gitweb</a>), bugs (<a href="http://bugzilla.redhat.com">bugzilla</a>), acls (<a href="https://admin.fedoraproject.org/pkgdb">pkgdb</a>), builds (<a href="http://koji.fedoraproject.org/koji">koji</a>) and updates (<a href="https://admin.fedoraproject.org/updates">bodhi</a>).</li>
+<li>Deep linking, which allows you to use the browser back/forward buttons while navigating the tree, as well as share or bookmark links to specific nodes</li>
+<li>Search bar with auto-completion of packages, categories, and groups</li>
+<li><a href="http://jquery.com">jQuery</a> under the hood, powering the widgets</li>
+</ul>
+</p>
+
+<b>[ Running ]</b><br/>
+
+<blockquote><code><pre>
+sudo yum -y install python-virtualenv
+git clone git://fedorapeople.org/~lmacken/leafymiracle && cd leafymiracle
+virtualenv env && source env/bin/activate
+python setup.py develop
+python leafymiracle/populate.py
+paster serve development.ini
+</pre>
+</code>
+</blockquote>
+
+<b>[ Code ]</b><br/>
+
+<p>
+<blockquote><code>
+        git clone <a href="http://fedorapeople.org/gitweb?p=lmacken/public_git/leafymiracle;a=summary">git://fedorapeople.org/~lmacken/leafymiracle</a>
+</code></blockquote>
+</p>
+
+<b>[ Props ]</b><br/>
+<br/>
+<p>
+    Mad props go out to <a href="https://threebean.wordpress.com">RJ Bean</a>, who helped me write this app.  He is
+responsible for writing a ton of amazing Python widgets for various
+JavaScript visualization libraries.  You can see some demos of them
+here: <a
+href="http://tw2-demos.threebean.org/">tw2-demos.threebean.org</a>.
+</p>

@@ -1,0 +1,30 @@
+Creating a Fedora Security Live USB key
+#mdate May  2 01:24:46 2007
+#tags Fedora,security,livecd,code
+<p><p>
+Here is how to easily create a <a href="http://fedoraproject.org/wiki/LukeMacken/SecurityLiveCD">security-distribution</a> based on what will eventually be Fedora 7.  This requires that you be running FC7Test* or rawhide, as the livecd-tools are not currently available for FC6.
+</p>
+<p>
+<b>Prepare the USB key</b><br/>
+You may not need to do this for some USB sticks, but I had to remove all partitions on my <a href="http://www.sandisk.com/Products/Default.aspx?CatID=1168">Cruzer Micro</a> and format the whole thing as vfat to get it to boot.  Make sure to change <i>/dev/sdd</i> to your USB device.
+
+</p><blockquote><code>
+# mkfs.vfat -I /dev/sdd
+</code></blockquote>
+
+<b>Spin the livecd</b>
+<blockquote><code><pre>
+# yum install livecd-tools mercurial
+$ hg clone http://hg.lewk.org/security-livecd
+$ cd security-livecd
+# ./spin-livecd.sh
+</pre></code></blockquote>
+
+<p>
+<b>Copy the ISO to your USB stick</b>
+</p><blockquote><code>
+# livecd-iso-to-disk Fedora7-SecurityLiveCD.iso /dev/<usb disk=""/></code></blockquote>
+
+<p>
+Interested in helping make the Security LiveCD better?  See the <a href="http://fedoraproject.org/wiki/LukeMacken/SecurityLiveCD">SecurityLiveCD</a> wiki for more information.
+</p></p>

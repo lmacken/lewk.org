@@ -1,0 +1,8 @@
+Security LiveCD
+#mdate May 19 14:15:10 2007
+#tags Fedora,livecd,code,security,Python
+<p><div xmlns="http://www.w3.org/1999/xhtml"><p>
+So last week I created an initial version of a potential <a href="http://fedoraproject.org/wiki/LukeMacken/SecurityLiveCD"><b>Fedora Security LiveCD</b></a> spin.  The goal is to provide a fully functional livecd based on Fedora for use in security auditing, penetration testing, and forensics.  I created it as a bonus project for my Security Auditing class (instead of following the 5-pages of instructions on how to create a Gentoo livecd that she handed out (mad props to <a href="http://fedoraproject.org/wiki/DavidZeuthen">davidz</a> for creating an amazing <a href="http://fedoraproject.org/wiki/FedoraLiveCD">LiveCD tool</a>)), but it has the potential to be extremely useful and also help increase the number and quality of Fedora's security tools.  I threw in all of the tools I could find that already exist in Fedora, but I'm sure I'm missing a bunch, so feel free to send patches or suggestions.  I also added a <a href="http://www.fedoraproject.org/wiki/LukeMacken/SecurityLiveCD#head-e580cc5eb9618467464bc7ab5b3e3f645efe88a4z">Wishlist</a> of packages that I would eventually like to see make their way in Fedora, after the core-&gt;extras merge reviews are done.
+</p><p>
+I would eventually like to see Fedora offer a LiveCD that puts all of the <a href="http://www.darknet.org.uk/2006/03/10-best-security-live-cd-distros-pen-test-forensics-recovery/">existing linux security livecds</a> to shame.  We have quite a ways to go, but this is a start.  I'm taking a computer forensics class next quarter, so I will be expanding it to fit the needs of our class as well.
+</p></div></p>

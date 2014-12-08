@@ -1,0 +1,241 @@
+FUDCon 2011 Tempe
+#mdate Sm
+#tags Fedora,FUDCon,code
+<p>
+I meant to get this summary out the door weeks ago, however, I didn't want to distract from my post-FUDCon productivity :)
+<br/>
+<br/>
+Another FUDCon has come and gone. This time it was in gorgeous Tempe, Arizona.
+It was my first time in AZ, and I must say that I was thoroughly impressed.  It
+was truly a great location for FUDCon.  Thanks to the epic snowstorm of doom, I
+also was stuck there for a few extra days
+</p>
+
+<p>
+    <a href="http://lewk.org/img/fudstream.png"><img src="http://lewk.org/img/fudstream-thumb.png" align="right" border="0" /></a>
+<b>Live Widgetry</b><br/>
+
+    Before the conference I decided to throw together a little <a href="http://tinyurl.com/fudstream">live widget</a> that
+scrolls all of the new identi.ca posts tagged with #FUDCon. Thanks to the mad design
+skillz of mizmo, and the feed aggregation and real-time web sockets of 
+<a href="http://moksha.fedorahosted.org">Moksha</a>, I was able to throw it
+together pretty quickly.  I plan on taking this code and integrating it in the
+existing <a href="https://admin.fedoraproject.org/community">fedoracommunity dashboard</a> and hooking up many different fedora-related feeds to it.
+</p>
+
+<h3>Sessions</h3>
+<p>
+<b>AutoQA</b><br/>
+Day 1 of the FUDCon sessions were quite interesting.  I got a chance to learn a
+bit more about the exciting <a href="http://autoqa.fedorahosted.org">AutoQA project</a>, which is coming along
+nicely.  You'll be seeing AutoQA commenting on bodhi updates soon
+enough.
+</p>
+
+<p>
+<b>Security Lab</b><br/>
+I caught <a href="http://fedoraproject.org/wiki/JoergSimon">Joerg Simon</a>'s session on the <a href="https://fedorahosted.org/security-spin/">Fedora Security Lab</a>.
+It was exciting to see how the Security Spin has evolved ever since
+<a href="http://lewk.org/blog/securitylivecd">I created it back in 2007</a> for a project in my forensics class.  It was also interesting to learn more about <a href="http://www.isecom.org/osstmm/">OSSTMM</a>.
+</p>
+
+<p>
+<b>Spins</b><br/>
+The next session I attended was about the future of <a
+href="http://spins.fedoraproject.org">spins</a>.  Almost everyone
+agreed that Spins are useful and a valuable part of Fedora.  The problems seem
+to mostly lie in governance/policy and a lack of communication and coordination
+between the Spins SIG and QA/Releng/Infrastructure.  Once of my ideas below may
+help with this a little bit.
+</p>
+
+<h3>The Next Big Project</h3>
+<p>
+Day 2 was comprised of more sessions, including my team's "Next Big Project" proposals.
+Of course, the <a href="http://fedoraproject.org/wiki/Fedora_RPG">Fedora RPG</a> that Spot and Mo talked about was definitely a hot topic, and got a lot of people excited.
+<br/><br/>
+I talked about a handful of project ideas that I would like to work on in the
+future (actually, I have code written for most of them already).  Here is a
+quick rundown:
+</p>
+
+<p>
+    <b>Real-time Infrastructure</b><br/>
+I want to see us deploy an AMQP message broker inside our production
+infrastructure.  Then, we hook up all of our existing services and have them
+fire off messages when various events occur (koji builds, bodhi updates,
+pkgdb additions/removals/changes, git hooks, planet feeds, wiki edits, etc).
+From here, using some realtime web technology that <a href="http://moksha.fedorahosted.org">we created</a>, we could easily
+expose these message queues via a live dashboard that lets you filter and navigate
+the stream of activity, along with providing real-time metrics.  We can also create
+desktop notification widgets, so you can get popup bubbles for things that you
+care about.
+<br/>
+<br/>
+This is also key to the whole RPG as well.  In order to build a game based on
+Fedora workflows, we need an underlying expert system that knows what actions can be taken within fedora, how they are accomplished, and who is getting them done.
+</p>
+
+<p>
+<b>Meeting app</b><br/>
+Currently after a meeting, our Meetbot
+spits out the logs and an overview in txt/html/rst to a directory on <a
+href="http://meetbot.fedoraproject.org/">meetbot.fedoraproject.org</a>.
+Trying to track down who agreed to what when, or even to see what a given
+team has been up to over the past couple of months, is very tedious.
+<br/>
+<br/>
+The data is there, now we just need to make it useful.  I would love to see a
+frontend for this sytem that tracked meetings by team/people/topics/projects, kept track
+of actions and held people accountable for what they say they are going to do
+(and make it easy for people to say "I need help with this", or "I don't have
+time to finish this"), making it simple to go from an #idea in a meeting to
+implementation.  There is so much great data in these logs, and I think we can
+do some awesome things with it.
+</p>
+
+<p>
+    <b>Improved upstream monitoring</b><br/>
+Most Fedora developers probably don't even know that we already have an <a href="http://fedoraproject.org/wiki/Upstream_Release_Monitoring">Upstream release monitoring</a> service buried in the wiki.
+I added almost every package I maintain to it, and it will automatically open a bug when a new upstream version is released.  Extremely useful.
+<br/>
+<br/>
+I wouldn't call this a "big" project, but I would like to see us integrate this
+service into our existing infrastructure.  We could potentially store this
+per-package upstream data in the pkgdb/bodhi, and when a new release comes out
+write some code to automatically try doing a simple specfile bump, throw a
+scratch build at koji, run it through AutoQA, queue up for testing in bodhi,
+etc.  Ideally, this would minimize the massive amounts of effort that our
+maintainers have to do to keep our packages up to speed with upstream.
+</p>
+
+<p>
+    <b>Discussions app</b><br/>
+Last year, Máirín Duffy and I came up with some <a href="https://mairin.wordpress.com/2010/03/16/a-rich-web-interface-for-mailing-lists/">interesting ideas</a> for improving our mailing lists.  I would like to make this a reality.
+Since then, I have already written code that can successfully parse all of
+fedora-devel.mbox (sounds much easier than it really is), populate it into a
+SQLAlchemy database model, expose a JSON API for quering, and visualize threads
+and various statistics with a basic widget.
+</p>
+
+<p>
+<b>Spin Master</b><br/>
+One of the biggest problems with spins that we have right now is that there is
+no easy way to track how they are evolving.  I would like to see us create a
+system that took the nightly spins and analyzed them, tracking what packages
+have been added/removed, which packages have grown/shrunk, etc.  We could
+potentially get AutoQA involved here and make sure all spins pass a certain
+level of sanity checks before they can even be released.  There are scripts
+floating around that can do a lot of this already -- but I want to streamline
+it and build a frontend.
+</p>
+
+<p>
+<b>Source-level package diff viewer</b><br/>
+Fedora churns at such a fast pace, yet I can only imagine that a small subset
+of maintainers actually look at the complete code changes between upstream
+package releases.  The recent sourceforge intrusion should be seen as a reality
+check to us distributions, and I think we need to step up our game quite a bit
+to ensure we don't let any malicious code slip into Fedora.
+<br/>
+<br/>
+I would like to see a web/cli interface for viewing full source diffs of
+package updates in Fedora, allowing people to annotate/flag lines of code.
+Having more eyes view the code changes that go into our distribution is
+definitely a Good Thing, not just for Fedora, but for Open Source in general.
+</p>
+
+<h3>Hackfests</h3>
+<p>
+Now, on to my favorite part of any conference -- The Hackfests.
+First off, I felt that the hackfests were a bit unorganized this year.
+There was no opportunity to pitch hackfests, and it was not easy to figure out
+who was doing what in which rooms.
+Anyway, I had a fairly productive day of hacking...
+</p>
+
+<p>
+<b>bodhi</b><br/>
+I integrated our package test cases into bodhi, which will now query the wiki for tests and display them in your updates, like so:
+<center>
+<img src="http://lewk.org/img/bodhi-test-cases.png"/>
+</center>
+Thanks to <a href="http://fedoraproject.org/wiki/User:Jlaska">James Laska</a>
+for the code to query the wiki, and to <a href="http://ianweller.org/">Ian
+    Weller</a> for python-simplemediawiki API.
+<br/>
+<br/>
+I also sat down with <a href="http://mairin.wordpress.com/">Máirín Duffy</a> and talked about <a href="https://fedoraproject.org/wiki/Bodhi/2.0">Bodhi v2.0</a> interaction design.  We discussed what actions we want people to take when they arrive at bodhi's homepage, which essentially boils down to submitting, searching, browsing, and testing updates.  Mo quickly threw together an awesome mockup that portrays some of our initial ideas.
+<br/>
+<br/>
+<center>
+    <a href="http://lewk.org/img/bodhi-20-frontpage.png"><img src="http://lewk.org/img/bodhi-20-frontpage-thumb.png" border="0"/></a>
+</center>
+<br/>
+</p>
+
+<p>
+<b>Fedora Community Discussions</b><br/>
+As mentioned above, I have already started implementing the mailing list interface that mizmo and I designed last year.  I worked with <a href="http://screwyouenterpriseedition.blogspot.com/">Casey Dahlin</a> during the hackfests and helped him get a working <a href="http://fedoracommunity.fedorahosted.org">fedoracommunity</a>/<a href="http://moksha.fedorahosted.org">moksha</a> development environment up and running and become familiar with the existing code.
+<br/>
+<br/>
+Even though he wasn't at FUDCon, Jan Hutar has also been working on a couple of
+great graphs/grids of mailing list statistics for fedoracommunity as well.
+We'll be hacking away at this stuff over the next few months, so stay tuned.
+</p>
+
+<p>
+<b>kernel EFI framebuffer</b><br/>
+I spun up a quick kernel patch to enable the EFI framebuffer on a
+handfull of Macs.  I already wrote a patch that got <a href="http://lkml.org/lkml/2010/9/2/30">applied upstream</a> that enables this framebuffer on 14 different mac models, but this new patch adds 5 more.  A lot of people, especially Sugar on a Stick users, are
+desperate to get Fedora running on their mactel machines (assuming found in
+may school labs), so I spun up a fresh
+livecd with my kernel patch for testing.  See <a href="https://bugzilla.redhat.com/show_bug.cgi?id=528232">Bug #528232</a> for more information.
+</p>
+
+<p>
+<b>liveusb-creator</b><br/>
+I did a bunch of work on porting the liveusb-creator from HAL to UDisks.
+Thankfully, Ubuntu's cleverly-named "usb-creator" already has UDisks support,
+so I've been happily borrowing ideas from their code :)
+<br/>
+<br/>
+I also had some great discussions with <a href="http://fedoraproject.org/wiki/User:Pbrobinson">Peter Robinson</a> and <a href="http://www.codewiz.org/">Bernie Innocenti</a>
+about solving the persistent overlay problem with our Live USBs.  Right now, they
+are essentially a ticking time bomb, and real world LiveUSB use-cases are
+getting bit by this all of the time.  Over the past few years, the "solution"
+has been to "wait for unionfs to get merged into the kernel".  However, there
+are a variety of other potential solutions that we are going to look into as well.
+</p>
+
+<p>
+<b>Pyramid</b><br/>
+
+The future of Python web development is extremely exciting, innovative, and still evolving at a rapid pace.  As a <a href="http://turbogears.org">TurboGears</a> developer, I'm still very impressed with TG2, which along with TG1 will be supported for a long time to come -- but I'm also very eager for the next generation framework that has just emerged.
+
+<br/>
+<br/>
+Recently, the <a href="http://pylonshq.com">Pylons</a> project has merged with <a href="http://bfg.repoze.org/">repoze.bfg</a> to form <a href="http://docs.pylonsproject.org">Pyramid</a>, which just released version 1.0.
+I'm quite amazed by the quality of the code, docs, and tests, and benchmarks
+already show it blowing rails/django/tg/pylons out of the water.  I'm looking
+forward to the PyCon sprints, where all 3 communitites are going to be
+sitting at the same table working together on this project.
+<br/>
+<br/>
+So while I was stuck in Tempe during the snow storm, I wrote 7 RPMs for Pyramid and it's dependencies, which are currently <a href="https://bugzilla.redhat.com/showdependencytree.cgi?id=674692">waiting to be reviewed</a>.  I plan on writing <a href="https://fedoraproject.org/wiki/Bodhi/2.0">Bodhi v2.0</a> using Pyramid, so if this is something that interests you, let me know (and start reading the 600+ pages of docs ;)
+</p>
+
+<p>
+    <b>Good times</b><br/>
+Technical stuff aside, I had a blast at FUDCon, and I feel like it was one of
+the best.  FUDPub was great, as usual. I
+played a lot of poker [poorly], ate a lot of tasty food, and had some great conversations.  I had caught a cold prior to coming to FUDCon, so instead of nursing it with
+some nyquil and sleep, I decided to try to nurse it with a bottle of Jack,
+which turned out to be a bad idea.
+<br/>
+<br/>
+Also, no FUDCon would be complete without mentioning <a
+    href="http://thegreatestgameyouwilleverplay.com">TheGreatestGameYouWillEverPlay.com</a>.
+Once the hackfests started winding down, I gave a quick session on nethack,
+where I tought people various ways to steal from shops, using a bunch of screecasts that I had on my laptop.
+</p>

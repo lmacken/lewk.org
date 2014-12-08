@@ -1,0 +1,27 @@
+TurboGears2 on Fedora
+#mdate Sm
+#tags TurboGears,code,Fedora
+<p>
+So, I was finally able to force myself to take a break from hacking
+on a few different TG2 applications to actually sit down and package
+everything up, submit it all for review, and make sure everything
+Just Works on Fedora.
+</p>
+<p>
+You can start playing with <a href="http://turbogears.org/2.0">TurboGears2</a> by throwing my <a
+href="http://lmacken.fedorapeople.org/tg2.repo">tg2.repo</a> file in
+/etc/yum.repos.d, and then by installing the <b>TurboGears2</b>
+package.  It should work fine alongside of any existing TurboGears
+1.x installs, however it will pull in SQLAlchemy 0.5, which may
+or may not cause problems with older models.  Once installed, checkout the fantastic <a href="http://turbogears.org/2.0/docs">TurboGears2 documentation</a> for details on diving into the framework.
+</p>
+<p>
+I already have two TurboGears2 applications currently in production, and have had nothing but amazing experiences with the new stack.  I still love working on my older TG1.0 apps (such as <a href="http://bodhi.fedorahosted.org">bodhi</a>), which will still be supported for a long time, but with the ridiculous amounts of power that WSGI/Pylons/Paste/SQLAlchemy/ToscaWidgets/Mako gives you, I'm extremely tempted to start porting :)
+</p>
+<p>
+Aside from testing the packages, you can also help by <a
+href="http://fedoraproject.org/wiki/Packaging/ReviewGuidelines">reviewing</a>
+various parts of the stack so we can get them into Fedora as soon as possible.  The
+TG2 dependency tree of pending reviews can be found <a
+href="https://bugzilla.redhat.com/showdependencytree.cgi?id=468230&hide_resolved=1">here</a>.
+</p>

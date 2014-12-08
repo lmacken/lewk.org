@@ -1,0 +1,39 @@
+FUDCon 2007
+#mdate May 19 14:15:10 2007
+#tags Fedora,code
+<p><div xmlns="http://www.w3.org/1999/xhtml"><p>
+So FUDCon went down last weekend, and was an absolute blast.  My plane landed and I went straight to BU and arrived right while people were voting on sessions.  It was great to finally meet and chat with a ton of Fedora hackers that I've been collaborating with for quite some time now.
+</p>
+<p>
+I caught <a href="http://www.gnome.org/~clarkbw/">Bryan Clark</a>'s <b>Mugshot</b> session, where he talked about some future ideas and goals for mugshot.  A potentially badass idea that he mentioned entails monitoring application usage patterns, which could help everyone get a good idea as to what programs are used and how much.  Both great software, and heavily used shitty software, will shine.  This will help the community get a jist of what needs work and what should be focused on / improved.  But it doesn't stop there, another idea mentioned was to have mugshot maintain basic application settings (email, rss, aim, etc) and allow users to be able to load them from anywhere.
+</p>
+<p>
+After FUDCon we headed to the <b>FUDPub</b> where everyone indulged as much free beer/food that our stomachs could[n't] handle.  I got a chance to chat with many people, one being a guy from <a href="http://www.pepper.com/">Pepper</a>, who showed off his Pepper Pad a bit.  I talked with him about how he can get Pepper more involved with Fedora (we have overlaps in terms of infrastructure and such, and can greatly benefit from collaborating (especially on their end, since they are stuck maintaining FC4 which is what their platform is based on)), and get their code out into the public.
+</p>
+<p>
+Saturday night involved our hotel room filled with 10+ fedora hackers, an OLPC, the <a href="http://www.fm3.com.cn/">buddha machine</a>, and a handle of Tanqueray.  Good times ensued (without any ambulance involvement).
+</p>
+<p>
+During the two days of hacking that followed FUDCon, I definitely didn't write as much code as I had hoped, but I got a chance to have some great conversations with a ton of people.
+</p>
+<p>
+Much discussion was had about making Fedora a <b>BugBuddy</b> that can help make it trivial to submit non-useless bug reports:
+</p><ul><li>anonymous bug creation against components</li>
+	<li>Provide a smolt uuid for complete hardware list of users machine</li>
+	<li>Ability to acquire proper debuginfo packages and reproduce useful traceback</li>
+	<li>Hash traceback (after cleaning it up a bit) and check it against a Traceback DB to see if there are any bugs already opened for that issue (suggested by Peter Jones during the Fedora QA talk).</li>
+</ul>
+Ideally, our software should be able to correctly <b>file bugs against itself</b>.
+
+<p>
+With the emergence of our shiny new hardware profiler <a href="https://hosted.fedoraproject.org/projects/smolt/wiki"><b>Smolt</b></a>, Fedora users can now anonymously submit hardware information.  Not only is acquiring metrics a good thing, but this could potentially give people the ability to report issues by simply simply referencing a unique id.  This requires some knowledge in Bugzilla, but if we had our own <b>Bugzilla playground</b> we would be able to experiment with features such as the traceback database, and smolt integration.  Our fearless QA leader, Will Woods, began setting up a bugzilla instance for experimenting with the crazy ideas during the hackfest.
+</p>
+<p>
+What seems like a continued effort to make fedora more of a 'Buddy', we also had some discussions about a <b><a href="http://fedoraproject.org/wiki/Releases/FeatureCodecBuddy">CodecBuddy</a></b> that will essentially detect when you first attempt to play a file that requires an evil proprietary codec.  It will then educate the user on the implications of proprietary codecs, provide details on alternative open formats, and let users click on a link to legally acquire this codec, with of course the ability to say "hell no" to sustain your hardcore 100% open source mentality :)
+</p>
+<p>
+Some other cools stuff that I observed go down was a graphical yum repository configuration tool called <a href="http://www.boston.burdell.org/repoman/"><b>repoman</b></a> that Chris Lumens was working on during the hackfest.  The yum guys also got a <a href="http://wiki.linux.duke.edu/YumHackFestFudCon">bunch</a> of stuff done, most importantly adding support to createrepo for inserting sqlite db files into repositories.
+</p>
+<p>
+Many other technical items were discussed, but we also got a chance to step away from the bits for a little while and really talk about the current state of "collaboration" on the internet, and what we'd like to see Fedora do to push the bar in terms of innovation of social collaboration; but that is for another blog post :)
+</p></div></p>

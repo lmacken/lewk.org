@@ -1,0 +1,440 @@
+F8 -> F9 Alpha Live Diff
+#mdate Sm
+#tags Fedora,code
+<p>
+Fedora 9 Alpha is <a href="http://fedoraproject.org/wiki/Releases/9/Schedule">scheduled</a> to be released today!  Not only did I spin the live bits for this alpha, I also generated some statistics as to what changed in this release since Fedora 8.
+
+Here are the livecd diffs for all of our spins.
+
+<ul>
+<li><a href="http://lmacken.fedorapeople.org/f8-f9alpha-live-diff/F9-Alpha-Developer-20080129.0.diff.html">F9-Alpha-Developer-20080129.0.diff</a></li>
+<li><a href="http://lmacken.fedorapeople.org/f8-f9alpha-live-diff/F9-Alpha-FEL-i686-20080129.0.diff.html">F9-Alpha-FEL-i686-20080129.0.diff</a></li>
+<li><a href="http://lmacken.fedorapeople.org/f8-f9alpha-live-diff/F9-Alpha-games-i686-20080129.0.diff.html">F9-Alpha-games-i686-20080129.0.diff</a></li>
+<li><a href="http://lmacken.fedorapeople.org/f8-f9alpha-live-diff/F9-Alpha-i686-20080129.0.diff.html">F9-Alpha-i686-20080129.0.diff</a></li>
+<li><a href="http://lmacken.fedorapeople.org/f8-f9alpha-live-diff/F9-Alpha-KDE-i686-20080129.0.diff.html">F9-Alpha-KDE-i686-20080129.0.diff</a></li>
+<li><a href="http://lmacken.fedorapeople.org/f8-f9alpha-live-diff/F9-Alpha-KDE-x86_64-20080129.0.diff.html">F9-Alpha-KDE-x86_64-20080129.0.diff</a></li>
+<li><a href="http://lmacken.fedorapeople.org/f8-f9alpha-live-diff/F9-Alpha-x86_64-20080129.0.diff.html">F9-Alpha-x86_64-20080129.0.diff</a></li>
+</ul>
+
+Below are the details as to what changed in our default GNOME desktop spin since Fedora 8.
+
+<code><blockquote style="line-height: 0.8em">
+<font face="monospace">
+<font color="#2e8b57"><b>--- F8-Live-i686-20080204.0.iso (694M)</b></font><br>
+<font color="#2e8b57"><b>+++ F9-Alpha-i686-20080129.0.iso (698M)</b></font><br>
+<font color="#008b8b">+ new package libgdiplus-devel: 8584</font><br>
+<font color="#008b8b">+ new package xorg-x11-server-common: 38863</font><br>
+
+<font color="#008b8b">+ new package PolicyKit-gnome-libs: 40188</font><br>
+<font color="#008b8b">+ new package kerneloops: 52570</font><br>
+<font color="#008b8b">+ new package swfdec-gtk: 55786</font><br>
+<font color="#008b8b">+ new package gnome-panel-libs: 56936</font><br>
+<font color="#008b8b">+ new package swfdec-mozilla: 75911</font><br>
+<font color="#008b8b">+ new package libconfig: 120055</font><br>
+<font color="#008b8b">+ new package obex-data-server: 136538</font><br>
+<font color="#008b8b">+ new package at-spi-python: 170868</font><br>
+<font color="#008b8b">+ new package ncurses-base: 176949</font><br>
+
+<font color="#008b8b">+ new package pixman: 209556</font><br>
+<font color="#008b8b">+ new package scim-python: 247730</font><br>
+<font color="#008b8b">+ new package libcurl: 258148</font><br>
+<font color="#008b8b">+ new package libggz: 289477</font><br>
+<font color="#008b8b">+ new package hfsutils: 362228</font><br>
+<font color="#008b8b">+ new package libmtp: 398952</font><br>
+<font color="#008b8b">+ new package xorg-x11-drv-openchrome: 415754</font><br>
+<font color="#008b8b">+ new package ggz-client-libs: 434830</font><br>
+<font color="#008b8b">+ new package samyak-fonts: 457144</font><br>
+
+<font color="#008b8b">+ new package perl-Date-Manip: 458629</font><br>
+<font color="#008b8b">+ new package libtasn1: 466849</font><br>
+<font color="#008b8b">+ new package python-crypto: 571535</font><br>
+<font color="#008b8b">+ new package elilo: 613010</font><br>
+<font color="#008b8b">+ new package gfs2-utils: 650707</font><br>
+<font color="#008b8b">+ new package ncurses-libs: 668620</font><br>
+<font color="#008b8b">+ new package swfdec: 958169</font><br>
+<font color="#008b8b">+ new package reiserfs-utils: 1022402</font><br>
+<font color="#008b8b">+ new package iscsi-initiator-utils: 1138529</font><br>
+
+<font color="#008b8b">+ new package jfsutils: 1138726</font><br>
+<font color="#008b8b">+ new package gvfs: 1700127</font><br>
+<font color="#008b8b">+ new package totem-pl-parser: 2627745</font><br>
+<font color="#008b8b">+ new package xfsprogs: 3408051</font><br>
+<font color="#008b8b">+ new package VLGothic-fonts: 3831447</font><br>
+<font color="#008b8b">+ new package VLGothic-fonts-proportional: 3831790</font><br>
+<font color="#008b8b">+ new package gnome-settings-daemon: 6218660</font><br>
+<font color="#008b8b">+ new package mesa-libOSMesa: 7248256</font><br>
+<font color="#008b8b">+ new package scim-python-chinese: 7621164</font><br>
+
+<font color="#008b8b">+ new package libgweather: 14592282</font><br>
+<font color="#008b8b">+ new package dejavu-fonts: 15593008</font><br>
+<font color="#008b8b">+ new package vim-common: 16294034</font><br>
+<font color="#008b8b">+ new package xulrunner: 24481155</font><br>
+<font color="#008b8b">+ crontabs grew 144 bytes (6.83%) (2107-&gt;2251)</font><br>
+<font color="#008b8b">+ libopenraw-gnome grew 348 bytes (7.94%) (4384-&gt;4732)</font><br>
+<font color="#008b8b">+ xorg-x11-drv-fbdev grew 380 bytes (1.84%) (20597-&gt;20977)</font><br>
+
+<font color="#008b8b">+ irqbalance grew 400 bytes (1.85%) (21595-&gt;21995)</font><br>
+<font color="#008b8b">+ m17n-contrib grew 469 bytes (1.28%) (36757-&gt;37226)</font><br>
+<font color="#008b8b">+ pam_ccreds grew 497 bytes (1.49%) (33428-&gt;33925)</font><br>
+<font color="#008b8b">+ smolt-firstboot grew 655 bytes (6.01%) (10893-&gt;11548)</font><br>
+<font color="#008b8b">+ pcsc-lite-libs grew 848 bytes (2.44%) (34696-&gt;35544)</font><br>
+<font color="#008b8b">+ dbus-x11 grew 884 bytes (3.63%) (24353-&gt;25237)</font><br>
+
+<font color="#008b8b">+ numactl grew 896 bytes (1.00%) (89239-&gt;90135)</font><br>
+<font color="#008b8b">+ gnome-bluetooth-libs grew 1278 bytes (1.02%) (124866-&gt;126144)</font><br>
+<font color="#008b8b">+ xorg-x11-drv-evdev grew 1445 bytes (4.05%) (35642-&gt;37087)</font><br>
+<font color="#008b8b">+ m17n-db-hindi grew 1717 bytes (21.74%) (7899-&gt;9616)</font><br>
+<font color="#008b8b">+ sysreport grew 1783 bytes (5.30%) (33620-&gt;35403)</font><br>
+<font color="#008b8b">+ libpciaccess grew 1796 bytes (7.21%) (24901-&gt;26697)</font><br>
+
+<font color="#008b8b">+ sg3_utils-libs grew 2156 bytes (1.97%) (109392-&gt;111548)</font><br>
+<font color="#008b8b">+ pciutils grew 2464 bytes (1.36%) (180975-&gt;183439)</font><br>
+<font color="#008b8b">+ setroubleshoot grew 2541 bytes (1.11%) (229578-&gt;232119)</font><br>
+<font color="#008b8b">+ gnome-keyring-pam grew 2556 bytes (8.89%) (28760-&gt;31316)</font><br>
+<font color="#008b8b">+ libcap grew 2618 bytes (5.79%) (45230-&gt;47848)</font><br>
+<font color="#008b8b">+ apr grew 2823 bytes (1.04%) (271801-&gt;274624)</font><br>
+
+<font color="#008b8b">+ bc grew 2861 bytes (1.50%) (190964-&gt;193825)</font><br>
+<font color="#008b8b">+ libsepol grew 2992 bytes (1.33%) (224692-&gt;227684)</font><br>
+<font color="#008b8b">+ lohit-fonts-telugu grew 3100 bytes (1.78%) (174487-&gt;177587)</font><br>
+<font color="#008b8b">+ e2fsprogs-libs grew 3332 bytes (1.33%) (250016-&gt;253348)</font><br>
+<font color="#008b8b">+ device-mapper-libs grew 3680 bytes (4.25%) (86516-&gt;90196)</font><br>
+<font color="#008b8b">+ glx-utils grew 3704 bytes (10.98%) (33736-&gt;37440)</font><br>
+
+<font color="#008b8b">+ scim-chewing grew 4072 bytes (3.22%) (126383-&gt;130455)</font><br>
+<font color="#008b8b">+ dbus-libs grew 4100 bytes (1.63%) (251944-&gt;256044)</font><br>
+<font color="#008b8b">+ nash grew 4128 bytes (1.74%) (237698-&gt;241826)</font><br>
+<font color="#008b8b">+ libjpeg grew 4420 bytes (1.61%) (275021-&gt;279441)</font><br>
+<font color="#008b8b">+ authconfig-gtk grew 4808 bytes (2.75%) (175143-&gt;179951)</font><br>
+<font color="#008b8b">+ mkinitrd grew 4854 bytes (4.84%) (100334-&gt;105188)</font><br>
+
+<font color="#008b8b">+ linuxwacom grew 5518 bytes (1.10%) (502293-&gt;507811)</font><br>
+<font color="#008b8b">+ desktop-file-utils grew 5523 bytes (4.50%) (122601-&gt;128124)</font><br>
+<font color="#008b8b">+ gnome-python2-gnomeprint grew 5547 bytes (1.27%) (437641-&gt;443188)</font><br>
+<font color="#008b8b">+ bluez-utils-alsa grew 5856 bytes (13.67%) (42824-&gt;48680)</font><br>
+<font color="#008b8b">+ m17n-contrib-telugu grew 6114 bytes (28.08%) (21776-&gt;27890)</font><br>
+<font color="#008b8b">+ rsyslog grew 6922 bytes (1.45%) (477587-&gt;484509)</font><br>
+
+<font color="#008b8b">+ ustr grew 7531 bytes (3.12%) (241610-&gt;249141)</font><br>
+<font color="#008b8b">+ rhpxl grew 7783 bytes (2.36%) (329907-&gt;337690)</font><br>
+<font color="#008b8b">+ xorg-x11-drv-mga grew 8319 bytes (4.91%) (169473-&gt;177792)</font><br>
+<font color="#008b8b">+ taglib grew 8368 bytes (1.71%) (489415-&gt;497783)</font><br>
+<font color="#008b8b">+ gtk-nodoka-engine grew 8948 bytes (9.32%) (96057-&gt;105005)</font><br>
+<font color="#008b8b">+ nscd grew 9484 bytes (6.73%) (140911-&gt;150395)</font><br>
+
+<font color="#008b8b">+ exempi grew 9692 bytes (1.39%) (698782-&gt;708474)</font><br>
+<font color="#008b8b">+ gnome-menus grew 9841 bytes (1.57%) (626493-&gt;636334)</font><br>
+<font color="#008b8b">+ dbus-glib grew 9970 bytes (2.10%) (473790-&gt;483760)</font><br>
+<font color="#008b8b">+ libdhcp6client grew 10524 bytes (6.30%) (166956-&gt;177480)</font><br>
+<font color="#008b8b">+ openldap grew 10658 bytes (1.76%) (604986-&gt;615644)</font><br>
+<font color="#008b8b">+ nss_ldap grew 12224 bytes (2.17%) (562402-&gt;574626)</font><br>
+
+<font color="#008b8b">+ dmidecode grew 14466 bytes (10.46%) (138266-&gt;152732)</font><br>
+<font color="#008b8b">+ NetworkManager-vpnc grew 14477 bytes (4.58%) (316033-&gt;330510)</font><br>
+<font color="#008b8b">+ system-config-rootpassword grew 14962 bytes (16.07%) (93118-&gt;108080)</font><br>
+<font color="#008b8b">+ gstreamer-python grew 15266 bytes (1.64%) (933175-&gt;948441)</font><br>
+<font color="#008b8b">+ rarian grew 15824 bytes (4.99%) (316947-&gt;332771)</font><br>
+<font color="#008b8b">+ at-spi grew 16072 bytes (2.38%) (674624-&gt;690696)</font><br>
+
+<font color="#008b8b">+ isomd5sum grew 17146 bytes (36.61%) (46840-&gt;63986)</font><br>
+<font color="#008b8b">+ usbutils grew 17192 bytes (19.31%) (89044-&gt;106236)</font><br>
+<font color="#008b8b">+ acl grew 17875 bytes (11.97%) (149393-&gt;167268)</font><br>
+<font color="#008b8b">+ hicolor-icon-theme grew 17992 bytes (79.30%) (22688-&gt;40680)</font><br>
+<font color="#008b8b">+ gnome-python2-desktop grew 18187 bytes (7.44%) (244527-&gt;262714)</font><br>
+<font color="#008b8b">+ libdhcp grew 19318 bytes (14.23%) (135727-&gt;155045)</font><br>
+
+<font color="#008b8b">+ which grew 20480 bytes (65.05%) (31485-&gt;51965)</font><br>
+<font color="#008b8b">+ NetworkManager-gnome grew 20604 bytes (2.90%) (710665-&gt;731269)</font><br>
+<font color="#008b8b">+ pam_krb5 grew 20943 bytes (8.06%) (259736-&gt;280679)</font><br>
+<font color="#008b8b">+ system-config-language grew 21674 bytes (8.55%) (253576-&gt;275250)</font><br>
+<font color="#008b8b">+ libxcb grew 22328 bytes (5.40%) (413804-&gt;436132)</font><br>
+<font color="#008b8b">+ bluez-utils grew 22572 bytes (1.76%) (1280277-&gt;1302849)</font><br>
+
+<font color="#008b8b">+ pygtksourceview grew 23100 bytes (36.06%) (64064-&gt;87164)</font><br>
+<font color="#008b8b">+ libgpg-error grew 23525 bytes (12.14%) (193728-&gt;217253)</font><br>
+<font color="#008b8b">+ glibmm24 grew 24411 bytes (5.25%) (465396-&gt;489807)</font><br>
+<font color="#008b8b">+ fribidi grew 24912 bytes (17.19%) (144894-&gt;169806)</font><br>
+<font color="#008b8b">+ gmime grew 24916 bytes (4.24%) (587824-&gt;612740)</font><br>
+<font color="#008b8b">+ libuser grew 25215 bytes (1.56%) (1616562-&gt;1641777)</font><br>
+
+<font color="#008b8b">+ httpd grew 28595 bytes (1.12%) (2551734-&gt;2580329)</font><br>
+<font color="#008b8b">+ m17n-lib grew 30893 bytes (10.14%) (304750-&gt;335643)</font><br>
+<font color="#008b8b">+ rhpl grew 31037 bytes (3.99%) (778235-&gt;809272)</font><br>
+<font color="#008b8b">+ libdhcp4client grew 32772 bytes (6.57%) (499144-&gt;531916)</font><br>
+<font color="#008b8b">+ bind-utils grew 33408 bytes (10.87%) (307362-&gt;340770)</font><br>
+<font color="#008b8b">+ NetworkManager grew 33657 bytes (1.42%) (2377366-&gt;2411023)</font><br>
+
+<font color="#008b8b">+ dbus-python grew 36266 bytes (5.11%) (710089-&gt;746355)</font><br>
+<font color="#008b8b">+ gnome-mag grew 36431 bytes (7.21%) (504936-&gt;541367)</font><br>
+<font color="#008b8b">+ libXpm grew 37746 bytes (52.09%) (72467-&gt;110213)</font><br>
+<font color="#008b8b">+ libgnomekbd grew 38042 bytes (6.68%) (569521-&gt;607563)</font><br>
+<font color="#008b8b">+ pm-utils grew 39200 bytes (117.36%) (33402-&gt;72602)</font><br>
+<font color="#008b8b">+ nautilus-sendto grew 42489 bytes (16.21%) (262118-&gt;304607)</font><br>
+
+<font color="#008b8b">+ dhclient grew 42699 bytes (8.59%) (497288-&gt;539987)</font><br>
+<font color="#008b8b">+ gtksourceview2 grew 42895 bytes (2.00%) (2148753-&gt;2191648)</font><br>
+<font color="#008b8b">+ krb5-libs grew 45052 bytes (2.96%) (1522532-&gt;1567584)</font><br>
+<font color="#008b8b">+ system-config-printer grew 47675 bytes (5.03%) (948043-&gt;995718)</font><br>
+<font color="#008b8b">+ gnutls grew 58282 bytes (5.99%) (972804-&gt;1031086)</font><br>
+<font color="#008b8b">+ bluez-gnome grew 60576 bytes (22.56%) (268531-&gt;329107)</font><br>
+
+<font color="#008b8b">+ mono-data grew 61605 bytes (1.21%) (5087435-&gt;5149040)</font><br>
+<font color="#008b8b">+ libwnck grew 62234 bytes (5.42%) (1148126-&gt;1210360)</font><br>
+<font color="#008b8b">+ gtk2-engines grew 63679 bytes (6.09%) (1045391-&gt;1109070)</font><br>
+<font color="#008b8b">+ system-config-users grew 64047 bytes (4.40%) (1455495-&gt;1519542)</font><br>
+<font color="#008b8b">+ gnokii grew 68723 bytes (4.36%) (1575916-&gt;1644639)</font><br>
+<font color="#008b8b">+ rsync grew 73058 bytes (18.04%) (404896-&gt;477954)</font><br>
+
+<font color="#008b8b">+ hal-info grew 75029 bytes (20.94%) (358305-&gt;433334)</font><br>
+<font color="#008b8b">+ mesa-libGLU grew 77812 bytes (17.12%) (454428-&gt;532240)</font><br>
+<font color="#008b8b">+ mdadm grew 83417 bytes (4.79%) (1743098-&gt;1826515)</font><br>
+<font color="#008b8b">+ shared-mime-info grew 85852 bytes (9.51%) (902332-&gt;988184)</font><br>
+<font color="#008b8b">+ compiz-gnome grew 87904 bytes (7.16%) (1227682-&gt;1315586)</font><br>
+<font color="#008b8b">+ PolicyKit-gnome grew 89123 bytes (126.49%) (70457-&gt;159580)</font><br>
+
+<font color="#008b8b">+ GConf2 grew 89585 bytes (1.68%) (5342705-&gt;5432290)</font><br>
+<font color="#008b8b">+ dhcpv6-client grew 94965 bytes (54.70%) (173599-&gt;268564)</font><br>
+<font color="#008b8b">+ system-config-firewall grew 103528 bytes (4.50%) (2300495-&gt;2404023)</font><br>
+<font color="#008b8b">+ ntfs-3g grew 107185 bytes (36.31%) (295187-&gt;402372)</font><br>
+<font color="#008b8b">+ f-spot grew 110065 bytes (1.44%) (7621883-&gt;7731948)</font><br>
+<font color="#008b8b">+ PolicyKit grew 121200 bytes (71.93%) (168495-&gt;289695)</font><br>
+
+<font color="#008b8b">+ gnupg grew 126829 bytes (2.62%) (4841029-&gt;4967858)</font><br>
+<font color="#008b8b">+ libgcrypt grew 132376 bytes (38.24%) (346204-&gt;478580)</font><br>
+<font color="#008b8b">+ libopenraw grew 136838 bytes (101.68%) (134583-&gt;271421)</font><br>
+<font color="#008b8b">+ pykickstart grew 141694 bytes (17.92%) (790784-&gt;932478)</font><br>
+<font color="#008b8b">+ gnome-python2-gnomevfs grew 142165 bytes (87.24%) (162958-&gt;305123)</font><br>
+<font color="#008b8b">+ shadow-utils grew 144973 bytes (5.29%) (2739389-&gt;2884362)</font><br>
+
+<font color="#008b8b">+ gnome-volume-manager grew 158480 bytes (7.38%) (2146417-&gt;2304897)</font><br>
+<font color="#008b8b">+ vbetool grew 162208 bytes (139.43%) (116340-&gt;278548)</font><br>
+<font color="#008b8b">+ openssl grew 166448 bytes (4.81%) (3459831-&gt;3626279)</font><br>
+<font color="#008b8b">+ libselinux-python grew 171323 bytes (118.46%) (144622-&gt;315945)</font><br>
+<font color="#008b8b">+ libsilc grew 180620 bytes (17.41%) (1037560-&gt;1218180)</font><br>
+<font color="#008b8b">+ sound-juicer grew 182617 bytes (5.86%) (3114050-&gt;3296667)</font><br>
+
+<font color="#008b8b">+ gnome-system-monitor grew 186353 bytes (3.55%) (5244840-&gt;5431193)</font><br>
+<font color="#008b8b">+ gdb grew 193437 bytes (3.11%) (6228176-&gt;6421613)</font><br>
+<font color="#008b8b">+ selinux-policy-devel grew 206105 bytes (3.72%) (5545358-&gt;5751463)</font><br>
+<font color="#008b8b">+ evolution-data-server grew 208724 bytes (1.89%) (11029422-&gt;11238146)</font><br>
+<font color="#008b8b">+ PyOpenGL grew 213779 bytes (4.86%) (4398157-&gt;4611936)</font><br>
+<font color="#008b8b">+ tomboy grew 218900 bytes (3.63%) (6022535-&gt;6241435)</font><br>
+
+<font color="#008b8b">+ parted grew 223507 bytes (15.16%) (1474368-&gt;1697875)</font><br>
+<font color="#008b8b">+ orca grew 231344 bytes (4.05%) (5718621-&gt;5949965)</font><br>
+<font color="#008b8b">+ util-linux-ng grew 245524 bytes (5.17%) (4749959-&gt;4995483)</font><br>
+<font color="#008b8b">+ selinux-policy grew 268202 bytes (3.47%) (7731786-&gt;7999988)</font><br>
+<font color="#008b8b">+ iso-codes grew 269192 bytes (4.80%) (5605136-&gt;5874328)</font><br>
+<font color="#008b8b">+ system-config-date grew 282500 bytes (10.09%) (2798572-&gt;3081072)</font><br>
+
+<font color="#008b8b">+ xorg-x11-drv-ati grew 285328 bytes (35.75%) (798151-&gt;1083479)</font><br>
+<font color="#008b8b">+ eog grew 292326 bytes (7.82%) (3740424-&gt;4032750)</font><br>
+<font color="#008b8b">+ dbus grew 299134 bytes (58.75%) (509123-&gt;808257)</font><br>
+<font color="#008b8b">+ totem grew 321458 bytes (5.87%) (5476956-&gt;5798414)</font><br>
+<font color="#008b8b">+ gnome-keyring grew 333541 bytes (32.87%) (1014819-&gt;1348360)</font><br>
+<font color="#008b8b">+ glibc grew 347221 bytes (2.59%) (13402107-&gt;13749328)</font><br>
+
+<font color="#008b8b">+ sqlite grew 358672 bytes (76.12%) (471170-&gt;829842)</font><br>
+<font color="#008b8b">+ setroubleshoot-server grew 363273 bytes (22.18%) (1637732-&gt;2001005)</font><br>
+<font color="#008b8b">+ bind-libs grew 389872 bytes (17.27%) (2258064-&gt;2647936)</font><br>
+<font color="#008b8b">+ gcalctool grew 496578 bytes (10.21%) (4862745-&gt;5359323)</font><br>
+<font color="#008b8b">+ gnome-panel grew 509960 bytes (4.35%) (11714901-&gt;12224861)</font><br>
+<font color="#008b8b">+ ghostscript grew 534784 bytes (1.87%) (28646835-&gt;29181619)</font><br>
+
+<font color="#008b8b">+ rhythmbox grew 678314 bytes (6.41%) (10582223-&gt;11260537)</font><br>
+<font color="#008b8b">+ mono-core grew 686301 bytes (2.01%) (34154946-&gt;34841247)</font><br>
+<font color="#008b8b">+ nautilus grew 693197 bytes (5.04%) (13751211-&gt;14444408)</font><br>
+<font color="#008b8b">+ mono-winforms grew 729754 bytes (7.47%) (9765822-&gt;10495576)</font><br>
+<font color="#008b8b">+ totem-mozplugin grew 770229 bytes (136.17%) (565632-&gt;1335861)</font><br>
+<font color="#008b8b">+ mono-web grew 797665 bytes (9.85%) (8097242-&gt;8894907)</font><br>
+
+<font color="#008b8b">+ glib2 grew 849381 bytes (29.07%) (2922173-&gt;3771554)</font><br>
+<font color="#008b8b">+ gnome-power-manager grew 934030 bytes (8.33%) (11214535-&gt;12148565)</font><br>
+<font color="#008b8b">+ nss grew 937664 bytes (44.33%) (2114975-&gt;3052639)</font><br>
+<font color="#008b8b">+ libsmbclient grew 1191360 bytes (50.53%) (2357736-&gt;3549096)</font><br>
+<font color="#008b8b">+ gnome-games grew 1373569 bytes (4.65%) (29510057-&gt;30883626)</font><br>
+<font color="#008b8b">+ kernel grew 2170562 bytes (4.60%) (47161413-&gt;49331975)</font><br>
+
+<font color="#008b8b">+ anaconda grew 2566351 bytes (17.76%) (14448198-&gt;17014549)</font><br>
+<font color="#6a5acd">- krb5-auth-dialog shrunk 1 bytes (53674-&gt;53673)</font><br>
+<font color="#6a5acd">- libtirpc shrunk 1 bytes (150301-&gt;150300)</font><br>
+<font color="#6a5acd">- gmime-sharp shrunk 6 bytes (197336-&gt;197330)</font><br>
+<font color="#6a5acd">- gzip shrunk 6 bytes (219689-&gt;219683)</font><br>
+<font color="#6a5acd">- gedit shrunk 8 bytes (13487572-&gt;13487564)</font><br>
+
+<font color="#6a5acd">- readline shrunk 8 bytes (350214-&gt;350206)</font><br>
+<font color="#6a5acd">- system-config-network shrunk 8 bytes (1905298-&gt;1905290)</font><br>
+<font color="#6a5acd">- perl shrunk 14 bytes (31645884-&gt;31645870)</font><br>
+<font color="#6a5acd">- ntsysv shrunk 16 bytes (22156-&gt;22140)</font><br>
+<font color="#6a5acd">- xdg-utils shrunk 18 bytes (176553-&gt;176535)</font><br>
+<font color="#6a5acd">- python-pyblock shrunk 22 bytes (175969-&gt;175947)</font><br>
+
+<font color="#6a5acd">- pavucontrol shrunk 23 bytes (169857-&gt;169834)</font><br>
+<font color="#6a5acd">- logrotate shrunk 32 bytes (77454-&gt;77422)</font><br>
+<font color="#6a5acd">- libXfont shrunk 32 bytes (456948-&gt;456916)</font><br>
+<font color="#6a5acd">- gnome-python2-canvas shrunk 32 bytes (48902-&gt;48870)</font><br>
+<font color="#6a5acd">- xorg-x11-drv-vmmouse shrunk 32 bytes (16364-&gt;16332)</font><br>
+<font color="#6a5acd">- mono-data-sqlite shrunk 33 bytes (457296-&gt;457263)</font><br>
+
+<font color="#6a5acd">- gnome-pilot shrunk 36 bytes (1930958-&gt;1930922)</font><br>
+<font color="#6a5acd">- libflashsupport shrunk 40 bytes (11044-&gt;11004)</font><br>
+<font color="#6a5acd">- nautilus-extensions shrunk 48 bytes (31308-&gt;31260)</font><br>
+<font color="#6a5acd">- pulseaudio-utils shrunk 56 bytes (234499-&gt;234443)</font><br>
+<font color="#6a5acd">- libselinux shrunk 61 bytes (148311-&gt;148250)</font><br>
+<font color="#6a5acd">- gimp shrunk 64 bytes (38423455-&gt;38423391)</font><br>
+
+<font color="#6a5acd">- libXrender shrunk 64 bytes (47254-&gt;47190)</font><br>
+<font color="#6a5acd">- paps shrunk 64 bytes (51462-&gt;51398)</font><br>
+<font color="#6a5acd">- libxkbfile shrunk 96 bytes (146358-&gt;146262)</font><br>
+<font color="#6a5acd">- librsvg2 shrunk 120 bytes (337750-&gt;337630)</font><br>
+<font color="#6a5acd">- pulseaudio-libs shrunk 128 bytes (343843-&gt;343715)</font><br>
+<font color="#6a5acd">- isdn4k-utils shrunk 144 bytes (9789025-&gt;9788881)</font><br>
+
+<font color="#6a5acd">- less shrunk 171 bytes (176124-&gt;175953)</font><br>
+<font color="#6a5acd">- pulseaudio shrunk 192 bytes (926686-&gt;926494)</font><br>
+<font color="#6a5acd">- xorg-x11-drv-keyboard shrunk 256 bytes (26608-&gt;26352)</font><br>
+<font color="#6a5acd">- anacron shrunk 274 bytes (56515-&gt;56241)</font><br>
+<font color="#6a5acd">- libgtop2 shrunk 320 bytes (341012-&gt;340692)</font><br>
+<font color="#6a5acd">- xorg-x11-drv-cirrus shrunk 355 bytes (77986-&gt;77631)</font><br>
+
+<font color="#6a5acd">- gtkspell shrunk 400 bytes (56779-&gt;56379)</font><br>
+<font color="#6a5acd">- pulseaudio-core-libs shrunk 416 bytes (439696-&gt;439280)</font><br>
+<font color="#6a5acd">- liberation-fonts shrunk 444 bytes (1865074-&gt;1864630)</font><br>
+<font color="#6a5acd">- libpcap shrunk 485 bytes (261897-&gt;261412)</font><br>
+<font color="#6a5acd">- nspluginwrapper shrunk 509 bytes (311525-&gt;311016)</font><br>
+<font color="#6a5acd">- acpid shrunk 542 bytes (61235-&gt;60693)</font><br>
+
+<font color="#6a5acd">- udev shrunk 601 bytes (654430-&gt;653829)</font><br>
+<font color="#6a5acd">- setroubleshoot-plugins shrunk 689 bytes (2422617-&gt;2421928)</font><br>
+<font color="#6a5acd">- python-numeric shrunk 1040 bytes (1722779-&gt;1721739)</font><br>
+<font color="#6a5acd">- file-libs shrunk 1181 bytes (1669772-&gt;1668591)</font><br>
+<font color="#6a5acd">- xorg-x11-drv-vesa shrunk 1208 bytes (26099-&gt;24891)</font><br>
+<font color="#6a5acd">- system-config-keyboard shrunk 1259 bytes (182829-&gt;181570)</font><br>
+
+<font color="#6a5acd">- fedora-release shrunk 1450 bytes (46680-&gt;45230)</font><br>
+<font color="#6a5acd">- gnome-spell shrunk 1568 bytes (377889-&gt;376321)</font><br>
+<font color="#6a5acd">- gparted shrunk 1600 bytes (1569813-&gt;1568213)</font><br>
+<font color="#6a5acd">- nspr shrunk 1856 bytes (248628-&gt;246772)</font><br>
+<font color="#6a5acd">- dvd+rw-tools shrunk 1860 bytes (283930-&gt;282070)</font><br>
+<font color="#6a5acd">- libdrm shrunk 1878 bytes (39456-&gt;37578)</font><br>
+
+<font color="#6a5acd">- at shrunk 1892 bytes (83059-&gt;81167)</font><br>
+<font color="#6a5acd">- synaptics shrunk 2072 bytes (113498-&gt;111426)</font><br>
+<font color="#6a5acd">- m17n-contrib-hindi shrunk 2162 bytes (16757-&gt;14595)</font><br>
+<font color="#6a5acd">- pango shrunk 3747 bytes (862572-&gt;858825)</font><br>
+<font color="#6a5acd">- system-config-services shrunk 3768 bytes (561578-&gt;557810)</font><br>
+<font color="#6a5acd">- libcdio shrunk 3961 bytes (555394-&gt;551433)</font><br>
+
+<font color="#6a5acd">- audit-libs shrunk 4096 bytes (130447-&gt;126351)</font><br>
+<font color="#6a5acd">- atmel-firmware shrunk 4458 bytes (732612-&gt;728154)</font><br>
+<font color="#6a5acd">- fontconfig shrunk 4805 bytes (374336-&gt;369531)</font><br>
+<font color="#6a5acd">- checkpolicy shrunk 6752 bytes (510825-&gt;504073)</font><br>
+<font color="#6a5acd">- ppp shrunk 8123 bytes (841674-&gt;833551)</font><br>
+<font color="#6a5acd">- ntp shrunk 8426 bytes (2652615-&gt;2644189)</font><br>
+
+<font color="#6a5acd">- procps shrunk 11625 bytes (374451-&gt;362826)</font><br>
+<font color="#6a5acd">- iproute shrunk 11660 bytes (2152986-&gt;2141326)</font><br>
+<font color="#6a5acd">- gnome-bluetooth shrunk 12179 bytes (545675-&gt;533496)</font><br>
+<font color="#6a5acd">- smolt shrunk 13811 bytes (635219-&gt;621408)</font><br>
+<font color="#6a5acd">- b43-fwcutter shrunk 17375 bytes (37123-&gt;19748)</font><br>
+<font color="#6a5acd">- im-chooser shrunk 19198 bytes (208789-&gt;189591)</font><br>
+
+<font color="#6a5acd">- evolution shrunk 30364 bytes (38160208-&gt;38129844)</font><br>
+<font color="#6a5acd">- ntfsprogs shrunk 33559 bytes (1148797-&gt;1115238)</font><br>
+<font color="#6a5acd">- zip shrunk 33692 bytes (302492-&gt;268800)</font><br>
+<font color="#6a5acd">- vixie-cron shrunk 46771 bytes (673502-&gt;626731)</font><br>
+<font color="#6a5acd">- compiz shrunk 57822 bytes (1846352-&gt;1788530)</font><br>
+<font color="#6a5acd">- cups shrunk 73290 bytes (10355510-&gt;10282220)</font><br>
+
+<font color="#6a5acd">- system-config-printer-libs shrunk 88138 bytes (2438676-&gt;2350538)</font><br>
+<font color="#6a5acd">- eel2 shrunk 90562 bytes (848996-&gt;758434)</font><br>
+<font color="#6a5acd">- yelp shrunk 99732 bytes (2559882-&gt;2460150)</font><br>
+<font color="#6a5acd">- xorg-x11-drv-i810 shrunk 249946 bytes (655965-&gt;406019)</font><br>
+<font color="#6a5acd">- gtk2 shrunk 308952 bytes (20696815-&gt;20387863)</font><br>
+<font color="#6a5acd">- fedora-release-notes shrunk 329470 bytes (12271152-&gt;11941682)</font><br>
+
+<font color="#6a5acd">- firstboot shrunk 356968 bytes (783521-&gt;426553)</font><br>
+<font color="#6a5acd">- cairo shrunk 423604 bytes (1623706-&gt;1200102)</font><br>
+<font color="#6a5acd">- control-center shrunk 492635 bytes (8945618-&gt;8452983)</font><br>
+<font color="#6a5acd">- gnome-media shrunk 782217 bytes (4946507-&gt;4164290)</font><br>
+<font color="#6a5acd">- e2fsprogs shrunk 904410 bytes (2366733-&gt;1462323)</font><br>
+<font color="#6a5acd">- device-mapper shrunk 917957 bytes (1027430-&gt;109473)</font><br>
+
+<font color="#6a5acd">- gnome-themes shrunk 1007647 bytes (4994173-&gt;3986526)</font><br>
+<font color="#6a5acd">- xkeyboard-config shrunk 1188506 bytes (3043679-&gt;1855173)</font><br>
+<font color="#6a5acd">- lvm2 shrunk 1386888 bytes (2186994-&gt;800106)</font><br>
+<font color="#6a5acd">- xorg-x11-server-Xorg shrunk 1410978 bytes (7431876-&gt;6020898)</font><br>
+<font color="#6a5acd">- hwdata shrunk 1768168 bytes (2833960-&gt;1065792)</font><br>
+<font color="#6a5acd">- python shrunk 1870258 bytes (18499208-&gt;16628950)</font><br>
+
+<font color="#6a5acd">- xorg-x11-fonts-Type1 shrunk 1919814 bytes (2803806-&gt;883992)</font><br>
+<font color="#6a5acd">- ncurses shrunk 2311863 bytes (2562051-&gt;250188)</font><br>
+<font color="#6a5acd">- selinux-policy-targeted shrunk 3623635 bytes (27306881-&gt;23683246)</font><br>
+<font color="#6a5acd">- gdm shrunk 6450348 bytes (14040436-&gt;7590088)</font><br>
+<font color="#6a5acd">- gnome-applets shrunk 8005406 bytes (26478262-&gt;18472856)</font><br>
+<font color="#6a5acd">- firefox shrunk 39666395 bytes (42009290-&gt;2342895)</font><br>
+
+<font color="#6a5acd">- removed package fonts-gujarati: 0</font><br>
+<font color="#6a5acd">- removed package fonts-korean: 0</font><br>
+<font color="#6a5acd">- removed package scim-lang-kannada: 0</font><br>
+<font color="#6a5acd">- removed package fonts-arabic: 0</font><br>
+<font color="#6a5acd">- removed package fonts-punjabi: 0</font><br>
+<font color="#6a5acd">- removed package fonts-oriya: 0</font><br>
+<font color="#6a5acd">- removed package fonts-chinese: 0</font><br>
+<font color="#6a5acd">- removed package scim-lang-tibetan: 0</font><br>
+<font color="#6a5acd">- removed package fonts-kannada: 0</font><br>
+
+<font color="#6a5acd">- removed package fonts-bengali: 0</font><br>
+<font color="#6a5acd">- removed package fonts-hebrew: 0</font><br>
+<font color="#6a5acd">- removed package fonts-hindi: 0</font><br>
+<font color="#6a5acd">- removed package scim-lang-assamese: 0</font><br>
+<font color="#6a5acd">- removed package fonts-sinhala: 0</font><br>
+<font color="#6a5acd">- removed package scim-lang-sinhalese: 0</font><br>
+<font color="#6a5acd">- removed package fonts-tamil: 0</font><br>
+<font color="#6a5acd">- removed package fonts-telugu: 0</font><br>
+<font color="#6a5acd">- removed package fonts-malayalam: 0</font><br>
+
+<font color="#6a5acd">- removed package m17n-contrib-urdu: 3608</font><br>
+<font color="#6a5acd">- removed package m17n-db-assamese: 6079</font><br>
+<font color="#6a5acd">- removed package m17n-db-kannada: 7749</font><br>
+<font color="#6a5acd">- removed package m17n-contrib-kannada: 8717</font><br>
+<font color="#6a5acd">- removed package m17n-contrib-sinhala: 11327</font><br>
+<font color="#6a5acd">- removed package m17n-contrib-assamese: 12581</font><br>
+<font color="#6a5acd">- removed package m17n-db-sinhala: 14228</font><br>
+<font color="#6a5acd">- removed package m17n-db-tibetan: 15214</font><br>
+<font color="#6a5acd">- removed package xorg-x11-drv-ark: 18888</font><br>
+
+<font color="#6a5acd">- removed package xorg-x11-drv-tseng: 52907</font><br>
+<font color="#6a5acd">- removed package xorg-x11-drv-s3: 58401</font><br>
+<font color="#6a5acd">- removed package scim-sinhala: 66881</font><br>
+<font color="#6a5acd">- removed package totem-plparser: 70428</font><br>
+<font color="#6a5acd">- removed package libbeagle: 94156</font><br>
+<font color="#6a5acd">- removed package xorg-x11-drv-avivo: 107204</font><br>
+<font color="#6a5acd">- removed package xorg-x11-drv-chips: 154533</font><br>
+<font color="#6a5acd">- removed package lohit-fonts-kannada: 210687</font><br>
+<font color="#6a5acd">- removed package fuse: 216231</font><br>
+
+<font color="#6a5acd">- removed package beecrypt: 242015</font><br>
+<font color="#6a5acd">- removed package lklug-fonts: 333507</font><br>
+<font color="#6a5acd">- removed package xorg-x11-drv-via: 363192</font><br>
+<font color="#6a5acd">- removed package xorg-x11-fonts-ethiopic: 437981</font><br>
+<font color="#6a5acd">- removed package SDL: 495206</font><br>
+<font color="#6a5acd">- removed package curl: 514238</font><br>
+<font color="#6a5acd">- removed package firstboot-tui: 653472</font><br>
+<font color="#6a5acd">- removed package xorg-x11-fonts-truetype: 909077</font><br>
+<font color="#6a5acd">- removed package db4o: 1414265</font><br>
+
+<font color="#6a5acd">- removed package jomolhari-fonts: 2293163</font><br>
+<font color="#6a5acd">- removed package pwlib: 2423701</font><br>
+<font color="#6a5acd">- removed package evince: 3452782</font><br>
+<font color="#6a5acd">- removed package aspell-en: 3567971</font><br>
+<font color="#6a5acd">- removed package tibetan-machine-uni-fonts: 4529886</font><br>
+<font color="#6a5acd">- removed package dejavu-lgc-fonts: 6293390</font><br>
+<font color="#6a5acd">- removed package opal: 10988583</font><br>
+<font color="#6a5acd">- removed package ekiga: 13323689</font><br>
+old has 896 packages<br>
+
+new has 885 packages<br>
+</font>
+</blockquote></code>
+</p>

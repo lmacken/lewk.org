@@ -1,0 +1,25 @@
+Bodhi EPEL support!
+#mdate Sm
+#tags bodhi,code,Fedora
+<p>
+<img src="https://admin.fedoraproject.org/updates/static/images/bodhi-icon-48.png" align="right"/>
+It's been a long time coming, but the <a href="http://fedoraproject.org/wiki/EPEL">Extra Packages for Enterprise Linux (EPEL)</a> project is finally utilizing the <a href="http://koji.fedorahosted.org">Koji</a> build system and the <a href="http://bodhi.fedorahosted.org">Bodhi</a> updates system.
+</p>
+<p>
+So I spent the past week hacking on EPEL support in <a href="http://bodhi.fedorahosted.org">bodhi</a>.  This was not a trivial task, and took <a href="https://fedorahosted.org/bodhi/timeline">more work than expected</a>.  Overall, it was a very beneficial experience, as I was able to hack in some higher level abstractions and also remove a lot of Fedora-specific assumptions in the code.  Most of the changes were what I would normally call "hacks", mainly because I wanted to do it without changing the database schema.  However, this gives me a much clearer picture as to what we need from the Bodhi v2.0 model.  Anyway, 28 bodhi upgrades later, and everything seems to be working fine.
+</p>
+<p>
+The inevitable TurboGears2 rewrite/port of Bodhi is a little further down the
+road.  I've already ported the original model from SQLObject to SQLAlchemy, but
+the templates, controllers, and widgets still need to be ported.  If you're
+interested in helping make bodhi suck less, then please come talk to me :)
+</p>
+<p>
+Anyway, developers can now submit their EPEL updates <a href="http://bodhi.fedoraproject.org">here</a>, or by running `make update` in their EL CVS branches.  Admins can read the <a href="https://fedoraproject.org/wiki/Bodhi_Infrastructure_SOP">Bodhi SOP</a> to learn how to push updates.
+</p>
+<p>
+The workflow is far from perfect, but there has been some recent discussions as
+to how we want EPEL to be treated differently compared to Fedora updates.  If
+you have suggestions or comments, discussions should take place on <a
+href="http://www.redhat.com/mailman/listinfo/epel-devel-list">epel-devel-list</a>.
+</p>

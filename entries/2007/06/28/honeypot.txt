@@ -1,0 +1,13 @@
+project honey pot
+#mdate Jun 28 01:42:49 2007
+#tags security,honeypot,spam
+<p><div xmlns="http://www.w3.org/1999/xhtml"><p>
+I recently found out about <a href="http://www.projecthoneypot.org/?rf=33514">Project Honey Pot</a>, and added one to every site that I run (they offer scripts in a plethora of languages).  So far, lewk.org has helped identify 7 spam harvesters.
+</p>
+<center><img src="http://lewk.org/img/honeypot.png"/></center>
+<p>
+If you run any websites, I definitely recommend checking the project out.
+</p>
+<center>
+<a href="http://www.projecthoneypot.org/?rf=33514"> <img src="http://lewk.org/img/projecthoneypot.jpg" height="60px" width="468px" border="0" alt="Stop Spam Harvesters, Join Project Honey Pot"/></a>
+</center></div></p>

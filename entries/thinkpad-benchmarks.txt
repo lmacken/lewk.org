@@ -1,0 +1,29 @@
+ThinkPad X300 vs Z61t vs T43
+#mdate Sm
+#tags benchmarks,thinkpad,metrics
+<p>
+So I recently purchased a shiny new Thinkpad X300 to replace my T43.  I must say that the X300 is an absolutely incredible machine, but I'll let the graphs speak for themselves :)
+</p>
+<p>
+Below are the results of some benchmarks that I ran comparing the Thinkpad X300, Z61t and T43.  All machines were running Fedora 8 using the 2.6.24.3 kernel.  CPU benchmarks were done using <a href="http://hardinfo.berlios.de/">hardinfo</a>, and disk benchmarks done with <a href="http://www.coker.com.au/bonnie++/">bonnie++</a>.  Graphs created with <a href="http://code.google.com/p/flot/">flot</a>.
+</p>
+<br/>
+<center>
+  <img src="/img/tpad-input.png"/>
+  <br/>
+  <br/>
+  <img src="/img/tpad-output.png"/>
+  <br/>
+  <br/>
+  <img src="/img/tpad-random.png"/>
+  <br/>
+  <br/>
+  <img src="/img/tpad-cpu.png"/>
+  <br/>
+  <br/>
+  <img src="/img/tpad-hash.png"/>
+  <br/>
+</center>
+<br/>
+More benchmarks comparing various Fedora releases / configurations coming soon!
+</p>

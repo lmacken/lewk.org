@@ -1,0 +1,16 @@
+RIP T43
+#mdate May  7 18:25:18 2007
+#tags hardware
+<p><div xmlns="http://www.w3.org/1999/xhtml"><p>
+So my laptop finally shit the bed.  Whenever I move it even a little bit, the display flips out and hardlocks the whole machine.  Sometimes during POST it will give me the 'bad memory/mobo' beep code as well.
+
+Running memtest86 yielded this disaster.
+
+</p><center><table><tr><td><img src="http://lewk.org/img/memtest0.png"/></td>
+<td><img src="http://lewk.org/img/memtest1.png"/></td>
+</tr></table></center>
+
+Has anyone seen anything like this before?  I've tried swapping out two different sticks of memory between the two different slots, with no luck -- so I'm thinking that the mobo is toasted.. but then why/how does the physical motion cause it to flip out?  Suggestions/donations welcome :)
+
+Needless to say, I've been doing most of my hacking recently from my 100mhz Indy that was formerly my living room nethack console.
+</div></p>
